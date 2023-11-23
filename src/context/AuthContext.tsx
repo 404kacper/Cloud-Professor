@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { NEXT_URL } from 'src/config/index';
+import { NEXT_URL } from '@/config/index';
 import { ReactNode } from 'react';
 import { authContextDefaultValue, authContextType } from './AuthTypes';
 
