@@ -1,25 +1,33 @@
 .container {
-    width: 100vw;
-    height: 10vh;
+  width: 100vw;
+  height: 10vh;
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10vw;
+  z-index: 2;
+  pointer-events: none;
+
+  .logo {
+    width: 10vw;
+    height: 5vh;
+    position: relative;
+  }
+
+  .button {
+    position: relative;
+    width: 8vw;
+    height: 4vh;
+    color: white;
+    pointer-events: all;
+    font: bold 24px 'Maven Pro';
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    padding: 0 10vw;
-    background-color: black;
-
-    .logo {
-        width: 30vw;
-        height: 10vh;
-        position: relative;
-    }
-
-    .button {
-        width: 10vw;
-        height: 10vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: #fff;
-        background-color: #000;
-    }
+    border: 2px solid white;
+    border-radius: 2vw;
+  }
 }

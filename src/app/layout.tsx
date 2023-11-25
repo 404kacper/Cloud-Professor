@@ -1,7 +1,8 @@
 import { Metadata } from 'next';
 import Navbar from '../app/components/home/Navbar';
 import { AuthProvider } from '@/context/AuthContext';
-import './global.scss'
+import { Maven_Pro } from 'next/font/google';
+import './global.scss';
 
 // This function can be defined in a separate file and imported if you want to reuse it
 export const metadata: Metadata = {
@@ -10,6 +11,10 @@ export const metadata: Metadata = {
   keywords: 'cloud, encryption, storage, hybrid, security, files, data',
 };
 
+export const maven = Maven_Pro({
+  subsets: ['latin'],
+});
+
 export default function RootLayout({
   children,
 }: {
@@ -17,7 +22,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <body>
+      <body className={maven.className}>
         <Navbar />
         <AuthProvider>{children}</AuthProvider>
       </body>
