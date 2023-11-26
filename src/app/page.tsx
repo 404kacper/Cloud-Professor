@@ -11,13 +11,13 @@ export default function HomePage() {
   useEffect(() => {
     if (!canvasRef.current) return;
 
-    // const canvas = canvasRef.current;
-    // const app = new Application(canvas);
-    // app
-    //   .load('https://draft.spline.design/ea1odh2AWh9daDcm/scene.splinecode')
-    //   .then(() => {
-    //     setLoading(false);
-    //   });
+    const canvas = canvasRef.current;
+    const app = new Application(canvas);
+    app
+      .load('https://draft.spline.design/ea1odh2AWh9daDcm/scene.splinecode')
+      .then(() => {
+        setLoading(false);
+      });
   }, []);
 
   return (
@@ -28,7 +28,7 @@ export default function HomePage() {
         id='canvas3d'
         className={styles.render3d}
       ></canvas>
-      {loading && (
+      {!loading && (
         <div className={styles.marquee}>
           <div className={styles.imageContainer}>
             <Image

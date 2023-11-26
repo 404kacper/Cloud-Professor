@@ -19,15 +19,82 @@
 
   .button {
     position: relative;
-    width: 8vw;
-    height: 4vh;
+    padding: 0.5vh 2vw;
     color: white;
     pointer-events: all;
     font: bold 24px 'Maven Pro';
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 2px solid white;
     border-radius: 2vw;
+    transition: color 0.5s ease-in-out;
+    cursor: pointer;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border: 2px solid white;
+      border-radius: 2vw;
+      opacity: 1;
+      // debugging bacground
+      // background-color: rgba(
+      //   255,
+      //   215,
+      //   0,
+      //   0.5
+      // );
+
+      // hover out transition - since keyframs will only handle hover in
+      transition: opacity 1s ease-out;
+    }
+
+    &:hover::before {
+      animation: opacity-ease 0.5s ease-in, clippath-rectangular 2s linear 0.5s infinite;
+      opacity: 0.1;
+    }
+
+    &:hover {
+      @supports ((text-stroke: 1px white) or (-webkit-text-stroke: 1px white)) {
+        color: transparent;
+        -webkit-text-stroke: 1px white;
+        text-stroke: 1px white;
+      }
+    }
+  }
+}
+
+@keyframes clippath-rectangular {
+  0% {
+    // top left
+    clip-path: circle(0% at 0% 0%);
+  }
+  40% {
+    // top right
+    clip-path: circle(10% at 100% 0%);
+  }
+  50% {
+    // bottom right
+    clip-path: circle(10% at 100% 100%);
+  }
+  90% {
+    // bottom left
+    clip-path: circle(10% at 0% 100%);
+  }
+  100% {
+    // top left
+    clip-path: circle(0% at 0% 0%);
+  }
+}
+
+@keyframes opacity-ease {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.1;
   }
 }

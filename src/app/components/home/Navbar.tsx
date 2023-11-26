@@ -13,7 +13,7 @@ export default function Header() {
           fill
         ></Image>
       </div>
-      <div className={`${styles.button}`}>Sign In</div>
+      <div className={`${styles.button}`}>DIVE IN</div>
     </div>
   );
 }
