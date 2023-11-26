@@ -1,0 +1,12 @@
+.test {
+  position: absolute;
+  top: 0vh;
+  left: 50vw;
+  width: 50vw;
+  height: 100vh;
+  background: linear-gradient(45deg,  #0f2138 0%, #003572 100%);
+  // mozilla fallback since it's interpolation sucks
+  background: -moz-linear-gradient(45deg,  #003572 0%, #003572 100%);
+  
+  font-size: 2vw;
+}

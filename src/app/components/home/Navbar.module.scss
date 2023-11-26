@@ -22,13 +22,14 @@
     padding: 0.5vh 2vw;
     color: white;
     pointer-events: all;
-    font: bold 24px 'Maven Pro';
+    font: bold 0.8vw 'Maven Pro';
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 2vw;
     transition: color 0.5s ease-in-out;
     cursor: pointer;
+    user-select: none;
 
     &::before {
       content: '';

@@ -13,20 +13,21 @@
   .marquee {
     position: absolute;
     left: 0;
-    top: 27vh;
+    top: 10vh;
     display: flex;
     overflow: hidden;
     z-index: 2;
     // align text with the starting point of animation
     transform: translate3d(0, 0, 0);
-    animation: marquee-text 10s linear infinite;
+    animation: marquee-text 20s linear infinite;
     // slight delay to make sure the animation doesn't "jump" at the start
     animation-delay: 0.3s;
 
     .imageContainer {
       position: relative;
-      width: 185vw;
+      width: 100vw;
       height: 10vh;
+      margin-right: 3vw;
     }
   }
 

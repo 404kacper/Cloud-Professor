@@ -21,7 +21,8 @@
     "baseUrl": ".",
     "paths": {
       "@/config/*": ["src/app/(shared)/config/*"],
-      "@/context/*": ["src/app/context/*"]
+      "@/context/*": ["src/app/providers/auth/*"],
+      "@/splineContext/*": ["src/app/providers/spline/*"],
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

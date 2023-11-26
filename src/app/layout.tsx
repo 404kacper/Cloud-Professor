@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import Navbar from '../app/components/home/Navbar';
 import { AuthProvider } from '@/context/AuthContext';
+import { SplineProvider } from '@/splineContext/SplineContext';
 import { Maven_Pro } from 'next/font/google';
 import './global.scss';
 
@@ -23,8 +24,10 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={maven.className}>
-        <Navbar />
-        <AuthProvider>{children}</AuthProvider>
+        <SplineProvider>
+          <Navbar />
+          <AuthProvider>{children}</AuthProvider>
+        </SplineProvider>
       </body>
     </html>
   );
