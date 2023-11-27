@@ -23,7 +23,12 @@ export const SplineProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <SplineContext.Provider
-      value={{ heroButtonClicked, isLoginScreen, handleHeroButtonClicked, handleIsLoginScreen }}
+      value={{
+        heroButtonClicked,
+        isLoginScreen,
+        handleHeroButtonClicked,
+        handleIsLoginScreen,
+      }}
     >
       {children}
     </SplineContext.Provider>

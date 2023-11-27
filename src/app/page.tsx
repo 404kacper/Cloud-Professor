@@ -48,7 +48,7 @@ export default function HomePage() {
 
   return (
     <div className={styles.homePage}>
-      {loading && <div>Loading...</div>}
+      {loading && <div style={{color: 'white'}}>Loading...</div>}
       <canvas
         ref={canvasRef}
         id='canvas3d'
@@ -64,7 +64,7 @@ export default function HomePage() {
               <Image priority src='/hero/hero-text.svg' alt='' fill></Image>
             </div>
           </div>
-          {(splineContext.isLoginScreen || splineContext.heroButtonClicked) && <AuthForm></AuthForm>}
+          {(splineContext.isLoginScreen) && <AuthForm></AuthForm>}
         </>
       )}
     </div>
