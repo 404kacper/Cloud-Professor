@@ -5,13 +5,13 @@ import Image from 'next/image';
 import SplineContext from '@/splineContext/SplineContext';
 
 export default function Header() {
-  const { handleHeroButtonClicked, handleIsLoginScreen, isLoginScreen, heroButtonClicked } =
+  const { handleHeroButtonClicked, handleShowModal, showModal, heroButtonClicked } =
     useContext(SplineContext);
 
   // Event handler for button click
   const handleButtonClick = () => {
     handleHeroButtonClicked();
-    handleIsLoginScreen();
+    handleShowModal();
   };
 
   return (
@@ -24,7 +24,7 @@ export default function Header() {
           fill
         ></Image>
       </div>
-      <div className={`${styles.button} ${!heroButtonClicked && styles.buttonVisible} ${(!isLoginScreen && !heroButtonClicked) && styles.buttonEnableClicks}`} onClick={handleButtonClick}>
+      <div className={`${styles.button} ${!heroButtonClicked && styles.buttonVisible} ${(!showModal && !heroButtonClicked) && styles.buttonEnableClicks}`} onClick={handleButtonClick}>
         DIVE IN
       </div>
     </div>

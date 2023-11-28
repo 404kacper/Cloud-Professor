@@ -13,7 +13,7 @@ import Image from 'next/image';
 // ! only issue is with loading since it will still be a client side state and won't be allowed to be used inside a server component...
 
 export default function HomePage() {
-  const splineContext = useContext(SplineContext);
+  const { heroButtonClicked, showModal } = useContext(SplineContext);
 
   const [loading, setLoading] = useState(true);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -39,16 +39,16 @@ export default function HomePage() {
     const app = appRef.current;
     const camera = app.findObjectByName('Camera Start');
 
-    if (splineContext.heroButtonClicked) {
+    if (heroButtonClicked) {
       camera?.emitEvent('mouseDown');
     } else {
       camera?.emitEventReverse('mouseDown');
     }
-  }, [splineContext.heroButtonClicked]);
+  }, [heroButtonClicked]);
 
   return (
     <div className={styles.homePage}>
-      {loading && <div style={{color: 'white'}}>Loading...</div>}
+      {loading && <div style={{ color: 'white' }}>Loading...</div>}
       <canvas
         ref={canvasRef}
         id='canvas3d'
@@ -56,7 +56,11 @@ export default function HomePage() {
       ></canvas>
       {!loading && (
         <>
-          <div className={`${styles.marquee} ${!splineContext.heroButtonClicked && styles.marqueeVisible}`}>
+          <div
+            className={`${styles.marquee} ${
+              !heroButtonClicked && styles.marqueeVisible
+            }`}
+          >
             <div className={styles.imageContainer}>
               <Image priority src='/hero/hero-text.svg' alt='' fill></Image>
             </div>
@@ -64,7 +68,7 @@ export default function HomePage() {
               <Image priority src='/hero/hero-text.svg' alt='' fill></Image>
             </div>
           </div>
-          {(splineContext.isLoginScreen) && <AuthForm></AuthForm>}
+          {showModal && <AuthForm></AuthForm>}
         </>
       )}
     </div>

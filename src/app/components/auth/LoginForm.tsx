@@ -7,12 +7,17 @@ import gradientStyles from '../../components/scss/GradientBorderBox.module.scss'
 import Image from 'next/image';
 
 export default function LoginForm() {
-  const { handleHeroButtonClicked, handleIsLoginScreen } =
-    useContext(SplineContext);
+  const {
+    handleHeroButtonClicked,
+    handleShowModal,
+    handleIsLoginScreen,
+    handleIsRegisterScreen,
+  } = useContext(SplineContext);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isChecked, setIsChecked] = useState(false);
+  const [shouldExit, setShouldExit] = useState(false);
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -31,13 +36,20 @@ export default function LoginForm() {
 
     // wait for animation before showing exit animation
     setTimeout(() => {
-      handleIsLoginScreen();
+      handleShowModal();
     }, 1100);
   };
 
   const handleOnClickSubmit = () => {};
 
-  const handleOnClickRedirect = () => {};
+  const handleOnClickRedirect = () => {
+    setShouldExit(true);
+    // wait for animation before showing register form
+    setTimeout(() => {
+      handleIsLoginScreen();
+      handleIsRegisterScreen();
+    }, 1000);
+  };
 
   return (
     <div className={styles.container}>
@@ -46,16 +58,24 @@ export default function LoginForm() {
           className={styles.reverseSvg}
           onClick={handleOnClickReverseAnimation}
         >
-          <Image src='auth/arrow-left.svg' alt='' fill></Image>
+          <Image src='auth/arrow-right.svg' alt='' fill></Image>
         </div>
       </div>
-      <div className={styles.titleContainer}>
-        <div className={styles.title}>Glad You're Here!</div>
+      <div
+        className={`${styles.titleContainer} ${
+          shouldExit && styles.titleContainerAnimateExit
+        }`}
+      >
+        <div className={styles.title}>Welcome Professor!</div>
         <div className={styles.subtitle}>
           Enter your email and password to sign in
         </div>
       </div>
-      <div className={styles.emailContainer}>
+      <div
+        className={`${styles.emailContainer} ${
+          shouldExit && styles.emailContainerAnimateExit
+        }`}
+      >
         <label htmlFor='email' className={styles.label}>
           Email
         </label>
@@ -67,10 +87,15 @@ export default function LoginForm() {
             onChange={handleEmailChange}
             placeholder='Email address'
             className={styles.input}
+            required
           />
         </div>
       </div>
-      <div className={styles.passwordContainer}>
+      <div
+        className={`${styles.passwordContainer} ${
+          shouldExit && styles.passwordContainerAnimateExit
+        }`}
+      >
         <label htmlFor='password' className={styles.label}>
           Password
         </label>
@@ -82,10 +107,15 @@ export default function LoginForm() {
             onChange={handlePasswordChange}
             placeholder='Password'
             className={styles.input}
+            required
           />
         </div>
       </div>
-      <div className={styles.switchContainer}>
+      <div
+        className={`${styles.switchContainer} ${
+          shouldExit && styles.switchContainerAnimateExit
+        } `}
+      >
         <input
           type='checkbox'
           id='switch'
@@ -97,10 +127,19 @@ export default function LoginForm() {
           Remember me
         </label>
       </div>
-      <button className={styles.submitButton} onClick={handleOnClickSubmit}>
+      <button
+        className={`${styles.submitButton} ${
+          shouldExit && styles.submitButtonAnimateExit
+        }`}
+        onClick={handleOnClickSubmit}
+      >
         SIGN IN
       </button>
-      <div className={styles.redirectContainer}>
+      <div
+        className={`${styles.redirectContainer} ${
+          shouldExit && styles.redirectContainerAnimateExit
+        }`}
+      >
         <span className={styles.redirectLabel}>Don't have an account yet?</span>
         <button
           className={styles.redirectButton}

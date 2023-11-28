@@ -1,3 +1,9 @@
+@function calculateDuration($elementNumber) {
+  // 1s - length of animation / number of elements
+  $base: 1s/6;
+  @return $base * $elementNumber;
+}
+
 .container {
   width: 100%;
   height: 100%;
@@ -12,23 +18,30 @@
     top: 2.5vw;
     left: -2.8vw;
     border-radius: 0.2vw;
-    background-color: #003572;
+    background-color: #11336e;
     // mozilla fallback since it's interpolation sucks
     // background: -moz-linear-gradient(45deg,  #003572 0%, #003572 100%);
     display: flex;
     align-items: center;
 
     .reverseSvg {
+      cursor: pointer;
       position: relative;
       margin-left: 0.8vw;
       width: 1.5vw;
       height: 1.5vw;
     }
-
   }
 
   .titleContainer {
     margin-bottom: 2.65625vw; // 68 px a 2k
+    // 1.1s for entry
+    animation: enterAnimation calculateDuration(1) 1s ease-in forwards;
+    opacity: 0;
+
+    &AnimateExit {
+      animation: exitAnimation calculateDuration(6) ease-out forwards;
+    }
 
     .title {
       font-family: 'Maven Pro', sans-serif;
@@ -44,6 +57,24 @@
       font-size: 1.25vw; // 32px at 2k
       line-height: 140%;
       color: #a0aec0;
+    }
+  }
+
+  .emailContainer {
+    opacity: 0;
+    animation: enterAnimation calculateDuration(2) 1s ease-in forwards;
+
+    &AnimateExit {
+      animation: exitAnimation calculateDuration(5) ease-out forwards;
+    }
+  }
+
+  .passwordContainer {
+    opacity: 0;
+    animation: enterAnimation calculateDuration(3) 1s ease-in forwards;
+
+    &AnimateExit {
+      animation: exitAnimation calculateDuration(4) ease-out forwards;
     }
   }
 
@@ -73,6 +104,10 @@
     border-radius: 0.78125vw;
     border: none;
 
+    &::placeholder {
+      color: #a0aec0;
+    }
+
     &:hover {
       background-color: #a0aec018;
     }
@@ -87,6 +122,12 @@
     display: flex;
     align-items: center;
     margin-bottom: 2.65625vw;
+    opacity: 0;
+    animation: enterAnimation calculateDuration(4) 1s ease-in forwards;
+
+    &AnimateExit {
+      animation: exitAnimation calculateDuration(3) ease-out forwards;
+    }
 
     input[type='checkbox'] {
       display: none;
@@ -146,6 +187,12 @@
     transition: color, background-color 0.25s ease-in-out;
     color: white;
     border: 0;
+    opacity: 0;
+    animation: enterAnimation calculateDuration(5) 1s ease-in forwards;
+
+    &AnimateExit {
+      animation: exitAnimation calculateDuration(2) ease-out forwards;
+    }
 
     &:hover {
       background-color: white;
@@ -154,6 +201,13 @@
   }
 
   .redirectContainer {
+    opacity: 0;
+    animation: enterAnimation calculateDuration(6) 1s ease-in forwards;
+
+    &AnimateExit {
+      animation: exitAnimation calculateDuration(1) ease-out forwards;
+    }
+
     .redirectLabel {
       font-family: 'Maven Pro', sans-serif;
       font-weight: bold;
@@ -178,5 +232,23 @@
         color: #f88c16;
       }
     }
+  }
+}
+
+@keyframes enterAnimation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes exitAnimation {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
   }
 }
