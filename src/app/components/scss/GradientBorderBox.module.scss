@@ -1,0 +1,24 @@
+.gradientBox {
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 0.78125vw;
+    border: 2px solid transparent;
+    background: radial-gradient(at center, #ffaa28, #f88b165d) border-box,
+      radial-gradient(at center, #ffffff, #ffffff00) border-box;
+
+    -webkit-mask: linear-gradient(#fff 0 0) padding-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: destination-out;
+    mask-composite: exclude;
+  }
+
+  // source: https://codepen.io/lasjorg/pen/zYaEVWQ?editors=1100
+  // second example with gradient-border-mask class
+}

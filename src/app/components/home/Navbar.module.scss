@@ -30,6 +30,17 @@
     transition: color 0.5s ease-in-out;
     cursor: pointer;
     user-select: none;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    pointer-events: none;
+
+    &Visible {
+      opacity: 1;
+    }
+
+    &EnableClicks {
+      pointer-events: all;
+    }
 
     &::before {
       content: '';

@@ -5,23 +5,13 @@ import Image from 'next/image';
 import SplineContext from '@/splineContext/SplineContext';
 
 export default function Header() {
-  const { handleHeroButtonClicked, handleIsLoginScreen, isLoginScreen } =
+  const { handleHeroButtonClicked, handleIsLoginScreen, isLoginScreen, heroButtonClicked } =
     useContext(SplineContext);
 
   // Event handler for button click
   const handleButtonClick = () => {
     handleHeroButtonClicked();
-
-    // immediate execution for showing login screen
-    if (!isLoginScreen) {
-      handleIsLoginScreen();
-      return;
-    }
-
-    // wait for animation before showing exit animation
-    setTimeout(() => {
-      handleIsLoginScreen();
-    }, 1100);
+    handleIsLoginScreen();
   };
 
   return (
@@ -34,7 +24,7 @@ export default function Header() {
           fill
         ></Image>
       </div>
-      <div className={`${styles.button}`} onClick={handleButtonClick}>
+      <div className={`${styles.button} ${!heroButtonClicked && styles.buttonVisible} ${(!isLoginScreen && !heroButtonClicked) && styles.buttonEnableClicks}`} onClick={handleButtonClick}>
         DIVE IN
       </div>
     </div>

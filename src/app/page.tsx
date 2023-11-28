@@ -56,7 +56,7 @@ export default function HomePage() {
       ></canvas>
       {!loading && (
         <>
-          <div className={styles.marquee}>
+          <div className={`${styles.marquee} ${!splineContext.heroButtonClicked && styles.marqueeVisible}`}>
             <div className={styles.imageContainer}>
               <Image priority src='/hero/hero-text.svg' alt='' fill></Image>
             </div>
