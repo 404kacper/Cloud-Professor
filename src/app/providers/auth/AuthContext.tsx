@@ -3,6 +3,7 @@ import { createContext, useState } from 'react';
 import { NEXT_URL } from '@/config/index';
 import { ReactNode } from 'react';
 import { authContextDefaultValue, authContextType } from './AuthTypes';
+import { redirect } from 'next/navigation';
 
 const AuthContext = createContext<authContextType>(authContextDefaultValue);
 
@@ -10,6 +11,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
 
+  // login route for client side
   const login = async ({
     email: identifier,
     password,
@@ -32,6 +34,39 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     if (res.ok) {
       setUser(data.user);
+      redirect('account/dashboard');
+    } else {
+      setError(data.message);
+      // clear error message after 1s
+      setTimeout(() => setError(null), 1000);
+    }
+  };
+
+  //register route for client side
+  const register = async ({
+    email,
+    password,
+  }: {
+    email: string;
+    password: string;
+  }) => {
+    const res = await fetch(`${NEXT_URL}/api/register`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: email,
+        email,
+        password,
+      }),
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
+      setUser(data.user);
+      redirect('account/dashboard');
     } else {
       setError(data.message);
       // clear error message after 1s
@@ -40,7 +75,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, error, login }}>
+    <AuthContext.Provider value={{ user, error, login, register }}>
       {children}
     </AuthContext.Provider>
   );

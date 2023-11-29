@@ -31,11 +31,11 @@ export default function HomePage() {
     const app = new Application(canvas);
     appRef.current = app;
 
-    // app
-    //   .load('https://draft.spline.design/7uDw1ImbCjUHa9Sk/scene.splinecode')
-    //   .then(() => {
-    //     setLoading(false);
-    //   });
+    app
+      .load('https://draft.spline.design/7uDw1ImbCjUHa9Sk/scene.splinecode')
+      .then(() => {
+        setLoading(false);
+      });
   }, []);
 
   useEffect(() => {
@@ -64,7 +64,7 @@ export default function HomePage() {
         id='canvas3d'
         className={styles.render3d}
       ></canvas>
-      {loading && (
+      {!loading && (
         <>
           <div
             className={`${styles.marquee} ${

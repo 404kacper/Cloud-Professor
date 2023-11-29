@@ -47,16 +47,12 @@ export async function POST(req: NextRequest) {
 
       for (let i = 0; i < details.errors.length; i++) {
         const error = details.errors[i];
-
-        if (`${error.path}` == `email`) {
-          errorString += `Email field is required`;
-        } else if (`${error.path}` == `password`) {
-          errorString += `Password field is required`;
-        } else if (`${error.path}` == `username`) {
-          continue;
-        } else {
-          errorString += `${error.message}`;
+        // capitalize first letter of error message
+        error.message = error.message[0].toUpperCase() + error.message.slice(1);
+        if (error.path == 'username') {
+          error.message = 'Email ' + error.message;
         }
+        errorString += `${error.message}`;
         // don't add a new line if it's the last error
         if (i < details.errors.length - 1) {
           errorString += `\n`;

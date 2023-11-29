@@ -1,6 +1,8 @@
 'use client';
 import React, { useState, useContext } from 'react';
 import SplineContext from '@/splineContext/SplineContext';
+import AuthContext from '@/context/AuthContext';
+import { toast } from 'react-toastify';
 
 import styles from './RegisterForm.module.scss';
 import gradientStyles from '../../components/scss/GradientBorderBox.module.scss';
@@ -13,6 +15,8 @@ export default function RegisterForm() {
     handleIsLoginScreen,
     handleIsRegisterScreen,
   } = useContext(SplineContext);
+
+  const { register } = useContext(AuthContext);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -27,7 +31,9 @@ export default function RegisterForm() {
     setPassword(e.target.value);
   };
 
-  const handleRepeatPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleRepeatPasswordChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setRepeatPassword(e.target.value);
   };
 
@@ -40,7 +46,15 @@ export default function RegisterForm() {
     }, 1100);
   };
 
-  const handleOnClickSubmit = () => {};
+  const handleOnClickSubmit = () => {
+    if (email == '' || password == '' || repeatPassword == '') {
+      toast.error(`Please don't leave any fields blank`);
+    } else if (password === repeatPassword) {
+      register({ email, password });
+    } else {
+      toast.error(`Passwords don't match`);
+    }
+  };
 
   const handleOnClickRedirect = () => {
     setShouldExit(true);
