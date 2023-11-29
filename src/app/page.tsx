@@ -1,6 +1,10 @@
 'use client';
 import React, { useEffect, useRef, useState, useContext } from 'react';
 import SplineContext from '@/splineContext/SplineContext';
+import AuthContext from '@/context/AuthContext';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import styles from './Home.module.scss';
 import { Application } from '@splinetool/runtime';
 import AuthForm from './authForm';
@@ -14,6 +18,7 @@ import Image from 'next/image';
 
 export default function HomePage() {
   const { heroButtonClicked, showModal } = useContext(SplineContext);
+  const { error } = useContext(AuthContext);
 
   const [loading, setLoading] = useState(true);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -26,11 +31,11 @@ export default function HomePage() {
     const app = new Application(canvas);
     appRef.current = app;
 
-    app
-      .load('https://draft.spline.design/7uDw1ImbCjUHa9Sk/scene.splinecode')
-      .then(() => {
-        setLoading(false);
-      });
+    // app
+    //   .load('https://draft.spline.design/7uDw1ImbCjUHa9Sk/scene.splinecode')
+    //   .then(() => {
+    //     setLoading(false);
+    //   });
   }, []);
 
   useEffect(() => {
@@ -46,15 +51,20 @@ export default function HomePage() {
     }
   }, [heroButtonClicked]);
 
+  useEffect(() => {
+    toast.error(error);
+  }, [error]);
+
   return (
     <div className={styles.homePage}>
+      <ToastContainer />
       {loading && <div style={{ color: 'white' }}>Loading...</div>}
       <canvas
         ref={canvasRef}
         id='canvas3d'
         className={styles.render3d}
       ></canvas>
-      {!loading && (
+      {loading && (
         <>
           <div
             className={`${styles.marquee} ${

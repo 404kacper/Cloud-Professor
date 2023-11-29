@@ -1,6 +1,7 @@
 'use client';
 import React, { useState, useContext } from 'react';
 import SplineContext from '@/splineContext/SplineContext';
+import AuthContext from '@/context/AuthContext';
 
 import styles from './LoginForm.module.scss';
 import gradientStyles from '../../components/scss/GradientBorderBox.module.scss';
@@ -13,6 +14,8 @@ export default function LoginForm() {
     handleIsLoginScreen,
     handleIsRegisterScreen,
   } = useContext(SplineContext);
+
+  const { login } = useContext(AuthContext);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -40,7 +43,9 @@ export default function LoginForm() {
     }, 1100);
   };
 
-  const handleOnClickSubmit = () => {};
+  const handleOnClickSubmit = () => {
+    login({ email, password });
+  };
 
   const handleOnClickRedirect = () => {
     setShouldExit(true);

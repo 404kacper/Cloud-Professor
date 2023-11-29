@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import { createContext, useState } from 'react';
 import { NEXT_URL } from '@/config/index';
 import { ReactNode } from 'react';
@@ -34,7 +34,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setUser(data.user);
     } else {
       setError(data.message);
-      setError(null);
+      // clear error message after 1s
+      setTimeout(() => setError(null), 1000);
     }
   };
 

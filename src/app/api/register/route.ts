@@ -3,16 +3,17 @@ import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 
 export async function POST(req: NextRequest) {
-  // Parse the request body to get the login and password
-  const { identifier, password } = await req.json();
+  // Parse the request body to get the email(email will be the username for now) and password
+  const { email, password } = await req.json();
 
-  const strapiRes = await fetch(`${API_URL}/api/auth/local`, {
+  const strapiRes = await fetch(`${API_URL}/api/auth/local/register`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      identifier,
+      username: email,
+      email,
       password,
     }),
   });
@@ -43,13 +44,16 @@ export async function POST(req: NextRequest) {
     // check if details is an empty object
     if (Object.keys(details).length > 0) {
       let errorString: string = '';
-      
+
       for (let i = 0; i < details.errors.length; i++) {
         const error = details.errors[i];
-        if (`${error.path}` == `identifier`) {
+
+        if (`${error.path}` == `email`) {
           errorString += `Email field is required`;
         } else if (`${error.path}` == `password`) {
           errorString += `Password field is required`;
+        } else if (`${error.path}` == `username`) {
+          continue;
         } else {
           errorString += `${error.message}`;
         }
@@ -66,9 +70,9 @@ export async function POST(req: NextRequest) {
         },
       });
     } else {
-      let errorString: string = 'Invalid email or password';
+      let errorString: string = 'Email already taken';
       // custom error message to hide identifier field
-      if (name == 'ValidationError') {
+      if (name == 'ApplicationError') {
         return new NextResponse(JSON.stringify({ message: errorString }), {
           status: status,
           headers: {
@@ -83,7 +87,6 @@ export async function POST(req: NextRequest) {
           },
         });
       }
-
     }
   }
 }
