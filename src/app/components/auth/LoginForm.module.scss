@@ -116,6 +116,10 @@
       background-color: #a0aec018;
       outline: none;
     }
+
+    &:autofill {
+      background: #a0aec06b;
+    }
   }
 
   .switchContainer {
