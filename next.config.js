@@ -2,9 +2,11 @@
 const path = require('path');
 
 const nextConfig = {
-    sassOptions: {
-        includePaths: [path.join(__dirname, 'styles')],
-    },  
-}
+  // Not using any testing for now so disabling strict mode to simulate production environment
+  reactStrictMode: false,
+  sassOptions: {
+    includePaths: [path.join(__dirname, 'styles')],
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

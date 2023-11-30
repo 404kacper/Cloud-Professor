@@ -6,6 +6,7 @@ import AuthContext from '@/context/AuthContext';
 import styles from './LoginForm.module.scss';
 import gradientStyles from '../../components/scss/GradientBorderBox.module.scss';
 import Image from 'next/image';
+import { toast } from 'react-toastify';
 
 export default function LoginForm() {
   const {
@@ -44,7 +45,11 @@ export default function LoginForm() {
   };
 
   const handleOnClickSubmit = () => {
-    login({ email, password });
+    if (email == '' || password == '') {
+      toast.error(`Please don't leave any fields blank`);
+    } else {
+      login({ email, password });
+    }
   };
 
   const handleOnClickRedirect = () => {

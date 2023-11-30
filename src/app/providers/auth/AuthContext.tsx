@@ -1,15 +1,19 @@
 'use client';
-import { createContext, useState } from 'react';
+import { createContext, useState, useEffect } from 'react';
 import { NEXT_URL } from '@/config/index';
 import { ReactNode } from 'react';
 import { authContextDefaultValue, authContextType } from './AuthTypes';
-import { redirect } from 'next/navigation';
 
 const AuthContext = createContext<authContextType>(authContextDefaultValue);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
+
+  // check for cookie with token name
+  useEffect(() => {
+    verifyUser();
+  }, []);
 
   // login route for client side
   const login = async ({
@@ -34,7 +38,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     if (res.ok) {
       setUser(data.user);
-      redirect('account/dashboard');
     } else {
       setError(data.message);
       // clear error message after 1s
@@ -66,7 +69,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     if (res.ok) {
       setUser(data.user);
-      redirect('account/dashboard');
     } else {
       setError(data.message);
       // clear error message after 1s
@@ -74,8 +76,20 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  // Check if user is logged in
+  const verifyUser = async () => {
+    const res = await fetch(`${NEXT_URL}/api/user`);
+    const data = await res.json();
+
+    if (res.ok) {
+      setUser(data.user);
+    } else {
+      setUser(null);
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ user, error, login, register }}>
+    <AuthContext.Provider value={{ user, error, login, register, verifyUser }}>
       {children}
     </AuthContext.Provider>
   );

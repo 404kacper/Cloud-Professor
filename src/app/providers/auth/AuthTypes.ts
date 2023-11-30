@@ -4,6 +4,7 @@ export type authContextType = {
     error: any;
     login: (user: any) => void;
     register: (user: any) => void;
+    verifyUser: () => void;
 }
 
 // default values for auth context
@@ -11,5 +12,6 @@ export const authContextDefaultValue: authContextType = {
     user: null,
     error: null,
     login: () => {},
-    register: () => {}
+    register: () => {},
+    verifyUser: () => {}
 }

@@ -2,9 +2,11 @@
 import React, { useEffect, useRef, useState, useContext } from 'react';
 import SplineContext from '@/splineContext/SplineContext';
 import AuthContext from '@/context/AuthContext';
+import { redirect } from 'next/navigation';
+
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import Navbar from '../app/components/home/Navbar';
 import styles from './Home.module.scss';
 import { Application } from '@splinetool/runtime';
 import AuthForm from './authForm';
@@ -18,7 +20,7 @@ import Image from 'next/image';
 
 export default function HomePage() {
   const { heroButtonClicked, showModal } = useContext(SplineContext);
-  const { error } = useContext(AuthContext);
+  const { error, user } = useContext(AuthContext);
 
   const [loading, setLoading] = useState(true);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -55,32 +57,42 @@ export default function HomePage() {
     toast.error(error);
   }, [error]);
 
+  useEffect(() => {
+    // redirect user registered/logged/has cookie stored
+    if (user) {
+      redirect('/dashboard');
+    }
+  }, [user]);
+
   return (
-    <div className={styles.homePage}>
-      <ToastContainer />
-      {loading && <div style={{ color: 'white' }}>Loading...</div>}
-      <canvas
-        ref={canvasRef}
-        id='canvas3d'
-        className={styles.render3d}
-      ></canvas>
-      {!loading && (
-        <>
-          <div
-            className={`${styles.marquee} ${
-              !heroButtonClicked && styles.marqueeVisible
-            }`}
-          >
-            <div className={styles.imageContainer}>
-              <Image priority src='/hero/hero-text.svg' alt='' fill></Image>
+    <>
+      <Navbar></Navbar>
+      <div className={styles.homePage}>
+        <ToastContainer />
+        {loading && <div style={{ color: 'white' }}>Loading...</div>}
+        <canvas
+          ref={canvasRef}
+          id='canvas3d'
+          className={styles.render3d}
+        ></canvas>
+        {!loading && (
+          <>
+            <div
+              className={`${styles.marquee} ${
+                !heroButtonClicked && styles.marqueeVisible
+              }`}
+            >
+              <div className={styles.imageContainer}>
+                <Image priority src='/hero/hero-text.svg' alt='' fill></Image>
+              </div>
+              <div className={styles.imageContainer}>
+                <Image priority src='/hero/hero-text.svg' alt='' fill></Image>
+              </div>
             </div>
-            <div className={styles.imageContainer}>
-              <Image priority src='/hero/hero-text.svg' alt='' fill></Image>
-            </div>
-          </div>
-          {showModal && <AuthForm></AuthForm>}
-        </>
-      )}
-    </div>
+            {showModal && <AuthForm></AuthForm>}
+          </>
+        )}
+      </div>
+    </>
   );
 }
