@@ -23,6 +23,7 @@
       "@/config/*": ["src/app/(shared)/config/*"],
       "@/context/*": ["src/app/providers/auth/*"],
       "@/splineContext/*": ["src/app/providers/spline/*"],
+      "@/keysContext/*": ["src/app/providers/keys/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

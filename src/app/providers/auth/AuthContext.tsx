@@ -7,8 +7,8 @@ import { authContextDefaultValue, authContextType } from './AuthTypes';
 const AuthContext = createContext<authContextType>(authContextDefaultValue);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState(null);
-  const [error, setError] = useState(null);
+  const [user, setUser] = useState(authContextDefaultValue.user);
+  const [error, setError] = useState(authContextDefaultValue.error);
 
   // check for cookie with token name
   useEffect(() => {
