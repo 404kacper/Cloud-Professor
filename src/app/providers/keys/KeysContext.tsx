@@ -1,5 +1,5 @@
 'use client';
-import { createContext, useState, useEffect } from 'react';
+import { createContext, useState } from 'react';
 import { NEXT_URL } from '@/config/index';
 import { ReactNode } from 'react';
 import { keysContextDefaultValue, keysContextType } from './KeysTypes';
