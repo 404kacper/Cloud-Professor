@@ -99,10 +99,11 @@ export async function encryptSymmetricKeyWithPublicKey(
     // Convert the PEM formatted public key to an ArrayBuffer
     const publicKeyBuffer = pemToBuffer(publicKeyPem);
 
+    console.log(publicKeyBuffer);
+
     // Import the public key into the crypto context
     const publicKey = await window.crypto.subtle.importKey(
-      // 'pkcs8', // check this if below doesn't work
-      'spki', // Use 'spki' for PKCS#1 PEM formatted public keys
+      'spki',
       publicKeyBuffer,
       {
         name: 'RSA-OAEP',
@@ -111,6 +112,8 @@ export async function encryptSymmetricKeyWithPublicKey(
       false, // Public key is not extractable
       ['encrypt']
     );
+
+    console.log(publicKeyBuffer);
 
     // Export the symmetric key as raw binary data
     const exportedSymmetricKey = await window.crypto.subtle.exportKey(
