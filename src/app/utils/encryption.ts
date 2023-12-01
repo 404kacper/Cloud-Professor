@@ -15,7 +15,7 @@ export async function decryptPrivateKey(
         []
     );
 
-    // Prepare material for key derivation
+    // Convert key back to crypto context
     const enc = new TextEncoder();
     const keyMaterial = await window.crypto.subtle.importKey(
       'raw',
@@ -53,52 +53,24 @@ export async function decryptPrivateKey(
   }
 }
 
-export async function generateSymmetricKey(): Promise<string> {
-  try {
-    // Generate a new symmetric key
-    const key = await window.crypto.subtle.generateKey(
-      {
-        name: 'AES-CBC',
-        length: 256,
-      },
-      true, // The key is extractable to other formats
-      ['encrypt', 'decrypt']
-    );
-
-    // Export the key as raw binary data
-    const exportedKey = await window.crypto.subtle.exportKey('raw', key);
-
-    // Use a Blob to handle binary data efficiently
-    const blob = new Blob([exportedKey]);
-    const blobAsArrayBuffer = await new Response(blob).arrayBuffer();
-
-    // Convert ArrayBuffer to Base64 string
-    const base64Key = bufferToBase64(blobAsArrayBuffer);
-
-    return base64Key;
-  } catch (error) {
-    console.error('Key generation failed:', error);
-    throw error;
-  }
+// No need to return iv for this one as it's sent encrypted
+export async function generateSymmetricKey(): Promise<CryptoKey> {
+  const key = await window.crypto.subtle.generateKey(
+    {
+      name: 'AES-CBC',
+      length: 256,
+    },
+    true,
+    ['encrypt', 'decrypt']
+  );
+  return key;
 }
 
 export async function encryptDataWithSymmetricKey(
   data: ArrayBuffer,
-  base64Key: string
+  key: CryptoKey
 ): Promise<{ encryptedDataBase64: string; ivBase64: string }> {
   try {
-    // Convert the Base64-encoded key back to an ArrayBuffer
-    const keyBuffer = base64ToArrayBuffer(base64Key);
-
-    // Import the key back into the crypto context
-    const key = await window.crypto.subtle.importKey(
-      'raw',
-      keyBuffer,
-      { name: 'AES-CBC', length: 256 },
-      true,
-      ['encrypt']
-    );
-
     // Generate an Initialization Vector (IV)
     const iv = window.crypto.getRandomValues(new Uint8Array(16));
 
@@ -119,6 +91,61 @@ export async function encryptDataWithSymmetricKey(
   }
 }
 
+export async function encryptSymmetricKeyWithPublicKey(
+  symmetricKey: CryptoKey,
+  publicKeyPem: string
+): Promise<string> {
+  try {
+    // Convert the PEM formatted public key to an ArrayBuffer
+    const publicKeyBuffer = pemToBuffer(publicKeyPem);
+
+    // Import the public key into the crypto context
+    const publicKey = await window.crypto.subtle.importKey(
+      // 'pkcs8', // check this if below doesn't work
+      'spki', // Use 'spki' for PKCS#1 PEM formatted public keys
+      publicKeyBuffer,
+      {
+        name: 'RSA-OAEP',
+        hash: { name: 'SHA-256' },
+      },
+      false, // Public key is not extractable
+      ['encrypt']
+    );
+
+    // Export the symmetric key as raw binary data
+    const exportedSymmetricKey = await window.crypto.subtle.exportKey(
+      'raw',
+      symmetricKey
+    );
+
+    // Encrypt the symmetric key with the recipient's public key
+    const encryptedSymmetricKey = await window.crypto.subtle.encrypt(
+      { name: 'RSA-OAEP' },
+      publicKey,
+      exportedSymmetricKey
+    );
+
+    // Convert the encrypted symmetric key to base64 for transmission
+    const encryptedSymmetricKeyBase64 = bufferToBase64(encryptedSymmetricKey);
+
+    return encryptedSymmetricKeyBase64;
+  } catch (error) {
+    console.error('Encryption of symmetric key failed:', error);
+    throw new Error('Encryption of symmetric key failed');
+  }
+}
+
+// Helper functions below
+
+function pemToBuffer(pem: string): ArrayBuffer {
+  // remove headers before working with the key
+  const base64String = pem
+    .replace(/-----BEGIN PUBLIC KEY-----/g, '')
+    .replace(/-----END PUBLIC KEY-----/g, '')
+    .replace(/\n/g, '');
+  return base64ToArrayBuffer(base64String);
+}
+
 function bufferToBase64(buffer: ArrayBuffer): string {
   const binary = String.fromCharCode.apply(
     null,
@@ -136,5 +163,3 @@ function base64ToArrayBuffer(base64: string): ArrayBuffer {
   }
   return bytes.buffer;
 }
-
-// git commit -m "Created client side encryption methods (symmetric key generation & file encryption using symmetric key"
