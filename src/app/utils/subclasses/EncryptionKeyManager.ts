@@ -95,21 +95,6 @@ class EncryptionKeyManager extends CryptoUserManager {
           ['decrypt']
         );
 
-      console.log(decryptedSymmetricKeyInContext);
-
-
-      // temp code for debugging
-      // Export the symmetric key as raw binary data
-      const exportedSymmetricKey = await window.crypto.subtle.exportKey(
-        'raw',
-        decryptedSymmetricKeyInContext
-      );
-
-      console.log(
-        `Symmetric key after decryption of encryption: ${bufferToBase64(
-          exportedSymmetricKey
-        )}`
-      );
       return decryptedSymmetricKeyInContext;
     } catch (error) {
       throw this.handleError('decryptSymmetricKeyWithPrivateKey', error);
@@ -142,12 +127,6 @@ class EncryptionKeyManager extends CryptoUserManager {
         symmetricKey
       );
 
-      console.log(
-        `Symmetric key before encryption: ${bufferToBase64(
-          exportedSymmetricKey
-        )}`
-      );
-
       // Encrypt the symmetric key with the recipient's public key
       // binary encrypted - symmetric key
       const encryptedSymmetricKey = await window.crypto.subtle.encrypt(
@@ -159,10 +138,6 @@ class EncryptionKeyManager extends CryptoUserManager {
       // Convert the encrypted symmetric key to base64 for transmission
       // base64 encrypted - symmetric key
       const encryptedSymmetricKeyBase64 = bufferToBase64(encryptedSymmetricKey);
-
-      console.log(
-        `Symmetric key after encryption: ${encryptedSymmetricKeyBase64}`
-      );
 
       // returns base64 encrypted key
       return encryptedSymmetricKeyBase64;
