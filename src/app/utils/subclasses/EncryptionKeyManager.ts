@@ -6,7 +6,7 @@ class EncryptionKeyManager extends CryptoUserManager {
     encryptedPrivateKey: string,
     iv: string,
     password: string
-  ): Promise<string> {
+  ): Promise<CryptoKey> {
     try {
       // Convert IV from hex string to buffer
       const ivBuffer = new Uint8Array(
@@ -30,7 +30,7 @@ class EncryptionKeyManager extends CryptoUserManager {
         ['deriveKey']
       );
 
-      // Derieve the key from the password
+      // Derive the key from the password
       const key = await window.crypto.subtle.deriveKey(
         {
           name: 'PBKDF2',
@@ -51,7 +51,19 @@ class EncryptionKeyManager extends CryptoUserManager {
         encryptedBuffer
       );
 
-      return new TextDecoder().decode(decrypted);
+      // Convert decrypted private key from PEM format to ArrayBuffer
+      const textDecoder = new TextDecoder('utf-8');
+      const pemFormattedPrivateKey = textDecoder.decode(decrypted);
+      const privateKeyBuffer = pemToBuffer(pemFormattedPrivateKey, true);
+
+      // Import the decrypted private key into the Web Crypto context
+      return await window.crypto.subtle.importKey(
+        'pkcs8',
+        privateKeyBuffer,
+        this.rsaAlgorithm,
+        false,
+        ['decrypt']
+      );
     } catch (error) {
       throw this.handleError('decryptPrivateKey', error);
     }
@@ -59,7 +71,7 @@ class EncryptionKeyManager extends CryptoUserManager {
 
   async decryptSymmetricKeyWithPrivateKey(
     encryptedSymmetricKeyBase64: string,
-    privateKeyPem: string
+    decryptedPrivateKey: CryptoKey
   ): Promise<CryptoKey> {
     try {
       // Base64 encryted - symmetric key
@@ -67,22 +79,10 @@ class EncryptionKeyManager extends CryptoUserManager {
         encryptedSymmetricKeyBase64
       );
 
-      // Base64 encrypted - private key
-      const privateKeyBuffer = pemToBuffer(privateKeyPem, true);
-
       // CryptoKey - private key
-      const privateKey = await window.crypto.subtle.importKey(
-        'pkcs8',
-        privateKeyBuffer,
-        this.rsaAlgorithm,
-        false,
-        ['decrypt']
-      );
-
-      // private key correct until here
       const decryptedSymmetricKeyBuffer = await window.crypto.subtle.decrypt(
         { name: 'RSA-OAEP' },
-        privateKey,
+        decryptedPrivateKey,
         encryptedSymmetricKeyBuffer
       );
 

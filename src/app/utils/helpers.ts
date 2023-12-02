@@ -1,6 +1,5 @@
-export function pemToBuffer(pem: string, isPrivateKey: boolean): ArrayBuffer {
+export function pemToBuffer(pem: string, isPrivateKey: boolean) {
   let base64String = pem;
-
   if (isPrivateKey) {
     // Remove headers and footers for private key
     base64String = base64String
@@ -14,7 +13,6 @@ export function pemToBuffer(pem: string, isPrivateKey: boolean): ArrayBuffer {
       .replace(/-----END PUBLIC KEY-----/g, '')
       .replace(/\n/g, '');
   }
-
   return base64ToArrayBuffer(base64String);
 }
 
