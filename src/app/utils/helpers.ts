@@ -1,9 +1,20 @@
-export function pemToBuffer(pem: string): ArrayBuffer {
-  // remove headers before working with the key
-  const base64String = pem
-    .replace(/-----BEGIN PUBLIC KEY-----/g, '')
-    .replace(/-----END PUBLIC KEY-----/g, '')
-    .replace(/\n/g, '');
+export function pemToBuffer(pem: string, isPrivateKey: boolean): ArrayBuffer {
+  let base64String = pem;
+
+  if (isPrivateKey) {
+    // Remove headers and footers for private key
+    base64String = base64String
+      .replace(/-----BEGIN PRIVATE KEY-----/g, '')
+      .replace(/-----END PRIVATE KEY-----/g, '')
+      .replace(/\n/g, '');
+  } else {
+    // Remove headers and footers for public key
+    base64String = base64String
+      .replace(/-----BEGIN PUBLIC KEY-----/g, '')
+      .replace(/-----END PUBLIC KEY-----/g, '')
+      .replace(/\n/g, '');
+  }
+
   return base64ToArrayBuffer(base64String);
 }
 

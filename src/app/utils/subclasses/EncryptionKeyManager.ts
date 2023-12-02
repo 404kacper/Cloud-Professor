@@ -20,7 +20,7 @@ class EncryptionKeyManager extends CryptoUserManager {
           ?.map((byte) => parseInt(byte, 16)) || []
       );
 
-      // Convert key back to crypto context
+      // Add password to decryption process
       const enc = new TextEncoder();
       const keyMaterial = await window.crypto.subtle.importKey(
         'raw',
@@ -62,12 +62,15 @@ class EncryptionKeyManager extends CryptoUserManager {
     privateKeyPem: string
   ): Promise<CryptoKey> {
     try {
-      const encryptedSymmetricKey = base64ToArrayBuffer(
+      // Base64 encryted - symmetric key
+      const encryptedSymmetricKeyBuffer = base64ToArrayBuffer(
         encryptedSymmetricKeyBase64
       );
 
-      const privateKeyBuffer = pemToBuffer(privateKeyPem);
+      // Base64 encrypted - private key
+      const privateKeyBuffer = pemToBuffer(privateKeyPem, true);
 
+      // CryptoKey - private key
       const privateKey = await window.crypto.subtle.importKey(
         'pkcs8',
         privateKeyBuffer,
@@ -76,19 +79,38 @@ class EncryptionKeyManager extends CryptoUserManager {
         ['decrypt']
       );
 
+      // private key correct until here
       const decryptedSymmetricKeyBuffer = await window.crypto.subtle.decrypt(
         { name: 'RSA-OAEP' },
         privateKey,
-        encryptedSymmetricKey
+        encryptedSymmetricKeyBuffer
       );
 
-      return await window.crypto.subtle.importKey(
+      const decryptedSymmetricKeyInContext =
+        await window.crypto.subtle.importKey(
+          'raw',
+          decryptedSymmetricKeyBuffer,
+          this.aesAlgorithm,
+          true,
+          ['decrypt']
+        );
+
+      console.log(decryptedSymmetricKeyInContext);
+
+
+      // temp code for debugging
+      // Export the symmetric key as raw binary data
+      const exportedSymmetricKey = await window.crypto.subtle.exportKey(
         'raw',
-        decryptedSymmetricKeyBuffer,
-        this.aesAlgorithm,
-        false,
-        ['decrypt']
+        decryptedSymmetricKeyInContext
       );
+
+      console.log(
+        `Symmetric key after decryption of encryption: ${bufferToBase64(
+          exportedSymmetricKey
+        )}`
+      );
+      return decryptedSymmetricKeyInContext;
     } catch (error) {
       throw this.handleError('decryptSymmetricKeyWithPrivateKey', error);
     }
@@ -100,9 +122,11 @@ class EncryptionKeyManager extends CryptoUserManager {
   ): Promise<string> {
     try {
       // Convert the PEM formatted public key to an ArrayBuffer
-      const publicKeyBuffer = pemToBuffer(publicKeyPem);
+      // binary - public key
+      const publicKeyBuffer = pemToBuffer(publicKeyPem, false);
 
       // Import the public key into the crypto context
+      // CryptoKey - public key
       const publicKey = await window.crypto.subtle.importKey(
         'spki',
         publicKeyBuffer,
@@ -112,12 +136,20 @@ class EncryptionKeyManager extends CryptoUserManager {
       );
 
       // Export the symmetric key as raw binary data
+      // binary - symmetric key
       const exportedSymmetricKey = await window.crypto.subtle.exportKey(
         'raw',
         symmetricKey
       );
 
+      console.log(
+        `Symmetric key before encryption: ${bufferToBase64(
+          exportedSymmetricKey
+        )}`
+      );
+
       // Encrypt the symmetric key with the recipient's public key
+      // binary encrypted - symmetric key
       const encryptedSymmetricKey = await window.crypto.subtle.encrypt(
         { name: 'RSA-OAEP' },
         publicKey,
@@ -125,8 +157,14 @@ class EncryptionKeyManager extends CryptoUserManager {
       );
 
       // Convert the encrypted symmetric key to base64 for transmission
+      // base64 encrypted - symmetric key
       const encryptedSymmetricKeyBase64 = bufferToBase64(encryptedSymmetricKey);
 
+      console.log(
+        `Symmetric key after encryption: ${encryptedSymmetricKeyBase64}`
+      );
+
+      // returns base64 encrypted key
       return encryptedSymmetricKeyBase64;
     } catch (error) {
       throw this.handleError('encryptSymmetricKeyWithPublicKey', error);

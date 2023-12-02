@@ -11,8 +11,10 @@ export default function Dasbhoard() {
   const { user } = useContext(AuthContext);
   const { fetchKey, privateKey, iv } = useContext(KeysContext);
   // temp vars for testing - simulates current user's public key & entered password
-  const publicKeyPem = `-----BEGIN PUBLIC KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAltv5N4tglsw/8/1cJTsGo9SuSYTxCXulhvzO5EUioz0T5eO3Qf82kwyASB+tHDkEnaufjY5fInfGAjnSdB+lpgcSRZFcRY6tb+7f8vzbjNGtWn6YZtPjzV/Fv3mgpURzBBDwUWDBbobsi40sI3o9pUXTkBTgVjjEegck0hK5vCP2rzsZ9j1zfHonNbD0aO5/1c0oXuSy+PqtQBTbhw3x8XMatkFevbbt+Lguqx0a9/pz2NbbOIi+Bk+JlkWAqhEWil+iva5NPuM/OeU1qz1kTaQdE6n7YcKTXdSITZ8rjavD9nhu/dtPFlxfR9a2n74h88N7LMH1pNjv9M0gPLP06QIDAQAB-----END PUBLIC KEY-----`;
-  const privateKeyPem = `6bdabbafd70c808d617185187fb7b21005c4be81e41c2ff2f68f166c5591e4637231fb803d142f5339152a9b22fd255460f3958d837690df2eb5d343d8e34583c9cd405801005808d3d6d218f0b38b18be7bb5ca4ec6842e6433b287353c7bb659410376ccd74db4c00c1ec0c6036310ffc7ffd09ebb152a54b5ce863b8f8dc3c44a19be657817c6cb4a08e20c7df8bad268cf8e1f7b39cfe9e86ca48b851e8ccf1678d374e8b6a52c34bb69c864e2b073d25ff3e8e2a106b22f7cd6f9a0c97ef0e0c5261609ba4bdeb778d99ce823966caac910ce081e1e2ca8b7068401c5bc084a83915bc4a62e694df16e2b96c0c0dc0e0cd385c83d7be71073b07c53719a348d5a910b87ebda372c23c2221cbeda978165c08731da593541aa49cdbb742cb4e163ca089cbf78cd52166ffab1d0de54e11718b636e0d4027eb7d85f55a4162fc157bece133ebf2b3335643ae53c2f58a00f7df705ce462f511ae34f921dbb7b13e5e097396e2e7117f3dd646372338f989c3be379e98ecf93a79d554d73642a768d66d41e56ce72bc46f3270ddd80390130b06d47002fbca9d77807ebf51ef4be571f7176fa23062b704d4ddc15b8583eef6c88d624b282ccf1f7036f85120e2e4ed78e8233f376403b19877a3f632bc058dc9b3eb8e66196d965b4de5e57fe99a8b65c2a4065ab67086d71c91e9518c421f1ad7c3d369a4b64363f28f6f95eae26771de2d1ff371c5dbee1d12985e3f7c79ac0e87afe09f62af33d5ace179cf99252a74e21d71de57e559a32274a587ec784a89a84fdbfa43f641f4fb479e11ee87d15f89c188971b5c61d238755ee7bc39f85b3e73e0066569b755aae0f1adce1b32933c924e73338dec3cbb578107653715789e9802730900928f02faddc665bcd225421875544ee33cda55ef4ba738484de409b9a2c67f53ebec9a72b124605fe9f90cc11aa654f2b68f151918e54d2a6c35d6a05efd5c1091d573eb7fccd3b40ba57aa18c7f94d10cdf620f6ce1eed6028a09be4d8b012a9b7e50bd373d3951358a0fc71af15c46ff0f7f08daf7dc4f866f064913c2970e21fa20ed9fac7b228709ca44e4648b54b0b5868e3c290f47371cbf9b4ad5a1f48277a3c0db0af9b3efbc3297a33970bf2fa023da905b8de61fbedb9bf557d0babe9733494a0599ebe55dbcbb58258091cd718df713e5b383ef769882676db54b865c5482aa24fcab85aed771f516bf472461b9bd2dbe3660fed615f0d522be79cf7ebe8922c2eabda010eb2e1d723009dd5314aa99809aa89e827010fa2489dfbefe5b339ca3246caca0b001dd396ad7454c5d622eda663a4c3d4dc6e4dcb1641edf4c2dc4bc4e7ab779757a49c5aba27faf0c7152b49668d7a28eed7e07aa520b2a350f6d7d631875fb17a28102ec3e995e2036217b4361e0bcfea66f905b2ab63a9c5709d14f4e121c68a22547ed6f3583c75951feb6054787a45dc57a72e6a083ab5af2dca3c51969b40ab9b90cf05518f0e57553954576a92789b7d993efe54238a29ed88b9e45d2c53c76931a8847958c1eada4660c68a607e141469a51f7c52b5adc4029820af53d7f658c10d2a93d5b251228b4504f151915608a4fc09755d28d54e76459fdef630335d44bfcee4c74e727121d7bc3cfbf2e8c0e31d4a0bd7dd8c9d7351cdd3c8736b9acd06f77d49969f68915fddbef2384dca27ce34305c8bcae3a25a0fc7c049992f3dac936c04010c64ff29b67ab6f6f336f22bcb0b2cd7174507df2fca7e5fd50373ba9f3dd7fba93dc79054b0ef98b9c630501c2815dae98fa593723d35fe3f3ac78f47515919d62831fcd72682c79f08f316b2cc2d1cff775dae2880b7481d65af5b996aa708bbef33150cdd5a9d9e539469c59f66771119279cfff11f638848601fcb1d3282af3bf969cf39a8674ca67c4ff1a5d66ae130317e5d5eff2a08ce0ee652d71362c3c87fe4a3f422a670aec0bf63ada9af79c7efd06a4d2932558314d361418027eab27bf6f2ccdeab76bca76205a81e342791941f6b9aa6785268ccb55bb23bc828ba4f8791001282c080f475c0f3f314c0657f16f2f41db3d7c2339aa33e1d9443c8f7d1a396531b0d9b2394072fcdd3c67a8ebad600414d17a042fe12798bd091f99f9849913c3a3c7f2417d967646892ccc2df31c6c62db6f84b445b233ac9e5fff9cd7327f53abd9f94a76a7fef8931f9ee2af1b7de8bce41690e95e2cdc9982203aa862923e5cc64d01f6c4f64cb260f4eef03733dd91d80b801dc9155cd377276e4868346b570676ded59206129aca9ef781c83073cb57497ed093d2c933a7bf6d8806f2eb2177a5d73d2e5f2e2adaf6efde20552b1142f00c7e299462e46d936be93c8da2fe87fadb1517e8b0efb6e77924da5bc5bd06e43207f451b13cb`;
+  const publicKeyPem = `-----BEGIN PUBLIC KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA5f3LNxmtGjSYZRuOpJYUI22mncyOQE9/Zy2I9/ukAJ/9E+YR1aQz/JO6u7MlTk7QSZ9Z9tgQVV04dZ3zZZQq2h3NsX5FFTG+gsdySSd2BxsI1/3yvxLIcd7BbY8rV+IkDYuI8kkkvJr4qe1x0+Pdk9q0D6vekPA68yJaql0TsJEnCtmSrj7UQftEsQLEFMAziTvd/oKBXSYe/i0pXlxA9Dd9P2BmnScDsoCt7VPLVHvtlXr1IR3H8wNhKjEnnPmj3HRIh0+b3dvNrp8ZCpjSZwNqh9R9TQUe1rZm9Y6PQw/BxitXIIWZbYAjqVulJtb5nPlO4C6nLp8/lqhTeCIbbQIDAQAB-----END PUBLIC KEY-----`;
+  const privateKeyEncrypted = `c66f1f67fb8e772926c36862c88d3b1d11729f165b1355f93dc605aa6a64e481dcf12746c792ad42277d048af4bc2b80fb83f922c908137aa7c141c838ca9ea0f0f7e4735fcf1bec8240aeab7414387cd4828ab019740afbd7d38940c16d4b52a91bde71fd35da40fa6f856bf3093d9dd6f031da7ba659fd6c24f6675f471449b509b072f05a4dbd5f592ea933825e4748e9bc1ad431c8052c32ff506e132317232ce24779e91d897beca2f75b9564077483964026ebf3a5ea52332062258c1dc11801da118bf3e4e7b1ec276a57ce0321293bf571e857d2a33adc1b98a06ceef965cab108ae8d415baf84a64f35702f01f1bdc9316024f85802b82b75e1cc2c2c7723da952010b589d3b4c2ddb9ba24a30e64dfedee39416fa663051c049ebf632c8a472c5fd958f7652998f2236888326fe9993e30ca87e72a3676864898bb8b544b3759e68649909662201a64d458f26ee7ac65870eb764289f5cf72e91083cfe99a05a00fab9f7e80262a17e67e20353a46fcb24f57e06d0b926a510a92a6e26947e0d444ff8ca80cd355a27f6e362a00303d1ce2d39c42ef2fc98cfde9acd2d9e81e52b6a29c33d0dc676a9ed4e19f18cf44c2f4f47f014bd60b78d80f07f650d28944958cc10454bcba0db970d90146b5ed8f0fc158046e90a7ffd8507d102f9c7d11a37f6236e1aaa5be806a3c7a2735c3796e922cb77826b162b2eeed2d6ef40749fdc342901d2c41c8914daa15119e496e00bc4f2fe348db6a11fcd4a9abab32ddf2e77b3c947004bb25a041ab945142dcf0e63a788b87c98946a81465730b1f45a89469a102f149b52d76549293e95dccb88f795a97b5766a6e7f692609a5fd8517c5832497fa5baaa8460d47817216b5f25f99bf1d5e89e782515b013a612d38bbe8889b2563285bbd026bb30b97894cd8c55a24e538cd0fec23bf1fd6553eb22f88b5ce1b7f0e574e48fbd03c52f5f09da75f9f44ec725a920b424a39933aa406c464736ab44d58834aa5946e593f8bb5234e1f21b5953729fad521fa24e81ed53ca97e3e183e58786b483b2a99aafaea534f0ee43770721ac0b2771dd12db27722acc0fa4a66aea4ffa7834bc293d81ed1a30ae181cc4876d787f554f84f41a397f3f858f34334cc8568b3046a881234d051099cb7564ed4e71255e5cd7c46a9aa30942bc37c304d706780b98411b77780483e3cc42321e0ee918c048a3ffa26c5d7600a36c76ceb10f8e5caf816c4ee14fcfa90be8224e3e55a5c2612ce2bb9afcdd988d5146452b4902ba8f560fc3553e34631675b06946c499e0e8bd323c6a60f0523e1b9c75a3d4f7b45aed7bed5769c6b2904b27ce44e0de20cf617804b2ad6747cd003db0cc97277a06d96b01cee26aea78cdb2141d3f9f1c972737f6cf49e6bbad4e54025a79567c547e9e8f85eef0781446d02cb317847b7476ac14139806ad33ec7a33197e0806f8ea8afe40684d672c413b94329cf14b577ea4a5e868323130bc49b093dafc21f1c5d4ed483b6b3312535441a6db86cdefe14ee70fff31edafed5f471e001e33961c2358c4c654f23b33b8fd4d438125971b07ecec41a27a1ba2e57b8c16a66943cc19dae83226e1c89e5a08ad330df8590b2d5f755f687907347900335bc5a1f9066147a0d651a180233fac3d1f81896583f94e0adc0f002cb77cc29861f82006755bc1bf272a6a1b6d5082d230aaeb55ee2cb4a6c72222a0fc28c19f72c1ad6428019ed89a658f5e646cc946b8e01506d86a5f1e654f2251a6bdd14c941c7ead7cd09dc3f2a45646ebcd57413ae62563b94cdbd0b7453e6dc76cb87bd08c34c6278e6a9dc6bb1d276f1b2930549150f5a6c60e2e1d102dca4580760b1fa5cce33c03f0f41540c15f0ccdbc7cf51fcb52b8f66ac58145d5255a9e4cd202289fd26fabec5d1b2db86fe83a87c7c0e940a9a8db4a9c4d0eb0c227582fa1b7e8be96e64bd7f5516e8caf2e54a0c55e9e1566b97be878e8cf464bfc82aa8c23d32d29ec298329241722c68b5c3c8a1dc9c389f5ffb82ca349b2b0c531bd02e2b260d2b4483e02103e4e7e863d636f80a9b42c9079425abf5dd3b91686f0a1f1d971b4b198edd98ccb19e9c08011c35d2fa2df632e099975f0ea9cdfc201654d1361db8bd4f11bfbb32fc67ed18def41fd13af3c733e2939e45ea12db88d4a3ca9be8ec2ef858f6658ea6f6e741f71f58cbc4639cd8a0bb9f308bd7aff3182e73af15b25c1596f55e1c1f036c5e1e479c8ec443bfc7b68377d36e4d58cb9fb49fefcf6f35f9bd2e5a094c0933e1071c2c520ec27b7c2aa59e9526076f0b60f73dd345de5008c8072c48ce336f55b5acc8d8d84595c1b9746799498d37bb029d4ade2091a846775082f6f7fc2b9e6b26187d047c1dee4fb637f2565337d85cf7c`;
+  const privateKeyIv = `b2ad3c8910a7cb3f2f355e7d7578ea41`;
+  let privateKeyDecrypted = ``;
   const masterPassword = 'abrakadabra';
   let fileExtension = '';
   let fileIvBase64 = '';
@@ -73,27 +75,55 @@ export default function Dasbhoard() {
     reader.readAsArrayBuffer(file);
   };
 
+  const test = async () => {
+    const encryptSymmetricKey = async (): Promise<string> => {
+      try {
+        const symmetricKey = await cryptoManager.generateSymmetricKey();
+        const encryptedSymmetricKeyBase64 =
+          await encryptionKeyManager.encryptSymmetricKeyWithPublicKey(
+            symmetricKey,
+            publicKeyPem
+          );
+        return encryptedSymmetricKeyBase64;
+      } catch (error) {
+        console.error('Error encrypting symmetric key:', error);
+        throw error;
+      }
+    };
+
+    const encryptedSymKey = await encryptSymmetricKey();
+    // decrypted private key matches the one on backend
+    privateKeyDecrypted = await encryptionKeyManager.decryptPrivateKey(
+      privateKeyEncrypted,
+      privateKeyIv,
+      masterPassword
+    );
+
+    const decryptedSymmetricKey = async () => {
+      try {
+        const encryptedSymmetricKeyBase64 =
+          await encryptionKeyManager.decryptSymmetricKeyWithPrivateKey(
+            encryptedSymKey,
+            privateKeyDecrypted
+          );
+        console.log(
+          'Decrypted symmetric key after encryption:',
+          encryptedSymmetricKeyBase64
+        );
+      } catch (error) {
+        console.error('Error encrypting symmetric key:', error);
+      }
+    };
+
+    decryptedSymmetricKey();
+  };
+
   useEffect(() => {
     // redirect if user null in AuthContext provider (naive approach for now)
     if (!user) {
       redirect('/');
     }
-    // necessary for below useEffect
-    fetchKey();
   }, []);
-
-  useEffect(() => {
-    if (privateKey && iv) {
-      encryptionKeyManager
-        .decryptPrivateKey(privateKey, iv, masterPassword)
-        .then((decryptedKey) => {
-          // console.log('Decrypted Private Key:', decryptedKey);
-        })
-        .catch((error) => {
-          console.error('Error during decryption:', error);
-        });
-    }
-  }, [privateKey]);
 
   return (
     <>
@@ -104,6 +134,9 @@ export default function Dasbhoard() {
         name='filename'
         onChange={handleFileUpload}
       ></input>
+      <button type='button' onClick={test}>
+        Run tests
+      </button>
     </>
   );
 }
