@@ -5,7 +5,7 @@ import { cookies } from 'next/headers';
 export async function GET(res: NextResponse) {
   const cookiesStores = cookies();
 
-  const strapiRes = await fetch(`${API_URL}/api/users/setup/mykey`, {
+  const strapiRes = await fetch(`${API_URL}/api/users/setup/mykeys`, {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${cookiesStores.get('token')?.value}`,

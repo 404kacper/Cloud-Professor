@@ -15,11 +15,12 @@ export const KeysProvider = ({ children }: { children: ReactNode }) => {
   const [error, setError] = useState(keysContextDefaultValue.error);
 
   // Check if user is logged in
-  const fetchKey = async () => {
-    const res = await fetch(`${NEXT_URL}/api/user/key`);
+  const fetchKeys = async () => {
+    const res = await fetch(`${NEXT_URL}/api/user/keys`);
     const data = await res.json();
 
     if (res.ok) {
+      setPublicKey(data.publicKey);
       setPrivateKey(data.privateKey);
       setIv(data.iv);
     } else {
@@ -29,7 +30,7 @@ export const KeysProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <KeysContext.Provider
-      value={{ publicKey, privateKey, error, iv, fetchKey }}
+      value={{ publicKey, privateKey, error, iv, fetchKeys }}
     >
       {children}
     </KeysContext.Provider>

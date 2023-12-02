@@ -4,7 +4,7 @@ export type keysContextType = {
   privateKey: string;
   iv: string,
   error: any;
-  fetchKey: () => void;
+  fetchKeys: () => void;
 };
 
 // default values for auth context
@@ -13,5 +13,5 @@ export const keysContextDefaultValue: keysContextType = {
   privateKey: '',
   iv: '',
   error: null,
-  fetchKey: () => {},
+  fetchKeys: () => {},
 };
