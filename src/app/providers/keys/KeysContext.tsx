@@ -25,6 +25,8 @@ export const KeysProvider = ({ children }: { children: ReactNode }) => {
       setIv(data.iv);
     } else {
       setError(data.message);
+      // clear error message after 1s
+      setTimeout(() => setError(null), 1000);
     }
   };
 

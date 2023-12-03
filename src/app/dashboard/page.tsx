@@ -2,6 +2,7 @@
 import React, { useEffect, useContext } from 'react';
 import AuthContext from '@/context/AuthContext';
 import KeysContext from '@/keysContext/KeysContext';
+import DataContext from '@/dataContext/DataContext';
 import { redirect } from 'next/navigation';
 import CryptoUserManager from '@/utils/CryptoUserManager';
 import EncryptionDataManager from '@/utils/subclasses/EncryptionDataManager';
@@ -9,6 +10,7 @@ import EncryptionKeyManager from '@/utils/subclasses/EncryptionKeyManager';
 
 export default function Dasbhoard() {
   const { user } = useContext(AuthContext);
+  const { uploadFile } = useContext(DataContext);
   const { fetchKeys, publicKey, privateKey, iv } = useContext(KeysContext);
 
   // will be comming from database as- hardcoded for now
@@ -57,8 +59,8 @@ export default function Dasbhoard() {
     }
 
     // Extracting file extension - necessary to put the file back together after downloading
-    const fileName = file.name;
-    fileExtension = fileName.slice(((fileName.lastIndexOf('.') - 1) >>> 0) + 2);
+    // const fileName = file.name;
+    // fileExtension = fileName.slice(((fileName.lastIndexOf('.') - 1) >>> 0) + 2);
 
     const reader = new FileReader();
 
@@ -73,16 +75,7 @@ export default function Dasbhoard() {
       const arrayBuffer = e.target.result;
 
       try {
-        // Encrypt the file data with the symmetric key
-        const { encryptedDataBase64, ivBase64 } =
-          await encryptionDataManager.encryptDataWithSymmetricKey(
-            arrayBuffer,
-            symmetricKeyGenerated
-          );
-
-        // Assign processed data to corresponding values
-        fileIv = ivBase64;
-        fileDataBase64 = encryptedDataBase64;
+        await uploadFile(arrayBuffer, publicKey, file.name, file.size);
       } catch (error) {
         console.error('Error processing file:', error);
       }
