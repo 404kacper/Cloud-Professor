@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { AuthProvider } from '@/context/AuthContext';
 import { SplineProvider } from '@/splineContext/SplineContext';
 import { KeysProvider } from '@/keysContext/KeysContext';
+import { DataProvider } from '@/dataContext/DataContext';
 import { Maven_Pro } from 'next/font/google';
 import './global.scss';
 
@@ -26,7 +27,9 @@ export default function RootLayout({
       <body className={maven.className}>
         <SplineProvider>
           <AuthProvider>
-            <KeysProvider>{children}</KeysProvider>
+            <KeysProvider>
+              <DataProvider>{children}</DataProvider>
+            </KeysProvider>
           </AuthProvider>
         </SplineProvider>
       </body>
