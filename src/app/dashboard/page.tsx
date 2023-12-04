@@ -7,6 +7,9 @@ import { redirect } from 'next/navigation';
 import CryptoUserManager from '@/utils/CryptoUserManager';
 import EncryptionDataManager from '@/utils/subclasses/EncryptionDataManager';
 import EncryptionKeyManager from '@/utils/subclasses/EncryptionKeyManager';
+import Navbar from '../components/dashboard/navbar/Navbar';
+
+import styles from './Dashboard.module.scss';
 
 export default function Dasbhoard() {
   const { user } = useContext(AuthContext);
@@ -164,17 +167,22 @@ export default function Dasbhoard() {
   }, []);
 
   return (
-    <>
-      <div>Dashboard page</div>
-      <input
-        type='file'
-        id='myFile'
-        name='filename'
-        onChange={handleFileUpload}
-      ></input>
-      <button type='button' onClick={testFlow}>
-        Run tests
-      </button>
-    </>
+    <div className={styles.dashboardContainer}>
+      <div className={styles.navContainer}>
+        <Navbar></Navbar>
+      </div>
+      <div className={styles.dashContentContainer}>
+        <div>Dashboard page</div>
+        <input
+          type='file'
+          id='myFile'
+          name='filename'
+          onChange={handleFileUpload}
+        ></input>
+        <button type='button' onClick={testFlow}>
+          Run tests
+        </button>
+      </div>
+    </div>
   );
 }

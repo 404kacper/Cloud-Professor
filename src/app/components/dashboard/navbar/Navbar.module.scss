@@ -1,0 +1,49 @@
+// Method to match the figma design using dynamic units
+@function px-to-vw($px, $base-width: 2560) {
+  @return ($px / $base-width) * 100 + vw;
+}
+
+.container {
+  position: relative;
+  padding-left: 3vw;
+
+  // list styling reset
+  ul,
+  li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .logoContainer {
+    display: flex;
+    align-items: center;
+  }
+
+  .logo {
+    color: white;
+    letter-spacing: 0.2vw;
+    text-align: center;
+    font-size: px-to-vw(24);
+  }
+
+  .icon {
+    width: px-to-vw(36); // 36 px
+    height: px-to-vw(36);
+    margin-right: px-to-vw(64);
+    position: relative;
+  }
+
+  .navList {
+    padding-top: px-to-vw(32);
+  }
+
+  .navItem {
+    display: flex;
+    align-items: center;
+    font-size: px-to-vw(24);
+    font-weight: 500;
+    color: white;
+    margin-bottom: px-to-vw(36);
+  }
+}
