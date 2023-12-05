@@ -2,6 +2,8 @@ import React from 'react';
 import styles from './Navbar.module.scss';
 import Image from 'next/image';
 
+import Dropbox from './Dropbox/Dropbox';
+
 // notes for this component
 // - nav clicks probably need a smooth transistion between each click (selector on the right moving up/down & gradient moving along with it & active button elements transforming)
 export default function Header() {
@@ -24,8 +26,9 @@ export default function Header() {
 
       {/* Navigation links */}
       <ul className={styles.navList}>
+        {/* Still not how to make selector appear between bg and navButtonActive element & maintain it's mix-blend-mode */}
         <div className={styles.selector}>
-          <Image src='/dash/nav-selector.svg' alt='' fill/>
+          <Image src='/dash/nav-selector.svg' alt='' fill />
         </div>
         <li className={styles.navItem}>
           <div className={`${styles.navButton} ${styles.navButtonActive}`}>
@@ -68,6 +71,9 @@ export default function Header() {
           </div>
         </li>
       </ul>
+      {/* Animate the border so that it's moving whenever user drags mouse over the dropbox */}
+      {/* Perhaps animate the svg to have similar effect to the one on hero? */}
+      <Dropbox />
     </nav>
   );
 }

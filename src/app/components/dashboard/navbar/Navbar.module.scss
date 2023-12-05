@@ -6,8 +6,12 @@
 .container {
   position: relative;
   padding-left: 3vw;
+  padding-bottom: 1vw;
   // for the selector gradient effect
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 
   // list styling reset
   ul,
@@ -29,6 +33,7 @@
     letter-spacing: 0.2vw;
     text-align: center;
     font-size: px-to-vw(24);
+    z-index: 2;
 
     h1 {
       // reset default margins on h1
@@ -49,8 +54,6 @@
       position: absolute;
       right: 0;
       top: 2vw;
-      // make sure it appears below current stacking context
-      z-index: 0;
 
       &::before {
         content: '';
@@ -63,7 +66,7 @@
 
         background: radial-gradient(
           ellipse at center,
-          rgba(18, 46, 82, 1) 0%,
+          rgb(11, 27, 49) 0%,
           rgba(43, 126, 182, 0) 75%
         );
       }

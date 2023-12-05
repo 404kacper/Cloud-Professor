@@ -38,54 +38,8 @@ export default function Dasbhoard() {
   let fileDataBase64 = '';
 
   // Managers for the whole encryption process
-  const cryptoManager = new CryptoUserManager();
   const encryptionKeyManager = new EncryptionKeyManager();
   const encryptionDataManager = new EncryptionDataManager();
-
-  // This method encrypts file data:
-  //  - with generated symmetric key at the component mount
-  //  - file is uploaded by the user
-  const handleFileUpload = async (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    // Generate symmetric key for testing and share it in component within same render
-    symmetricKeyGenerated = await cryptoManager.generateSymmetricKey();
-
-    const files = event.target.files;
-    if (!files) {
-      return;
-    }
-
-    const file = files[0];
-    if (!file) {
-      return;
-    }
-
-    // Extracting file extension - necessary to put the file back together after downloading
-    // const fileName = file.name;
-    // fileExtension = fileName.slice(((fileName.lastIndexOf('.') - 1) >>> 0) + 2);
-
-    const reader = new FileReader();
-
-    reader.onload = async (e: ProgressEvent<FileReader>) => {
-      // Some safety checks
-      if (!e.target?.result || !(e.target.result instanceof ArrayBuffer)) {
-        console.error('FileReader did not load a valid ArrayBuffer');
-        return;
-      }
-
-      // Loading the file data into an ArrayBuffer
-      const arrayBuffer = e.target.result;
-
-      try {
-        await uploadFile(arrayBuffer, publicKey, file.name, file.size);
-      } catch (error) {
-        console.error('Error processing file:', error);
-      }
-    };
-
-    reader.readAsArrayBuffer(file);
-  };
 
   // This method encrypts & decrypts file data & keys:
   //  - encrypts symmetric key with public key of reciever
@@ -173,12 +127,6 @@ export default function Dasbhoard() {
       </div>
       <div className={styles.dashContentContainer}>
         <div>Dashboard page</div>
-        <input
-          type='file'
-          id='myFile'
-          name='filename'
-          onChange={handleFileUpload}
-        ></input>
         <button type='button' onClick={testFlow}>
           Run tests
         </button>

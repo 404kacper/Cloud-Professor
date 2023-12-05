@@ -1,0 +1,62 @@
+// Method to match the figma design using dynamic units
+@function px-to-vw($px, $base-width: 2560) {
+  @return ($px / $base-width) * 100 + vw;
+}
+
+.dropboxContainer {
+  margin-left: -2vw;
+  width: 13vw;
+  height: 10vw;
+  position: relative;
+  margin-top: auto;
+  border-radius: 1.5vw;
+
+  &::before {
+    content: '';
+    position: absolute;
+    height: calc(100% + px-to-vw(4));
+    width: calc(100% + px-to-vw(4));
+    top: px-to-vw(-2);
+    left: px-to-vw(-2);
+    border-radius: inherit;
+    background-color: rgba(0, 0, 0, 1);
+    mix-blend-mode: soft-light;
+  }
+
+  &Active {
+    border: px-to-vw(2) dashed white;
+  }
+
+  .textContainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+
+    .icon {
+      width: 2vw;
+      height: 2vw;
+      position: relative;
+      pointer-events: none;
+    }
+
+    .lead {
+      font-weight: 500;
+      font-size: px-to-vw(18);
+      margin: 0.2vw;
+
+      &Secondary {
+        font-size: px-to-vw(18);
+        color: rgba(255, 255, 255, 0.65);
+
+        &Bolder {
+          color: white;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}
