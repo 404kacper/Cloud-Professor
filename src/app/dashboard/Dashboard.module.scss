@@ -5,11 +5,15 @@
   height: 100vh;
   width: 100vw;
 
-  background-image: url('/dash/BG-blurier.jpg');
+  background-image: url('/dash/BG.png');
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: bottom center;
-  // box-shadow: inset 0px 0px 2vw 0.1vw#122e52;
+  background-position: top;
+  mix-blend-mode: difference;
+
+  // stacking context for the blend mode effect
+  position: relative;
+  z-index: 1;
 
   .navContainer {
     grid-area: nav;

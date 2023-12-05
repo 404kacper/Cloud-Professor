@@ -2,6 +2,8 @@ import React from 'react';
 import styles from './Navbar.module.scss';
 import Image from 'next/image';
 
+// notes for this component
+// - nav clicks probably need a smooth transistion between each click (selector on the right moving up/down & gradient moving along with it & active button elements transforming)
 export default function Header() {
   return (
     <nav className={styles.container}>
@@ -22,35 +24,48 @@ export default function Header() {
 
       {/* Navigation links */}
       <ul className={styles.navList}>
+        <div className={styles.selector}>
+          <Image src='/dash/nav-selector.svg' alt='' fill/>
+        </div>
         <li className={styles.navItem}>
-          <div className={styles.icon}>
-            <Image src='/dash/nav-dash.svg' alt='' fill />
+          <div className={`${styles.navButton} ${styles.navButtonActive}`}>
+            <div className={styles.icon}>
+              <Image src='/dash/nav-dash.svg' alt='' fill />
+            </div>
+            <span>DASHBOARD</span>
           </div>
-          <span>DASHBOARD</span>
         </li>
         <li className={styles.navItem}>
-          <div className={styles.icon}>
-            <Image src='/dash/nav-key.svg' alt='' fill />
+          <div className={styles.navButton}>
+            <div className={styles.icon}>
+              <Image src='/dash/nav-key.svg' alt='' fill />
+            </div>
+            <span>KEYS</span>
           </div>
-          <span>KEYS</span>
         </li>
         <li className={styles.navItem}>
-          <div className={styles.icon}>
-            <Image src='/dash/nav-stats.svg' alt='' fill />
+          <div className={styles.navButton}>
+            <div className={styles.icon}>
+              <Image src='/dash/nav-stats.svg' alt='' fill />
+            </div>
+            <span>STATISTICS</span>
           </div>
-          <span>STATISTICS</span>
         </li>
         <li className={styles.navItem}>
-          <div className={styles.icon}>
-            <Image src='/dash/nav-lib.svg' alt='' fill />
+          <div className={styles.navButton}>
+            <div className={styles.icon}>
+              <Image src='/dash/nav-lib.svg' alt='' fill />
+            </div>
+            <span>LIBRARY</span>
           </div>
-          <span>LIBRARY</span>
         </li>
         <li className={styles.navItem}>
-          <div className={styles.icon}>
-            <Image src='/dash/nav-set.svg' alt='' fill />
+          <div className={styles.navButton}>
+            <div className={styles.icon}>
+              <Image src='/dash/nav-set.svg' alt='' fill />
+            </div>
+            <span>SETTINGS</span>
           </div>
-          <span>SETTINGS</span>
         </li>
       </ul>
     </nav>
