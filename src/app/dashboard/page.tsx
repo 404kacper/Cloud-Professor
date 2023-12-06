@@ -2,18 +2,17 @@
 import React, { useEffect, useContext } from 'react';
 import AuthContext from '@/context/AuthContext';
 import KeysContext from '@/keysContext/KeysContext';
-import DataContext from '@/dataContext/DataContext';
 import { redirect } from 'next/navigation';
-import CryptoUserManager from '@/utils/CryptoUserManager';
 import EncryptionDataManager from '@/utils/subclasses/EncryptionDataManager';
 import EncryptionKeyManager from '@/utils/subclasses/EncryptionKeyManager';
+
 import Navbar from '../components/dashboard/navbar/Navbar';
+import StatusBar from '../components/dashboard/statusBar/StatusBar';
 
 import styles from './Dashboard.module.scss';
 
 export default function Dasbhoard() {
   const { user } = useContext(AuthContext);
-  const { uploadFile } = useContext(DataContext);
   const { fetchKeys, publicKey, privateKey, iv } = useContext(KeysContext);
 
   // will be comming from database as- hardcoded for now
@@ -28,10 +27,6 @@ export default function Dasbhoard() {
   let symmetricKeyGenerated: CryptoKey;
   // hardcoded from postman request
   const masterPassword = 'abrakadabra';
-
-  // will be stored in database to combine file after download
-  // used in: upload/download to mark the file type
-  let fileExtension = '';
 
   // Base64 string after encoding the file & uploading (simulates the file after being fetched)
   // comes from db: encrypted file data - doesn't need to be stored in KeysContext
@@ -126,6 +121,7 @@ export default function Dasbhoard() {
         <Navbar></Navbar>
       </div>
       <div className={styles.dashContentContainer}>
+        <StatusBar></StatusBar>
         <div>Dashboard page</div>
         <button type='button' onClick={testFlow}>
           Run tests

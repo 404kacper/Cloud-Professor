@@ -1,0 +1,32 @@
+// Method to match the figma design using dynamic units
+@function px-to-vw($px, $base-width: 2560) {
+  @return ($px / $base-width) * 100 + vw;
+}
+
+.statusContainer {
+  height: 10vh;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0 3vw;
+
+  .imageContainer {
+    width: px-to-vw(64);
+    height: px-to-vw(64);
+    position: relative;
+    margin-left: px-to-vw(20);
+  }
+
+  .textContainer {
+    font-size: px-to-vw(20);
+    color: white;
+    font-weight: 400;
+    text-align: right;
+
+    .textBolder {
+        font-size: px-to-vw(24);
+        font-weight: 500;
+    }
+  }
+}
