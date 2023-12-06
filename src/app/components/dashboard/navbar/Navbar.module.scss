@@ -44,7 +44,7 @@
   .navList {
     // position relative to contain selector
     position: relative;
-    padding-top: px-to-vw(32);
+    padding-top: px-to-vw(44);
 
     .selector {
       // important to maitain this aspec ratio
@@ -53,7 +53,7 @@
       height: px-to-vw(25);
       position: absolute;
       right: 0;
-      top: 2vw;
+      top: 2.5vw;
 
       &::before {
         content: '';
