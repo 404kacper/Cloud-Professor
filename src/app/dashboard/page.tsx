@@ -9,6 +9,7 @@ import EncryptionKeyManager from '@/utils/subclasses/EncryptionKeyManager';
 import Navbar from '../components/dashboard/navbar/Navbar';
 import StatusBar from '../components/dashboard/statusBar/StatusBar';
 import Indicators from '../components/dashboard/indicators/Indicators';
+import Sharing from '../components/dashboard/sharing/Sharing';
 
 import styles from './Dashboard.module.scss';
 
@@ -123,12 +124,13 @@ export default function Dasbhoard() {
       </div>
       <div className={styles.dashContentContainer}>
         <StatusBar></StatusBar>
-        <Indicators></Indicators>
         {/* 1:3:7 proportions for remaining */}
-        <div>Dashboard page</div>
+        <Indicators></Indicators>
+        <Sharing></Sharing>
+        {/* <div>Dashboard page</div>
         <button type='button' onClick={testFlow}>
           Run tests
-        </button>
+        </button> */}
       </div>
     </div>
   );

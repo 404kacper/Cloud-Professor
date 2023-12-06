@@ -1,0 +1,55 @@
+// Method to match the figma design using dynamic units
+@function px-to-vw($px, $base-width: 2560) {
+  @return ($px / $base-width) * 100 + vw;
+}
+
+.sharingSpacing {
+  width: 100%;
+  height: px-to-vw(350);
+  margin: 1vw 0;
+  padding: 0vw 1vw;
+
+  .sharingContainer {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    border-radius: px-to-vw(100);
+    padding: px-to-vw(40) px-to-vw(100);
+
+    &::before {
+      content: '';
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      inset: 0;
+      border-radius: inherit;
+      background-color: rgba(0, 0, 0, 0.9);
+      mix-blend-mode: soft-light;
+    }
+
+    .searchSection {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .title {
+        font-size: px-to-vw(28);
+        font-weight: 500;
+        color: white;
+        line-height: 100%;
+
+        .subtitle{
+          font-size: px-to-vw(16);
+          font-weight: 400;
+        }
+      }
+
+      .searchBar {
+        // align-self: flex-start;
+        height: px-to-vw(50);
+        width: 33%;
+      }
+    }
+  }
+}

@@ -1,0 +1,60 @@
+// Method to match the figma design using dynamic units
+@function px-to-vw($px, $base-width: 2560) {
+  @return ($px / $base-width) * 100 + vw;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+  border-radius: px-to-vw(16);
+  position: relative;
+  padding: px-to-vw(10) px-to-vw(12);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    inset: 0;
+    border-radius: inherit;
+    background-color: rgba(198, 198, 198, 0.25);
+    mix-blend-mode: hard-light;
+  }
+
+  .imageContainer {
+    width: 4%;
+    height: 100%;
+    position: relative;
+    z-index: 1;
+  }
+
+  .textContainer {
+    width: 90%;
+    font-size: px-to-vw(22);
+    font-weight: 400;
+    background-color: transparent;
+    border: 0;
+    color: white;
+    z-index: 1;
+    padding: 0;
+    margin: 0;
+    vertical-align: middle;
+
+    &::placeholder {
+      line-height: 200%;
+      color: #a0aec09c;
+    }
+
+    &::-moz-placeholder {
+      font-size: px-to-vw(22);
+      color: #a0aec0;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
