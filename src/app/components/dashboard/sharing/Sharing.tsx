@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './Sharing.module.scss';
 import SearchBar from './searchBar/SearchBar';
+import FriendBox from './friendBox/FriendBox';
 
 export default function Sharing() {
   return (
@@ -14,6 +15,16 @@ export default function Sharing() {
           <div className={styles.searchBar}>
             <SearchBar />
           </div>
+        </div>
+        <div className={styles.friendsSection}>
+          <FriendBox />
+          <FriendBox />
+          <FriendBox />
+          <FriendBox />
+          <FriendBox />
+          <FriendBox />
+          <FriendBox />
+          <FriendBox />
         </div>
       </div>
     </div>

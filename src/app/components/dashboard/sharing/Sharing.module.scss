@@ -4,6 +4,7 @@
 }
 
 .sharingSpacing {
+  height: 100%;
   width: 100%;
   height: px-to-vw(350);
   margin: 1vw 0;
@@ -15,6 +16,8 @@
     position: relative;
     border-radius: px-to-vw(100);
     padding: px-to-vw(40) px-to-vw(100);
+    display: flex;
+    flex-direction: column;
 
     &::before {
       content: '';
@@ -39,7 +42,7 @@
         color: white;
         line-height: 100%;
 
-        .subtitle{
+        .subtitle {
           font-size: px-to-vw(16);
           font-weight: 400;
         }
@@ -50,6 +53,17 @@
         height: px-to-vw(50);
         width: 33%;
       }
+    }
+
+    .friendsSection {
+      width: 100%;
+      height: 100%;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      grid-column-gap: px-to-vw(112);
+      grid-row-gap: px-to-vw(24);
+      margin-top: 1vw;
     }
   }
 }
