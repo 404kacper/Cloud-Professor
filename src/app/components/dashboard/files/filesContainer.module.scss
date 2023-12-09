@@ -3,10 +3,12 @@
   @return ($px / $base-width) * 100 + vw;
 }
 
-.indicatorsContainer {
-  width: 100%;
-  height: px-to-vw(150);
+.filesSpacing {
+  // take up remaining space inside flexbox
+  flex-grow: 1;
   padding: 0 px-to-vw(53);
+  padding-bottom: 1vw;
   display: flex;
+  align-items: center;
   justify-content: space-between;
 }

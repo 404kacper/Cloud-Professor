@@ -9,7 +9,8 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  padding: 0 3vw;
+  // horizontal spacing calculated basd on figma design
+  padding: 0 px-to-vw(53);
 
   .imageContainer {
     width: px-to-vw(64);
@@ -25,8 +26,8 @@
     text-align: right;
 
     .textBolder {
-        font-size: px-to-vw(24);
-        font-weight: 500;
+      font-size: px-to-vw(24);
+      font-weight: 500;
     }
   }
 }

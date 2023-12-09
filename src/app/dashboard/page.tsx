@@ -10,6 +10,7 @@ import Navbar from '../components/dashboard/navbar/Navbar';
 import StatusBar from '../components/dashboard/statusBar/StatusBar';
 import Indicators from '../components/dashboard/indicators/Indicators';
 import Sharing from '../components/dashboard/sharing/Sharing';
+import FilesContainer from '../components/dashboard/files/filesContainer';
 
 import styles from './Dashboard.module.scss';
 
@@ -127,6 +128,7 @@ export default function Dasbhoard() {
         {/* 1:3:7 proportions for remaining */}
         <Indicators></Indicators>
         <Sharing></Sharing>
+        <FilesContainer></FilesContainer>
         {/* <div>Dashboard page</div>
         <button type='button' onClick={testFlow}>
           Run tests

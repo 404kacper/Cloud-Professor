@@ -9,7 +9,8 @@
   height: 10vw;
   position: relative;
   margin-top: auto;
-  border-radius: 1.5vw;
+  border-radius: px-to-vw(75);
+  cursor: pointer;
 
   &::before {
     content: '';
