@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './UploadCentre.module.scss';
+import FilesList from '../list/FilesList';
 
 export default function UploadCentre() {
   return (
@@ -8,6 +9,7 @@ export default function UploadCentre() {
         Upload Centre <br />{' '}
         <span className={styles.subtitle}>Your uploaded files</span>
       </div>
+      <FilesList></FilesList>
     </div>
   );
 }

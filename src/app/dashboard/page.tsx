@@ -10,7 +10,7 @@ import Navbar from '../components/dashboard/navbar/Navbar';
 import StatusBar from '../components/dashboard/statusBar/StatusBar';
 import Indicators from '../components/dashboard/indicators/Indicators';
 import Sharing from '../components/dashboard/sharing/Sharing';
-import FilesContainer from '../components/dashboard/files/filesContainer';
+import FilesContainer from '../components/dashboard/files/FilesContainer';
 
 import styles from './Dashboard.module.scss';
 

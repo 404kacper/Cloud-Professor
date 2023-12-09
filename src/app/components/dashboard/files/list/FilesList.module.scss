@@ -1,0 +1,9 @@
+// Method to match the figma design using dynamic units
+@function px-to-vw($px, $base-width: 2560) {
+  @return ($px / $base-width) * 100 + vw;
+}
+
+.listContainer {
+  width: 100%;
+  height: 100%;
+}

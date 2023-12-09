@@ -1,0 +1,92 @@
+// Method to match the figma design using dynamic units
+@function px-to-vw($px, $base-width: 2560) {
+  @return ($px / $base-width) * 100 + vw;
+}
+
+.itemContainer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  font-size: px-to-vw(14);
+  font-weight: 400;
+  color: rgba(255, 255, 255, 1);
+  margin: px-to-vw(19) 0;
+
+  // the trick here is to make all containers sum up to 100%
+  // or so i thought but when they sum up to 110% with these proportions they match the design xd
+  $fileNameWidth: 35%;
+  $keySizeWidth: 25%;
+  $fileSizeWidth: 15%;
+  $fileDateWidth: 20%;
+  $fileActionsWidth: 15%;
+
+  .fileNameContainer {
+    width: $fileNameWidth;
+    display: flex;
+    align-items: center;
+
+    .fileIconContainer {
+      width: px-to-vw(22);
+      height: px-to-vw(22);
+      margin-right: px-to-vw(16);
+      position: relative;
+    }
+  }
+
+  .keyContainer {
+    width: $keySizeWidth;
+    display: flex;
+    align-items: center;
+
+    .keySize {
+      margin-right: px-to-vw(10);
+    }
+    .copyContainer {
+      width: px-to-vw(16);
+      height: px-to-vw(16);
+      position: relative;
+      cursor: pointer;
+
+      &:hover {
+        filter: invert(100%);
+      }
+    }
+  }
+
+  .fileSize {
+    width: $fileSizeWidth;
+  }
+
+  .fileDate {
+    width: $fileDateWidth;
+  }
+
+  .actionsContainer {
+    display: flex;
+    width: $fileActionsWidth;
+    justify-content: flex-end;
+
+    .downloadContainer {
+      width: px-to-vw(22);
+      height: px-to-vw(22);
+      margin-right: px-to-vw(12);
+      position: relative;
+      cursor: pointer;
+
+      &:hover {
+        filter: invert(100%);
+      }
+    }
+
+    .trashContainer {
+      width: px-to-vw(22);
+      height: px-to-vw(22);
+      position: relative;
+      cursor: pointer;
+
+      &:hover {
+        filter: invert(100%);
+      }
+    }
+  }
+}

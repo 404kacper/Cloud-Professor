@@ -4,11 +4,13 @@
 }
 
 .downloadsContainer {
-  width: 47.5%;
+  width: 49%;
   height: 100%;
   border-radius: px-to-vw(75);
   position: relative;
   padding: px-to-vw(40) px-to-vw(100);
+  display: flex;
+  flex-direction: column;
 
   &::before {
     content: '';
@@ -19,5 +21,17 @@
     border-radius: inherit;
     background-color: rgba(0, 0, 0, 0.8);
     mix-blend-mode: soft-light;
+  }
+
+  .title {
+    font-size: px-to-vw(28);
+    font-weight: 500;
+    color: white;
+    line-height: 100%;
+
+    .subtitle {
+      font-size: px-to-vw(16);
+      font-weight: 400;
+    }
   }
 }
