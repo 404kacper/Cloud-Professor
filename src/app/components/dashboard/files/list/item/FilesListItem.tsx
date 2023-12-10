@@ -12,9 +12,11 @@ export enum ListItemTypes {
 export default function FilesListItem({
   type,
   itemType,
+  className,
 }: {
   type: ListTypes;
   itemType: ListItemTypes;
+  className?: string;
 }) {
   let iconSrc = '/dash/list-unknown.svg';
   if (itemType === ListItemTypes.TXT) {
@@ -23,8 +25,12 @@ export default function FilesListItem({
     iconSrc = '/dash/list-word.svg';
   }
 
+  const itemContainerClass = className
+    ? `${styles.itemContainer} ${className}`
+    : styles.itemContainer;
+
   return (
-    <div className={styles.itemContainer}>
+    <div className={itemContainerClass}>
       <div className={styles.fileNameContainer}>
         <div className={styles.fileIconContainer}>
           <Image src={iconSrc} alt='' fill />

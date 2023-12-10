@@ -70,11 +70,11 @@ export default function HomePage() {
       <div className={styles.homePage}>
         <ToastContainer />
         {loading && <div style={{ color: 'white' }}>Loading...</div>}
-        <canvas
+        {/* <canvas
           ref={canvasRef}
           id='canvas3d'
           className={styles.render3d}
-        ></canvas>
+        ></canvas> */}
         {!loading && (
           <>
             <div

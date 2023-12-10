@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './FilesList.module.scss';
+import itemStyles from './item/FilesListItem.module.scss';
 import FilesListItem from './item/FilesListItem';
 import { ListItemTypes } from './item/FilesListItem';
 
@@ -22,7 +23,7 @@ export default function FilesList({
   typeOfList: ListTypes;
 }) {
   // array simulating data from context
-  const items = new Array(5).fill(null);
+  const items = new Array(25).fill(null);
   // ultimately we have 2 lists so the population will need to be dependant on context values
   // 2 different states for 2 different lists - then another variable passed as prop to this list element
 
@@ -59,14 +60,16 @@ export default function FilesList({
   };
 
   return (
-    <div className={styles.listContainer}>
-      <div className={styles.headerContainer}>
+    <>
+      <div className={styles.listHeaderContainer}>
         <div className={styles.headerNameLabel}>{firstLabel}</div>
         <div className={styles.headerKeyLabel}>{secondLabel}</div>
         <div className={styles.headerSizeLabel}>{thirdLabel}</div>
         <div className={styles.headerDateLabel}>{fourthLabel}</div>
       </div>
-      {items.map((_, index) => renderItem(index))}
-    </div>
+      <div className={styles.listContainer}>
+        {items.map((_, index) => renderItem(index))}
+      </div>
+    </>
   );
 }
