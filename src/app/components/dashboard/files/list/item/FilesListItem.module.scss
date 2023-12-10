@@ -10,14 +10,22 @@
   font-size: px-to-vw(14);
   font-weight: 400;
   color: rgba(255, 255, 255, 1);
-  margin: px-to-vw(19) 0;
+  padding: px-to-vw(19) 0;
+  border-top: 1px solid white;
+
+  &:last-child {
+    opacity: 0.5;
+  }
 
   // the trick here is to make all containers sum up to 100%
   // or so i thought but when they sum up to 110% with these proportions they match the design xd
   $fileNameWidth: 35%;
   $keySizeWidth: 25%;
   $fileSizeWidth: 15%;
+  // Same size for fourth column
   $fileDateWidth: 20%;
+  $fileFromWidth: 20%;
+
   $fileActionsWidth: 15%;
 
   .fileNameContainer {
@@ -59,6 +67,28 @@
 
   .fileDate {
     width: $fileDateWidth;
+  }
+
+  .fileFromContainer {
+    width: $fileFromWidth;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    overflow: hidden;
+
+    .fromImageContainer {
+      position: relative;
+      min-width: px-to-vw(22);
+      min-height: px-to-vw(22);
+      margin-right: px-to-vw(4);
+    }
+
+    .fromEmail {
+      width: 50;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
   }
 
   .actionsContainer {
