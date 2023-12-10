@@ -23,7 +23,7 @@ export default function FilesList({
   typeOfList: ListTypes;
 }) {
   // array simulating data from context
-  const items = new Array(25).fill(null);
+  const items = new Array(15).fill(null);
   // ultimately we have 2 lists so the population will need to be dependant on context values
   // 2 different states for 2 different lists - then another variable passed as prop to this list element
 
