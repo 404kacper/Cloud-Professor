@@ -6,11 +6,11 @@ import { redirect } from 'next/navigation';
 import EncryptionDataManager from '@/utils/subclasses/EncryptionDataManager';
 import EncryptionKeyManager from '@/utils/subclasses/EncryptionKeyManager';
 
-import Navbar from '../components/dashboard/navbar/Navbar';
-import StatusBar from '../components/dashboard/statusBar/StatusBar';
-import Indicators from '../components/dashboard/indicators/Indicators';
-import Sharing from '../components/dashboard/sharing/Sharing';
-import FilesContainer from '../components/dashboard/files/FilesContainer';
+import Navbar from './components/navbar/Navbar';
+import StatusBar from './components/statusBar/StatusBar';
+import Indicators from './components/indicators/Indicators';
+import Sharing from './components/sharing/Sharing';
+import FilesContainer from './components/files/FilesContainer';
 
 import styles from './Dashboard.module.scss';
 

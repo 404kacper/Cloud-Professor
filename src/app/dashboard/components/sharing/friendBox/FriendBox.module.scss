@@ -51,6 +51,11 @@
     width: px-to-vw(25);
     height: px-to-vw(25);
     position: relative;
+    cursor: pointer;
     z-index: 1;
+
+    &:hover {
+      filter: invert(100%);
+    }
   }
 }

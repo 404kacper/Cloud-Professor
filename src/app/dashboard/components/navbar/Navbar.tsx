@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './Navbar.module.scss';
 import Image from 'next/image';
+import Link from 'next/link';
 
 import Dropbox from './Dropbox/Dropbox';
 
@@ -35,7 +36,7 @@ export default function Header() {
             <div className={styles.icon}>
               <Image src='/dash/nav-dash.svg' alt='' fill />
             </div>
-            <span>DASHBOARD</span>
+            <Link href='/dashboard'>DASHBOARD</Link>
           </div>
         </li>
         <li className={styles.navItem}>
@@ -43,7 +44,7 @@ export default function Header() {
             <div className={styles.icon}>
               <Image src='/dash/nav-key.svg' alt='' fill />
             </div>
-            <span>KEYS</span>
+            <Link href='/keys'>KEYS</Link>
           </div>
         </li>
         <li className={styles.navItem}>
@@ -51,7 +52,7 @@ export default function Header() {
             <div className={styles.icon}>
               <Image src='/dash/nav-stats.svg' alt='' fill />
             </div>
-            <span>STATISTICS</span>
+            <Link href='/statistics'>STATISTICS</Link>
           </div>
         </li>
         <li className={styles.navItem}>
@@ -59,7 +60,7 @@ export default function Header() {
             <div className={styles.icon}>
               <Image src='/dash/nav-lib.svg' alt='' fill />
             </div>
-            <span>LIBRARY</span>
+            <Link href='/library'>LIBRARY</Link>
           </div>
         </li>
         <li className={styles.navItem}>
@@ -67,7 +68,7 @@ export default function Header() {
             <div className={styles.icon}>
               <Image src='/dash/nav-set.svg' alt='' fill />
             </div>
-            <span>SETTINGS</span>
+            <Link href='/settings'>SETTINGS</Link>
           </div>
         </li>
       </ul>

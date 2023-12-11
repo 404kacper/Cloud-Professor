@@ -87,6 +87,11 @@
         cursor: pointer;
         position: relative;
 
+        a {
+          color: inherit;
+          text-decoration: none;
+        }
+
         .icon {
           width: px-to-vw(36); // 36 px
           height: px-to-vw(36);
