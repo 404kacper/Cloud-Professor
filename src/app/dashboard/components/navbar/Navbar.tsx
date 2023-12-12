@@ -1,13 +1,17 @@
+'use client';
 import React from 'react';
 import styles from './Navbar.module.scss';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import Dropbox from './Dropbox/Dropbox';
+import Dropbox from './dropbox/Dropbox';
+import { usePathname } from 'next/navigation';
 
 // notes for this component
 // - nav clicks probably need a smooth transistion between each click (selector on the right moving up/down & gradient moving along with it & active button elements transforming)
 export default function Header() {
+  const pathname = usePathname();
+
   return (
     <nav className={styles.container}>
       <div className={styles.logoContainer}>
@@ -28,11 +32,27 @@ export default function Header() {
       {/* Navigation links */}
       <ul className={styles.navList}>
         {/* Still not how to make selector appear between bg and navButtonActive element & maintain it's mix-blend-mode */}
-        <div className={styles.selector}>
+        <div
+          className={`${styles.selector} ${
+            pathname == '/keys'
+              ? styles.selectorKeys
+              : pathname == '/statistics'
+              ? styles.selectorStatistics
+              : pathname == '/library'
+              ? styles.selectorLibrary
+              : pathname == '/settings'
+              ? styles.selectorSettings
+              : ''
+          }`}
+        >
           <Image src='/dash/nav-selector.svg' alt='' fill />
         </div>
         <li className={styles.navItem}>
-          <div className={`${styles.navButton} ${styles.navButtonActive}`}>
+          <div
+            className={`${styles.navButton} ${
+              pathname == '/dashboard' ? styles.navButtonActive : ''
+            }`}
+          >
             <div className={styles.icon}>
               <Image src='/dash/nav-dash.svg' alt='' fill />
             </div>
@@ -40,7 +60,11 @@ export default function Header() {
           </div>
         </li>
         <li className={styles.navItem}>
-          <div className={styles.navButton}>
+          <div
+            className={`${styles.navButton} ${
+              pathname == '/keys' ? styles.navButtonActive : ''
+            }`}
+          >
             <div className={styles.icon}>
               <Image src='/dash/nav-key.svg' alt='' fill />
             </div>
@@ -48,7 +72,11 @@ export default function Header() {
           </div>
         </li>
         <li className={styles.navItem}>
-          <div className={styles.navButton}>
+          <div
+            className={`${styles.navButton} ${
+              pathname == '/statistics' ? styles.navButtonActive : ''
+            }`}
+          >
             <div className={styles.icon}>
               <Image src='/dash/nav-stats.svg' alt='' fill />
             </div>
@@ -56,7 +84,11 @@ export default function Header() {
           </div>
         </li>
         <li className={styles.navItem}>
-          <div className={styles.navButton}>
+          <div
+            className={`${styles.navButton} ${
+              pathname == '/library' ? styles.navButtonActive : ''
+            }`}
+          >
             <div className={styles.icon}>
               <Image src='/dash/nav-lib.svg' alt='' fill />
             </div>
@@ -64,7 +96,11 @@ export default function Header() {
           </div>
         </li>
         <li className={styles.navItem}>
-          <div className={styles.navButton}>
+          <div
+            className={`${styles.navButton} ${
+              pathname == '/settings' ? styles.navButtonActive : ''
+            }`}
+          >
             <div className={styles.icon}>
               <Image src='/dash/nav-set.svg' alt='' fill />
             </div>
