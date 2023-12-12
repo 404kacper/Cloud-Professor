@@ -45,12 +45,12 @@
 
     &::placeholder {
       line-height: 200%;
-      color: rgba(255, 255, 255, 0.6);
+      font-size: px-to-vw(20);
+      color: rgba(255, 255, 255, 0.5);
     }
 
     &::-moz-placeholder {
-      font-size: px-to-vw(22);
-      color: rgba(255, 255, 255, 0.6);
+      color: rgba(255, 255, 255, 0.7);
     }
 
     &:focus {

@@ -1,0 +1,78 @@
+// Method to match the figma design using dynamic units
+@function px-to-vw($px, $base-width: 2560) {
+  @return ($px / $base-width) * 100 + vw;
+}
+
+.keyCardContainer {
+  width: 40%;
+  height: 100%;
+  border-radius: px-to-vw(25);
+  padding: px-to-vw(48);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  &::before {
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    inset: 0;
+    border-radius: inherit;
+    background-color: rgba(0, 0, 0, 0.6);
+    mix-blend-mode: soft-light;
+  }
+
+  .cardTitleContainer {
+    display: flex;
+    align-items: center;
+
+    .imageContainer {
+      width: px-to-vw(30);
+      height: px-to-vw(30);
+      margin-right: px-to-vw(8);
+      position: relative;
+      display: flex;
+    }
+
+    .cardTitle {
+      font-size: px-to-vw(24);
+      color: white;
+      font-weight: 500;
+    }
+  }
+
+  .cardSubtitle {
+    font-size: px-to-vw(16);
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 400;
+  }
+
+  .infoContainer {
+    font-size: px-to-vw(18);
+    color: rgba(255, 255, 255);
+    font-weight: 400;
+    flex-grow: 1;
+    // make sure it stays on top of the image
+    z-index: 2;
+  }
+
+  .sceneContainer {
+    // to use bottom left corner instead of top left corner as the origin for alignment
+    transform: translateY(-50%);
+    width: px-to-vw(300);
+    position: absolute;
+    right: 0;
+
+    &Public {
+      aspect-ratio: 1.43/1;
+      top: px-to-vw(48);
+    }
+
+    &Private {
+      aspect-ratio: 1.77/1;
+      width: px-to-vw(350);
+      top: px-to-vw(12);
+    }
+  }
+}

@@ -1,5 +1,7 @@
 import Navbar from '../dashboard/components/navbar/Navbar';
 import StatusBar from '../dashboard/components/statusBar/StatusBar';
+import KeysCentre from './components/keysCentre/KeysCentre';
+import SharingHistory from './components/sharingHistory/SharingHistory';
 
 import styles from './Keys.module.scss';
 
@@ -11,6 +13,8 @@ export default function Keys() {
       </div>
       <div className={styles.keysContentContainer}>
         <StatusBar></StatusBar>
+        <KeysCentre></KeysCentre>
+        <SharingHistory></SharingHistory>
       </div>
     </div>
   );
