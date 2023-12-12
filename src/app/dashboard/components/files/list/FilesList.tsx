@@ -33,27 +33,27 @@ export default function FilesList({
         <FilesListItem
           key={index}
           type={ListTypes.UPLOAD}
-          itemType={ListItemTypes.DOCX}
+          itemFormat={ListItemTypes.DOCX}
         />
       ) : (
         <FilesListItem
           key={index}
           type={ListTypes.UPLOAD}
-          itemType={ListItemTypes.TXT}
+          itemFormat={ListItemTypes.TXT}
         />
       );
     } else if (typeOfList === ListTypes.DOWNLOAD) {
       return index % 3 == 0 ? (
         <FilesListItem
           key={index}
-          type={ListTypes.UPLOAD}
-          itemType={ListItemTypes.TXT}
+          type={ListTypes.DOWNLOAD}
+          itemFormat={ListItemTypes.TXT}
         />
       ) : (
         <FilesListItem
           key={index}
-          type={ListTypes.UPLOAD}
-          itemType={ListItemTypes.DOCX}
+          type={ListTypes.DOWNLOAD}
+          itemFormat={ListItemTypes.DOCX}
         />
       );
     }

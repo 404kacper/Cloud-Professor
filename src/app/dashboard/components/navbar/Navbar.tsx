@@ -6,6 +6,7 @@ import Link from 'next/link';
 
 import Dropbox from './dropbox/Dropbox';
 import { usePathname } from 'next/navigation';
+import path from 'path';
 
 // notes for this component
 // - nav clicks probably need a smooth transistion between each click (selector on the right moving up/down & gradient moving along with it & active button elements transforming)
@@ -110,7 +111,7 @@ export default function Header() {
       </ul>
       {/* Animate the border so that it's moving whenever user drags mouse over the dropbox */}
       {/* Perhaps animate the svg to have similar effect to the one on hero? */}
-      <Dropbox />
+      {pathname == '/dashboard' ? <Dropbox /> : null}
     </nav>
   );
 }

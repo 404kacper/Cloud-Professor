@@ -11,17 +11,17 @@ export enum ListItemTypes {
 
 export default function FilesListItem({
   type,
-  itemType,
+  itemFormat,
   className,
 }: {
   type: ListTypes;
-  itemType: ListItemTypes;
+  itemFormat: ListItemTypes;
   className?: string;
 }) {
   let iconSrc = '/dash/list-unknown.svg';
-  if (itemType === ListItemTypes.TXT) {
+  if (itemFormat === ListItemTypes.TXT) {
     iconSrc = '/dash/list-txt.svg';
-  } else if (itemType === ListItemTypes.DOCX) {
+  } else if (itemFormat === ListItemTypes.DOCX) {
     iconSrc = '/dash/list-word.svg';
   }
 
