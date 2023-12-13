@@ -1,0 +1,25 @@
+.modalContainer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: entry 1s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+  display: none;
+
+  &Visible {
+    display: flex;
+  }
+}
+
+@keyframes entry {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

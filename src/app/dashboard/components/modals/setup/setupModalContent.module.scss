@@ -1,0 +1,145 @@
+@function px-to-vw($px, $base-width: 2560) {
+  @return ($px / $base-width) * 100 + vw;
+}
+
+.setupModalContainer {
+  width: px-to-vw(1000);
+  height: px-to-vw(800);
+  border: 2px solid black;
+  border-radius: px-to-vw(50);
+  // clip the overflow of below containers
+  overflow: hidden;
+
+  .imageArea {
+    width: 100%;
+    height: px-to-vw(266.66666);
+    border-bottom: 2px solid black;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .subjectContainer {
+      position: relative;
+      // height: 100%;
+      width: 7vw;
+      align-self: flex-end;
+      aspect-ratio: 0.76/1;
+    }
+  }
+
+  .textArea {
+    width: 100%;
+    height: px-to-vw(533.33333);
+    padding-bottom: 0.5%;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: px-to-vw(20);
+    font-weight: 400;
+    color: black;
+
+    .buttonSizingContainer {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: px-to-vw(40);
+
+      .titleContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        line-height: 130%;
+
+        .title {
+          font-size: px-to-vw(32);
+          font-weight: 600;
+        }
+
+        .subtitle {
+          font-size: px-to-vw(24);
+          font-weight: 400;
+          color: rgba(0, 0, 0, 0.7);
+        }
+      }
+
+      .inputsContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 80%;
+        gap: px-to-vw(32);
+
+        .inputContainer {
+          border-radius: px-to-vw(12);
+          border: 1px solid black;
+          padding: px-to-vw(8) px-to-vw(16);
+          display: flex;
+          width: 100%;
+
+          .inputIconBg {
+            background-color: black;
+            width: px-to-vw(30);
+            height: px-to-vw(30);
+            padding: px-to-vw(5);
+            border-radius: px-to-vw(8);
+            margin-right: px-to-vw(4);
+
+            .inputIcon {
+              position: relative;
+              border-radius: inherit;
+              width: 100%;
+              height: 100%;
+            }
+          }
+
+          .passwordInput {
+            border: 0;
+            border-radius: inherit;
+            background-color: transparent;
+            font-size: px-to-vw(16);
+            font-weight: 400;
+            width: 100%;
+
+            &:focus {
+              outline: none;
+            }
+          }
+        }
+
+        .alertContainer {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          font-size: px-to-vw(20);
+          font-weight: 600;
+          gap: px-to-vw(18);
+
+          .alertIconContainer {
+            position: relative;
+            width: px-to-vw(30);
+            height: px-to-vw(30);
+          }
+        }
+      }
+
+      .submitButton {
+        width: 100%;
+        background-color: black;
+        color: white;
+        border: none;
+        padding: px-to-vw(12);
+        border-radius: px-to-vw(12);
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}

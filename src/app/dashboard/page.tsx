@@ -12,6 +12,8 @@ import Indicators from './components/indicators/Indicators';
 import Sharing from './components/sharing/Sharing';
 import FilesContainer from './components/files/FilesContainer';
 
+import ModalContainer, { ModalTypes } from './components/modals/modalContainer';
+
 import styles from './Dashboard.module.scss';
 
 export default function Dasbhoard() {
@@ -120,6 +122,7 @@ export default function Dasbhoard() {
 
   return (
     <div className={styles.dashboardContainer}>
+      <ModalContainer type={ModalTypes.SETUP}/>
       <div className={styles.navContainer}>
         <Navbar></Navbar>
       </div>
