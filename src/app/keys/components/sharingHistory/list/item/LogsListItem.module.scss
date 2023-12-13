@@ -1,0 +1,106 @@
+// Method to match the figma design using dynamic units
+@function px-to-vw($px, $base-width: 2560) {
+  @return ($px / $base-width) * 100 + vw;
+}
+
+.itemContainer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  position: relative;
+  font-size: px-to-vw(14);
+  font-weight: 400;
+  color: rgba(255, 255, 255, 1);
+  padding: px-to-vw(6) px-to-vw(24);
+
+  scroll-snap-align: center;
+  animation: fade linear both;
+  animation-timeline: view();
+  animation-range: entry 100% cover 30%;
+
+  // different animation for last item
+  &:last-child {
+    animation: fade linear both;
+    animation-timeline: view();
+    animation-range: entry 75%;
+  }
+
+  border-radius: px-to-vw(50);
+
+  &Dark {
+    &::before {
+      content: '';
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      inset: 0;
+      border-radius: inherit;
+      background-color: rgba(0, 0, 0, 0.75);
+      mix-blend-mode: hard-light;
+    }
+  }
+
+  // the trick here is to make all containers sum up to 100%
+  // or so i thought but when they sum up to 110% with these proportions they match the design xd
+  $logFromWidth: 25%;
+  $logDateWidth: 25%;
+  $logNameWidth: 25%;
+  $keyValueWidth: 15%;
+
+  .logFromContainer {
+    width: $logFromWidth;
+    display: flex;
+    align-items: center;
+    z-index: 2;
+
+    .fromImageContainer {
+      position: relative;
+      min-width: px-to-vw(33);
+      min-height: px-to-vw(33);
+      margin-right: px-to-vw(8);
+    }
+  }
+
+  .logDate {
+    z-index: 2;
+    width: $logDateWidth;
+  }
+
+  .logName {
+    z-index: 2;
+    width: $logNameWidth;
+  }
+
+  .keyValue {
+    z-index: 2;
+    width: $keyValueWidth;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .copyContainer {
+    z-index: 2;
+    width: px-to-vw(22);
+    height: px-to-vw(22);
+    margin-left: px-to-vw(12);
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      filter: opacity(0.5);
+    }
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0.1;
+  }
+  to {
+    opacity: 1;
+  }
+}

@@ -1,6 +1,5 @@
 import React from 'react';
 import styles from './FilesList.module.scss';
-import itemStyles from './item/FilesListItem.module.scss';
 import FilesListItem from './item/FilesListItem';
 import { ListItemTypes } from './item/FilesListItem';
 
