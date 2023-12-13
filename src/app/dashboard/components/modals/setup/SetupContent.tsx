@@ -1,8 +1,8 @@
-import styles from './setupModalContent.module.scss';
+import styles from './SetupContent.module.scss';
 
 import Image from 'next/image';
 
-export default function SetupModalContent({
+export default function SetupContent({
   onSubmit,
 }: {
   onSubmit: () => void;

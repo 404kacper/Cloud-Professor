@@ -3,7 +3,8 @@ import styles from './modalContainer.module.scss';
 
 import { useState } from 'react';
 
-import SetupModalContent from './setup/setupModalContent';
+import SetupContent from './setup/SetupContent';
+import PasswordPromptContent from './passwordPrompt/PasswordPromptContent';
 
 export enum ModalTypes {
   SETUP = 'setup',
@@ -27,9 +28,9 @@ export default function ModalContainer({ type }: { type: ModalTypes }) {
       }}
     >
       {type === ModalTypes.SETUP ? (
-        <SetupModalContent onSubmit={() => setModalVisible(false)}/>
+        <SetupContent onSubmit={() => setModalVisible(false)} />
       ) : type === ModalTypes.PASSWORD_PROMPT ? (
-        <div>Password Prompt</div>
+        <PasswordPromptContent onSubmit={() => setModalVisible(false)}/>
       ) : null}
     </div>
   );

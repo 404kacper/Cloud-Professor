@@ -12,7 +12,7 @@ import Indicators from './components/indicators/Indicators';
 import Sharing from './components/sharing/Sharing';
 import FilesContainer from './components/files/FilesContainer';
 
-import ModalContainer, { ModalTypes } from './components/modals/modalContainer';
+import ModalContainer, { ModalTypes } from './components/modals/ModalContainer';
 
 import styles from './Dashboard.module.scss';
 
@@ -122,7 +122,7 @@ export default function Dasbhoard() {
 
   return (
     <div className={styles.dashboardContainer}>
-      <ModalContainer type={ModalTypes.SETUP}/>
+      <ModalContainer type={ModalTypes.PASSWORD_PROMPT}/>
       <div className={styles.navContainer}>
         <Navbar></Navbar>
       </div>
