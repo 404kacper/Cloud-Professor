@@ -2,11 +2,7 @@ import styles from './SetupContent.module.scss';
 
 import Image from 'next/image';
 
-export default function SetupContent({
-  onSubmit,
-}: {
-  onSubmit: () => void;
-}) {
+export default function SetupContent({ onSubmit }: { onSubmit: () => void }) {
   return (
     <div className={styles.setupModalContainer}>
       <div className={styles.imageArea}>
@@ -70,9 +66,9 @@ export default function SetupContent({
               Make sure to remember it!
             </div>
           </div>
-          <button className={styles.submitButton} onClick={onSubmit}>
+          <div className={styles.submitButton} onClick={onSubmit}>
             SEND
-          </button>
+          </div>
         </div>
       </div>
     </div>

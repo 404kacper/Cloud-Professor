@@ -2,6 +2,7 @@
 import React, { useEffect, useContext } from 'react';
 import AuthContext from '@/context/AuthContext';
 import KeysContext from '@/keysContext/KeysContext';
+import DataContext from '@/dataContext/DataContext';
 import { redirect } from 'next/navigation';
 import EncryptionDataManager from '@/utils/subclasses/EncryptionDataManager';
 import EncryptionKeyManager from '@/utils/subclasses/EncryptionKeyManager';
@@ -19,6 +20,7 @@ import styles from './Dashboard.module.scss';
 export default function Dasbhoard() {
   const { user } = useContext(AuthContext);
   const { fetchKeys, publicKey, privateKey, iv } = useContext(KeysContext);
+  const { retrieveMyFiles, retrieveToMeFiles } = useContext(DataContext);
 
   // will be comming from database as- hardcoded for now
   let fileIv = '';
@@ -118,11 +120,13 @@ export default function Dasbhoard() {
     }
 
     fetchKeys();
+    retrieveMyFiles();
+    retrieveToMeFiles();
   }, []);
 
   return (
     <div className={styles.dashboardContainer}>
-      <ModalContainer type={ModalTypes.PASSWORD_PROMPT}/>
+      <ModalContainer type={ModalTypes.SETUP} />
       <div className={styles.navContainer}>
         <Navbar></Navbar>
       </div>

@@ -39,9 +39,9 @@ export default function PasswordPromptContent({
               />
             </div>
           </div>
-          <button className={styles.submitButton} onClick={onSubmit}>
+          <div className={styles.submitButton} onClick={onSubmit}>
             SEND
-          </button>
+          </div>
         </div>
       </div>
     </div>

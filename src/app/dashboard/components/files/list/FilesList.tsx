@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styles from './FilesList.module.scss';
 import FilesListItem from './item/FilesListItem';
 import { ListItemTypes } from './item/FilesListItem';
+
+import DataContext from '@/dataContext/DataContext';
 
 export enum ListTypes {
   DOWNLOAD = 'download',
@@ -21,40 +23,63 @@ export default function FilesList({
   fourthLabel: string;
   typeOfList: ListTypes;
 }) {
-  // array simulating data from context
-  const items = new Array(15).fill(null);
-  // ultimately we have 2 lists so the population will need to be dependant on context values
-  // 2 different states for 2 different lists - then another variable passed as prop to this list element
+  // Maps file extensions to the format of the list item type
+  // - these are the handled file extensions by the UI
+  // - application flow allows for handling of all types of files
+  const extensionToFormatMap: { [key: string]: ListItemTypes } = {
+    txt: ListItemTypes.TXT,
+    docx: ListItemTypes.DOCX,
+    default: ListItemTypes.DEFAULT,
+  };
 
-  const renderItem = (index: number) => {
+  const { myFiles, toMeFiles } = useContext(DataContext);
+
+  const renderItem = (file: any) => {
+    const { extension, name } = extractExtension(file.fileName);
+
+    console.log(file);
+
+    let fileFormat =
+      extensionToFormatMap[extension.toLowerCase()] || ListItemTypes.DEFAULT;
+
     if (typeOfList === ListTypes.UPLOAD) {
-      return index % 2 == 0 ? (
+      return (
         <FilesListItem
-          key={index}
+          key={file.id}
           type={ListTypes.UPLOAD}
-          itemFormat={ListItemTypes.DOCX}
-        />
-      ) : (
-        <FilesListItem
-          key={index}
-          type={ListTypes.UPLOAD}
-          itemFormat={ListItemTypes.TXT}
+          itemFormat={fileFormat}
+          itemName={name}
+          itemSize={Number(file.size)}
+          itemKeySize={Number(file.keySize)}
+          itemDate={file.createdAt}
+          itemKey={file.key}
         />
       );
     } else if (typeOfList === ListTypes.DOWNLOAD) {
-      return index % 3 == 0 ? (
+      return (
         <FilesListItem
-          key={index}
+          key={file.id}
           type={ListTypes.DOWNLOAD}
-          itemFormat={ListItemTypes.TXT}
-        />
-      ) : (
-        <FilesListItem
-          key={index}
-          type={ListTypes.DOWNLOAD}
-          itemFormat={ListItemTypes.DOCX}
+          itemFormat={fileFormat}
+          itemName={name}
+          itemSize={Number(file.size)}
+          itemKeySize={Number(file.keySize)}
+          itemKey={file.key}
         />
       );
+    }
+  };
+
+  const extractExtension = (fileName: string) => {
+    const lastDotIndex = fileName.lastIndexOf('.');
+
+    if (lastDotIndex === -1) {
+      // No extension found
+      return { extension: '', name: fileName };
+    } else {
+      const extension = fileName.substring(lastDotIndex + 1);
+      const name = fileName.substring(0, lastDotIndex);
+      return { extension, name };
     }
   };
 
@@ -67,7 +92,11 @@ export default function FilesList({
         <div className={styles.headerDateLabel}>{fourthLabel}</div>
       </div>
       <div className={styles.listContainer}>
-        {items.map((_, index) => renderItem(index))}
+        {typeOfList === ListTypes.UPLOAD
+          ? myFiles && myFiles.map((file: any) => renderItem(file))
+          : typeOfList === ListTypes.DOWNLOAD
+          ? toMeFiles && toMeFiles.map((file: any) => renderItem(file))
+          : null}
       </div>
     </>
   );
