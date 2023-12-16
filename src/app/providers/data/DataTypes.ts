@@ -11,7 +11,8 @@ export type dataContextType = {
   ) => void;
   retrieveMyFiles: () => void;
   retrieveToMeFiles: () => void;
-  deleteMyFile: (id: number) => void;
+  deleteMyFile: (id: number, origin: downloadOriginType) => void;
+  downloadMyFile: (id: number) => void;
 };
 
 // default values for auth context
@@ -23,4 +24,10 @@ export const dataContextDefaultValue: dataContextType = {
   retrieveMyFiles: () => {},
   retrieveToMeFiles: () => {},
   deleteMyFile: () => {},
+  downloadMyFile: () => {},
 };
+
+export const enum downloadOriginType {
+  UPLOAD = 'upload',
+  DOWNLOAD = 'download',
+}

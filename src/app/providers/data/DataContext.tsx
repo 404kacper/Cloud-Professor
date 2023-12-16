@@ -2,7 +2,11 @@
 import { createContext, useState } from 'react';
 import { NEXT_URL } from '@/config/index';
 import { ReactNode } from 'react';
-import { dataContextDefaultValue, dataContextType } from './DataTypes';
+import {
+  dataContextDefaultValue,
+  dataContextType,
+  downloadOriginType,
+} from './DataTypes';
 import EncryptionDataManager from '@/utils/subclasses/EncryptionDataManager';
 import EncryptionKeyManager from '@/utils/subclasses/EncryptionKeyManager';
 
@@ -60,8 +64,9 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
 
     if (res.ok) {
       // display success message
-      // or/and updates files list
       console.log(resNext.message);
+      // add new file to the state
+      setMyFiles((currentFiles: any) => [...currentFiles, resNext.data]);
     } else {
       setError(resNext.message);
       // clear error message after 1s
@@ -109,11 +114,38 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
 
   // Retrieve files shared with user from server
   // - associated by jwt token
-  // - fetches files which have current user as an author
-  const deleteMyFile = async (id: number) => {
+  // - fetches files which have current user as an author or recipient
+  const deleteMyFile = async (id: number, origin: downloadOriginType) => {
     const res = await fetch(`${NEXT_URL}/api/user/files/${id}`, {
       method: 'DELETE',
     });
+
+    const resNext = await res.json();
+
+    if (res.ok) {
+      // display success message & update files state
+      console.log(resNext.message);
+      // update state according to list from which the method was called
+      if (origin == downloadOriginType.UPLOAD) {
+        setMyFiles((currentFiles: any) =>
+          currentFiles.filter((file: any) => file.id !== id)
+        );
+      } else if (origin == downloadOriginType.DOWNLOAD) {
+        setToMeFiles((currentFiles: any) =>
+          currentFiles.filter((file: any) => file.id !== id)
+        );
+      } else {
+        setError('Unknown origin when downloading file');
+      }
+    } else {
+      setError(resNext.message);
+      // clear error message after 1s
+      setTimeout(() => setError(null), 1000);
+    }
+  };
+
+  const downloadMyFile = async (id: number) => {
+    const res = await fetch(`${NEXT_URL}/api/user/files/${id}`);
 
     const resNext = await res.json();
 
@@ -140,6 +172,7 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
         retrieveMyFiles,
         retrieveToMeFiles,
         deleteMyFile,
+        downloadMyFile,
       }}
     >
       {children}

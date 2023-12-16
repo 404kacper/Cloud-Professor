@@ -17,9 +17,14 @@ export async function POST(req: NextRequest, res: NextResponse) {
     body: JSON.stringify(body),
   });
 
+  const strapiResponseData = await strapiRes.json();
+
   if (strapiRes.ok) {
     return new NextResponse(
-      JSON.stringify({ message: 'File uploaded successfully' }),
+      JSON.stringify({
+        message: 'File uploaded successfully',
+        data: strapiResponseData,
+      }),
       {
         status: res.status,
         headers: {

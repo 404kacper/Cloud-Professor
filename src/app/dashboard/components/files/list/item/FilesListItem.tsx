@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { ListTypes } from '../FilesList';
 
 import DataContext from '@/dataContext/DataContext';
+import { downloadOriginType } from '@/dataContext/DataTypes';
 
 export enum ListItemTypes {
   DEFAULT = 'default',
@@ -43,8 +44,13 @@ export default function FilesListItem({
     }
   };
 
+  // update appropriate state according to the type of list
   const handleDeleteFile = () => {
-    deleteMyFile(itemId)
+    if (type === ListTypes.UPLOAD) {
+      deleteMyFile(itemId, downloadOriginType.UPLOAD);
+    } else if (type === ListTypes.DOWNLOAD) {
+      deleteMyFile(itemId, downloadOriginType.DOWNLOAD);
+    }
   };
 
   // Helper function to convert bits to appopriate format for displaying
