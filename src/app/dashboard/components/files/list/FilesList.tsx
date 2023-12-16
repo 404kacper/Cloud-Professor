@@ -37,8 +37,6 @@ export default function FilesList({
   const renderItem = (file: any) => {
     const { extension, name } = extractExtension(file.fileName);
 
-    console.log(file);
-
     let fileFormat =
       extensionToFormatMap[extension.toLowerCase()] || ListItemTypes.DEFAULT;
 
@@ -47,6 +45,7 @@ export default function FilesList({
         <FilesListItem
           key={file.id}
           type={ListTypes.UPLOAD}
+          itemId={file.id}
           itemFormat={fileFormat}
           itemName={name}
           itemSize={Number(file.size)}
@@ -60,6 +59,7 @@ export default function FilesList({
         <FilesListItem
           key={file.id}
           type={ListTypes.DOWNLOAD}
+          itemId={file.id}
           itemFormat={fileFormat}
           itemName={name}
           itemSize={Number(file.size)}

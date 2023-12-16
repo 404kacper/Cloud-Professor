@@ -69,16 +69,11 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  // Method to retrieve files from server
+  // Retrieve user files from server
   // - associated by jwt token
   // - fetches files which have current user as an author
   const retrieveMyFiles = async () => {
-    const res = await fetch(`${NEXT_URL}/api/user/files/me`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    const res = await fetch(`${NEXT_URL}/api/user/files/me`);
 
     const resNext = await res.json();
 
@@ -93,16 +88,11 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  // Method to retrieve files from server
+  // Retrieve files shared with user from server
   // - associated by jwt token
   // - fetches files which have current user as an author
   const retrieveToMeFiles = async () => {
-    const res = await fetch(`${NEXT_URL}/api/user/files/tome`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    const res = await fetch(`${NEXT_URL}/api/user/files/tome`);
 
     const resNext = await res.json();
 
@@ -110,6 +100,29 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
       // display success message & update files state
       console.log(resNext.message);
       setToMeFiles(resNext.data);
+    } else {
+      setError(resNext.message);
+      // clear error message after 1s
+      setTimeout(() => setError(null), 1000);
+    }
+  };
+
+  // Retrieve files shared with user from server
+  // - associated by jwt token
+  // - fetches files which have current user as an author
+  const deleteMyFile = async (id: number) => {
+    const res = await fetch(`${NEXT_URL}/api/user/files/${id}`, {
+      method: 'DELETE',
+    });
+
+    const resNext = await res.json();
+
+    if (res.ok) {
+      // display success message & update files state
+      console.log(resNext.message);
+      // update files state here
+      // eg filter out what was returned from server
+      // setToMeFiles(resNext.data);
     } else {
       setError(resNext.message);
       // clear error message after 1s
@@ -126,6 +139,7 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
         uploadFile,
         retrieveMyFiles,
         retrieveToMeFiles,
+        deleteMyFile,
       }}
     >
       {children}

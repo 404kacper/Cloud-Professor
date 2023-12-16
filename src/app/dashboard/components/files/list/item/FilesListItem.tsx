@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styles from './FilesListItem.module.scss';
 import Image from 'next/image';
 import { ListTypes } from '../FilesList';
+
+import DataContext from '@/dataContext/DataContext';
 
 export enum ListItemTypes {
   DEFAULT = 'default',
@@ -12,6 +14,7 @@ export enum ListItemTypes {
 export default function FilesListItem({
   type,
   itemFormat,
+  itemId,
   className,
   itemName,
   itemSize,
@@ -21,6 +24,7 @@ export default function FilesListItem({
 }: {
   type: ListTypes;
   itemFormat: ListItemTypes;
+  itemId: number;
   className?: string;
   itemName: string;
   itemSize: number;
@@ -28,8 +32,19 @@ export default function FilesListItem({
   itemDate?: string;
   itemKey: string;
 }) {
-  const handleCopyKey = (event: React.MouseEvent<HTMLElement>) => {
-    console.log(itemKey);
+  const { deleteMyFile } = useContext(DataContext);
+
+  const handleCopyKey = async () => {
+    try {
+      await navigator.clipboard.writeText(itemKey);
+      console.log('File key copied to clipboard');
+    } catch (err) {
+      console.error('Failed to copy the file key:', err);
+    }
+  };
+
+  const handleDeleteFile = () => {
+    deleteMyFile(itemId)
   };
 
   // Helper function to convert bits to appopriate format for displaying
@@ -129,7 +144,7 @@ export default function FilesListItem({
         <div className={styles.downloadContainer}>
           <Image src='/dash/list-down.svg' alt='' fill />
         </div>
-        <div className={styles.trashContainer}>
+        <div className={styles.trashContainer} onClick={handleDeleteFile}>
           <Image src='/dash/list-trash.svg' alt='' fill />
         </div>
       </div>

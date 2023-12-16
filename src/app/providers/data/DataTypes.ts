@@ -11,6 +11,7 @@ export type dataContextType = {
   ) => void;
   retrieveMyFiles: () => void;
   retrieveToMeFiles: () => void;
+  deleteMyFile: (id: number) => void;
 };
 
 // default values for auth context
@@ -21,4 +22,5 @@ export const dataContextDefaultValue: dataContextType = {
   uploadFile: () => {},
   retrieveMyFiles: () => {},
   retrieveToMeFiles: () => {},
+  deleteMyFile: () => {},
 };
