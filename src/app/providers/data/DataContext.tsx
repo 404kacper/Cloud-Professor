@@ -46,6 +46,8 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
     }: { encryptedDataBase64: string; ivBase64: string } =
       await dataManager.encryptDataWithSymmetricKey(data, symKeyForFile);
 
+    console.log(encryptedData);
+
     const symKeyEncrypted: string =
       await keyManager.encryptSymmetricKeyWithPublicKey(
         symKeyForFile,

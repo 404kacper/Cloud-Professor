@@ -16,13 +16,26 @@ export function pemToBuffer(pem: string, isPrivateKey: boolean) {
   return base64ToArrayBuffer(base64String);
 }
 
-export function bufferToBase64(buffer: ArrayBuffer): string {
-  const binary = String.fromCharCode.apply(
-    null,
-    new Uint8Array(buffer) as unknown as number[]
-  );
-  return btoa(binary);
+export function bufferToBase64(buffer: ArrayBuffer): Promise<string> {
+  return new Promise<string>((resolve, reject) => {
+    const blob: Blob = new Blob([buffer], { type: 'application/octet-stream' });
+    const reader: FileReader = new FileReader();
+
+    reader.readAsDataURL(blob);
+    reader.onloadend = () => {
+      const base64data: string | ArrayBuffer | null = reader.result;
+      if (typeof base64data === 'string') {
+        resolve(base64data.split(',')[1]); // Split and get data after the comma
+      } else {
+        reject(new Error('Unexpected result type'));
+      }
+    };
+    reader.onerror = (error: ProgressEvent<FileReader>) => {
+      reject(error);
+    };
+  });
 }
+
 
 export function base64ToArrayBuffer(base64: string): ArrayBuffer {
   const binaryString = atob(base64);

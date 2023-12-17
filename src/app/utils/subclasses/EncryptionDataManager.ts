@@ -18,8 +18,8 @@ class EncryptionDataManager extends CryptoUserManager {
       );
 
       return {
-        encryptedDataBase64: bufferToBase64(encryptedData),
-        ivBase64: bufferToBase64(iv),
+        encryptedDataBase64: await bufferToBase64(encryptedData),
+        ivBase64: await bufferToBase64(iv),
       };
     } catch (error) {
       throw this.handleError('encryptDataWithSymmetricKey', error);
