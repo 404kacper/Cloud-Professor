@@ -40,3 +40,46 @@ export async function DELETE(
     );
   }
 }
+
+export async function GET(
+  req: NextApiRequest,
+  { params }: { params: { id: number } }
+) {
+  const cookiesStores = cookies();
+
+  const { id } = params;
+
+  const strapiRes = await fetch(`${API_URL}/api/user-files/${id}`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${cookiesStores.get('token')?.value}`,
+    },
+  });
+
+  const returnedFile = await strapiRes.json();
+
+  if (strapiRes.ok) {
+    return new Response(
+      JSON.stringify({
+        message: 'File downloaded successfully',
+        data: returnedFile.data.attributes,
+      }),
+      {
+        status: strapiRes.status,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+  } else {
+    return new Response(
+      JSON.stringify({ message: 'File could not be downloaded' }),
+      {
+        status: 403,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+  }
+}

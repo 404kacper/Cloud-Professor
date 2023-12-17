@@ -50,6 +50,9 @@ export default function Dropbox() {
   const onFileInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
       handleFiles(event.target.files);
+      // Reset the file input after handling files
+      // Makes it so that browser doesn't cache files & allows uploading the same file twice
+      event.target.value = '';
     }
   };
 
@@ -97,7 +100,7 @@ export default function Dropbox() {
         <div className={stylesDropbox.lead}>Upload Documents</div>
         <div className={stylesDropbox.leadSecondary}>
           Text files must be lesser than{' '}
-          <span className={stylesDropbox.leadSecondaryBolder}>2MB</span>
+          <span className={stylesDropbox.leadSecondaryBolder}>250kB</span>
         </div>
       </div>
       <input

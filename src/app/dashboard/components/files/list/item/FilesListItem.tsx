@@ -33,7 +33,7 @@ export default function FilesListItem({
   itemDate?: string;
   itemKey: string;
 }) {
-  const { deleteMyFile } = useContext(DataContext);
+  const { deleteMyFile, downloadMyFile } = useContext(DataContext);
 
   const handleCopyKey = async () => {
     try {
@@ -51,6 +51,24 @@ export default function FilesListItem({
     } else if (type === ListTypes.DOWNLOAD) {
       deleteMyFile(itemId, downloadOriginType.DOWNLOAD);
     }
+  };
+
+  const handleDownloadFile = async () => {
+    console.log('Downloading file...');
+    const fileData = await downloadMyFile(itemId);
+    console.log('Downloading finished...');
+    const blob = new Blob([fileData]);
+    const downloadUrl = window.URL.createObjectURL(blob);
+
+    // Download file
+    const a = document.createElement('a');
+    a.href = downloadUrl;
+    console.log(`set filename: ${itemName}.${itemFormat}`);
+    a.download = `${itemName}.${itemFormat}`; // Set the file name
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(downloadUrl);
+    a.remove();
   };
 
   // Helper function to convert bits to appopriate format for displaying
@@ -147,7 +165,7 @@ export default function FilesListItem({
       ) : null}
 
       <div className={styles.actionsContainer}>
-        <div className={styles.downloadContainer}>
+        <div className={styles.downloadContainer} onClick={handleDownloadFile}>
           <Image src='/dash/list-down.svg' alt='' fill />
         </div>
         <div className={styles.trashContainer} onClick={handleDeleteFile}>

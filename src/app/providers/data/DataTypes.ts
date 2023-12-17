@@ -12,7 +12,7 @@ export type dataContextType = {
   retrieveMyFiles: () => void;
   retrieveToMeFiles: () => void;
   deleteMyFile: (id: number, origin: downloadOriginType) => void;
-  downloadMyFile: (id: number) => void;
+  downloadMyFile: (id: number) => Promise<ArrayBuffer>;
 };
 
 // default values for auth context
@@ -24,7 +24,7 @@ export const dataContextDefaultValue: dataContextType = {
   retrieveMyFiles: () => {},
   retrieveToMeFiles: () => {},
   deleteMyFile: () => {},
-  downloadMyFile: () => {},
+  downloadMyFile: () => Promise.resolve(new ArrayBuffer(0)),
 };
 
 export const enum downloadOriginType {

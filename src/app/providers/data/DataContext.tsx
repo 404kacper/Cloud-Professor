@@ -1,14 +1,18 @@
 'use client';
-import { createContext, useState } from 'react';
+import { createContext, useState, useContext } from 'react';
 import { NEXT_URL } from '@/config/index';
 import { ReactNode } from 'react';
+
 import {
   dataContextDefaultValue,
   dataContextType,
   downloadOriginType,
 } from './DataTypes';
+
 import EncryptionDataManager from '@/utils/subclasses/EncryptionDataManager';
 import EncryptionKeyManager from '@/utils/subclasses/EncryptionKeyManager';
+
+import KeysContext from '@/keysContext/KeysContext';
 
 const DataContext = createContext<dataContextType>(dataContextDefaultValue);
 
@@ -16,8 +20,11 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
   const [myFiles, setMyFiles] = useState(dataContextDefaultValue.myFiles);
   const [toMeFiles, setToMeFiles] = useState(dataContextDefaultValue.toMeFiles);
   const [error, setError] = useState(dataContextDefaultValue.error);
+
   const keyManager = new EncryptionKeyManager();
   const dataManager = new EncryptionDataManager();
+
+  const { privateKey, iv } = useContext(KeysContext);
 
   // Upload file:
   //  - Recieves binary buffer with file data & reciever's public key & file name (extension included) + file size
@@ -144,21 +151,46 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const downloadMyFile = async (id: number) => {
+  // Retrieve downloades clicked file
+  // - associated by jwt token
+  // - fetches stored file data from server by id of a clicked element
+  // - file contents are stored in plain text (encrypted but not streamed)
+  const downloadMyFile = async (id: number): Promise<ArrayBuffer> => {
     const res = await fetch(`${NEXT_URL}/api/user/files/${id}`);
 
     const resNext = await res.json();
 
     if (res.ok) {
-      // display success message & update files state
+      // display success message after fetching necessary file data
       console.log(resNext.message);
-      // update files state here
-      // eg filter out what was returned from server
-      // setToMeFiles(resNext.data);
+      // masterPassword for private key - hardcoded for now (will be taken from user input)
+      const masterPassword = 'abrakadabra';
+      let privateKeyDecrypted: CryptoKey = await keyManager.decryptPrivateKey(
+        privateKey,
+        iv,
+        masterPassword
+      );
+
+      let symmetricKeyDecrypted: CryptoKey =
+        await keyManager.decryptSymmetricKeyWithPrivateKey(
+          resNext.data.key,
+          privateKeyDecrypted
+        );
+
+      let fileDataDecrypted: ArrayBuffer =
+        await dataManager.decryptDataWithSymmetricKey(
+          resNext.data.contents,
+          symmetricKeyDecrypted,
+          resNext.data.fileIv
+        );
+
+      // return ArrayBuffer with decrypted file data & convert it into a url on frontend & download it
+      return fileDataDecrypted;
     } else {
       setError(resNext.message);
       // clear error message after 1s
       setTimeout(() => setError(null), 1000);
+      return new ArrayBuffer(0);
     }
   };
 

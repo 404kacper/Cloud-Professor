@@ -32,8 +32,6 @@ export default function Dasbhoard() {
   let symmetricKeyDecrypted: CryptoKey;
 
   let symmetricKeyGenerated: CryptoKey;
-  // hardcoded from postman request
-  const masterPassword = 'abrakadabra';
 
   // Base64 string after encoding the file & uploading (simulates the file after being fetched)
   // comes from db: encrypted file data - doesn't need to be stored in KeysContext
@@ -49,24 +47,22 @@ export default function Dasbhoard() {
   //  - uses decrypted private key to decrypt symmetric key (encrypted in step 1)
   //  - uses decrypted symmetric key to decrypt file data and displays it
   const testFlow = async () => {
-    // Encrypt the key with the public key
-    // This actually belong to upload logic but for w/e it's just testing
-    const encryptSymmetricKey = async (): Promise<string> => {
-      try {
-        const encryptedSymmetricKeyBase64 =
-          await encryptionKeyManager.encryptSymmetricKeyWithPublicKey(
-            symmetricKeyGenerated,
-            publicKey
-          );
-        return encryptedSymmetricKeyBase64;
-      } catch (error) {
-        console.error('Error encrypting symmetric key:', error);
-        throw error;
-      }
-    };
+    // const encryptSymmetricKey = async (): Promise<string> => {
+    //   try {
+    //     const encryptedSymmetricKeyBase64 =
+    //       await encryptionKeyManager.encryptSymmetricKeyWithPublicKey(
+    //         symmetricKeyGenerated,
+    //         publicKey
+    //       );
+    //     return encryptedSymmetricKeyBase64;
+    //   } catch (error) {
+    //     console.error('Error encrypting symmetric key:', error);
+    //     throw error;
+    //   }
+    // };
 
     // execute above and return the encrypted key in base64
-    const encryptedSymKey = await encryptSymmetricKey();
+    // const encryptedSymKey = await encryptSymmetricKey();
 
     // decrypted the private key with the master password
     privateKeyDecrypted = await encryptionKeyManager.decryptPrivateKey(
