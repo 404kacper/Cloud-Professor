@@ -72,12 +72,11 @@ export default function FilesListItem({
   };
 
   // Helper function to convert bits to appopriate format for displaying
-  const formatItemSize = (sizeInBits: number): string => {
-    const sizeInBytes = sizeInBits / 8;
+  const formatItemSize = (sizeInBytes: number): string => {
     if (sizeInBytes < 1024) {
       return `${sizeInBytes} B`;
     } else if (sizeInBytes >= 1024 && sizeInBytes < Math.pow(1024, 2)) {
-      return `${Math.round(sizeInBytes / 1024)} kB`;
+      return `${Math.round(sizeInBytes / 1024)} KB`;
     } else if (
       sizeInBytes >= Math.pow(1024, 2) &&
       sizeInBytes < Math.pow(1024, 3)
