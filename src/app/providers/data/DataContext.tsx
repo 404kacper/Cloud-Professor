@@ -162,38 +162,37 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
 
     const resNext = await res.json();
 
-    if (res.ok) {
-      // display success message after fetching necessary file data
-      console.log(resNext.message);
-      // masterPassword for private key - hardcoded for now (will be taken from user input)
-      const masterPassword = 'abrakadabra';
-      let privateKeyDecrypted: CryptoKey = await keyManager.decryptPrivateKey(
-        privateKey,
-        iv,
-        masterPassword
-      );
-
-      let symmetricKeyDecrypted: CryptoKey =
-        await keyManager.decryptSymmetricKeyWithPrivateKey(
-          resNext.data.key,
-          privateKeyDecrypted
-        );
-
-      let fileDataDecrypted: ArrayBuffer =
-        await dataManager.decryptDataWithSymmetricKey(
-          resNext.data.contents,
-          symmetricKeyDecrypted,
-          resNext.data.fileIv
-        );
-
-      // return ArrayBuffer with decrypted file data & convert it into a url on frontend & download it
-      return fileDataDecrypted;
-    } else {
+    if (!res.ok) {
       setError(resNext.message);
       // clear error message after 1s
       setTimeout(() => setError(null), 1000);
-      return new ArrayBuffer(0);
     }
+
+    // display success message after fetching necessary file data
+    console.log(resNext.message);
+    // masterPassword for private key - hardcoded for now (will be taken from user input)
+    const masterPassword = 'abrakadabra';
+    let privateKeyDecrypted: CryptoKey = await keyManager.decryptPrivateKey(
+      privateKey,
+      iv,
+      masterPassword
+    );
+
+    let symmetricKeyDecrypted: CryptoKey =
+      await keyManager.decryptSymmetricKeyWithPrivateKey(
+        resNext.data.key,
+        privateKeyDecrypted
+      );
+
+    let fileDataDecrypted: ArrayBuffer =
+      await dataManager.decryptDataWithSymmetricKey(
+        resNext.data.contents,
+        symmetricKeyDecrypted,
+        resNext.data.fileIv
+      );
+
+    // return ArrayBuffer with decrypted file data & convert it into a url on frontend & download it
+    return fileDataDecrypted;
   };
 
   return (
