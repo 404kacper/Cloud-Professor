@@ -36,6 +36,8 @@ export default function Dropbox() {
         // Loading the file data into an ArrayBuffer
         const arrayBuffer = e.target.result;
 
+        console.log(arrayBuffer);
+
         try {
           await uploadFile(arrayBuffer, publicKey, file.name, file.size);
         } catch (error) {
@@ -99,8 +101,8 @@ export default function Dropbox() {
         </div>
         <div className={stylesDropbox.lead}>Upload Documents</div>
         <div className={stylesDropbox.leadSecondary}>
-          Text files must be lesser than{' '}
-          <span className={stylesDropbox.leadSecondaryBolder}>250kB</span>
+          Files must be lesser than{' '}
+          <span className={stylesDropbox.leadSecondaryBolder}>250 MB</span>
         </div>
       </div>
       <input

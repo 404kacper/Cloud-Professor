@@ -20,7 +20,8 @@ import styles from './Dashboard.module.scss';
 export default function Dasbhoard() {
   const { user } = useContext(AuthContext);
   const { fetchKeys } = useContext(KeysContext);
-  const { retrieveMyFiles, retrieveToMeFiles } = useContext(DataContext);
+  const { retrieveMyFiles, retrieveToMeFiles, findUsers } =
+    useContext(DataContext);
 
   useEffect(() => {
     // redirect if user null in AuthContext provider (naive approach for now)
@@ -31,6 +32,8 @@ export default function Dasbhoard() {
     fetchKeys();
     retrieveMyFiles();
     retrieveToMeFiles();
+    // fetch 8 random users with empty query string
+    findUsers('');
   }, []);
 
   return (

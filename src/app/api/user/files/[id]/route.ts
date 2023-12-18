@@ -1,10 +1,10 @@
 import { API_URL } from '@/config/index';
-import type { NextApiRequest, NextApiResponse } from 'next';
+import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 
 // export async function DELETE(req: NextRequest, res: NextResponse) {
 export async function DELETE(
-  req: NextApiRequest,
+  req: NextResponse,
   { params }: { params: { id: number } }
 ) {
   const cookiesStores = cookies();
@@ -19,7 +19,7 @@ export async function DELETE(
   });
 
   if (strapiRes.ok) {
-    return new Response(
+    return new NextResponse(
       JSON.stringify({ message: 'File deleted successfully' }),
       {
         status: strapiRes.status,
@@ -29,7 +29,7 @@ export async function DELETE(
       }
     );
   } else {
-    return new Response(
+    return new NextResponse(
       JSON.stringify({ message: 'File could not be deleted' }),
       {
         status: 403,
@@ -42,7 +42,7 @@ export async function DELETE(
 }
 
 export async function GET(
-  req: NextApiRequest,
+  req: NextRequest,
   { params }: { params: { id: number } }
 ) {
   const cookiesStores = cookies();
@@ -59,7 +59,7 @@ export async function GET(
   const returnedFile = await strapiRes.json();
 
   if (strapiRes.ok) {
-    return new Response(
+    return new NextResponse(
       JSON.stringify({
         message: 'File downloaded successfully',
         data: returnedFile.data.attributes,
@@ -72,7 +72,7 @@ export async function GET(
       }
     );
   } else {
-    return new Response(
+    return new NextResponse(
       JSON.stringify({ message: 'File could not be downloaded' }),
       {
         status: 403,

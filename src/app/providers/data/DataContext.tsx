@@ -19,6 +19,7 @@ const DataContext = createContext<dataContextType>(dataContextDefaultValue);
 export const DataProvider = ({ children }: { children: ReactNode }) => {
   const [myFiles, setMyFiles] = useState(dataContextDefaultValue.myFiles);
   const [toMeFiles, setToMeFiles] = useState(dataContextDefaultValue.toMeFiles);
+  const [users, setUsers] = useState(dataContextDefaultValue.users);
   const [error, setError] = useState(dataContextDefaultValue.error);
 
   const keyManager = new EncryptionKeyManager();
@@ -45,8 +46,6 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
       ivBase64: iv,
     }: { encryptedDataBase64: string; ivBase64: string } =
       await dataManager.encryptDataWithSymmetricKey(data, symKeyForFile);
-
-    console.log(encryptedData);
 
     const symKeyEncrypted: string =
       await keyManager.encryptSymmetricKeyWithPublicKey(
@@ -153,10 +152,10 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  // Retrieve downloades clicked file
+  // Downloades clicked file
   // - associated by jwt token
   // - fetches stored file data from server by id of a clicked element
-  // - file contents are stored in plain text (encrypted but not streamed)
+  // - file contents are base64 encoded (encrypted)
   const downloadMyFile = async (id: number): Promise<ArrayBuffer> => {
     const res = await fetch(`${NEXT_URL}/api/user/files/${id}`);
 
@@ -195,17 +194,35 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
     return fileDataDecrypted;
   };
 
+  const findUsers = async (searchTerm: string) => {
+    const res = await fetch(`${NEXT_URL}/api/users?email=${searchTerm}`);
+
+    const resNext = await res.json();
+
+    if (res.ok) {
+      // display success message & update files state
+      console.log(resNext.message);
+      setUsers(resNext.data);
+    } else {
+      setError(resNext.message);
+      // clear error message after 1s
+      setTimeout(() => setError(null), 1000);
+    }
+  };
+
   return (
     <DataContext.Provider
       value={{
         error,
         myFiles,
         toMeFiles,
+        users,
         uploadFile,
         retrieveMyFiles,
         retrieveToMeFiles,
         deleteMyFile,
         downloadMyFile,
+        findUsers,
       }}
     >
       {children}

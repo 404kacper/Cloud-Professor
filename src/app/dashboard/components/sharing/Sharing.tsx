@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styles from './Sharing.module.scss';
 import SearchBar from './searchBar/SearchBar';
 import FriendBox from './friendBox/FriendBox';
 
+import DataContext from '@/dataContext/DataContext';
+
 export default function Sharing() {
+  const { users } = useContext(DataContext);
   return (
     <div className={styles.sharingSpacing}>
       <div className={styles.sharingContainer}>
@@ -17,14 +20,15 @@ export default function Sharing() {
           </div>
         </div>
         <div className={styles.friendsSection}>
-          <FriendBox />
-          <FriendBox />
-          <FriendBox />
-          <FriendBox />
-          <FriendBox />
-          <FriendBox />
-          <FriendBox />
-          <FriendBox />
+          {users
+            ? users.map((user: any) => (
+                <FriendBox
+                  key={user.id}
+                  username={user.username}
+                  email={user.email}
+                />
+              ))
+            : null}
         </div>
       </div>
     </div>
