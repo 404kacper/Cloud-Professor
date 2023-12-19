@@ -1,0 +1,33 @@
+.listContainer {
+  width: 100%;
+  height: 15vw;
+  overflow-y: scroll;
+  z-index: 1;
+  scroll-snap-type: y mandatory;
+  scroll-padding-top: 3.75vh;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.listContainer::-webkit-scrollbar {
+  display: none;
+}
+
+.listHeaderContainer {
+  width: 100%;
+  display: flex;
+  color: white;
+  font-size: 0.46875vw;
+  margin-bottom: 0.46875vw;
+}
+.listHeaderContainer .headerNameLabel {
+  width: 35%;
+}
+.listHeaderContainer .headerKeyLabel {
+  width: 25%;
+}
+.listHeaderContainer .headerSizeLabel {
+  width: 15%;
+}
+.listHeaderContainer .headerDateLabel {
+  width: 35%;
+}/*# sourceMappingURL=FilesList.module.css.map */

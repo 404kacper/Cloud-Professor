@@ -1,0 +1,17 @@
+.gradientBox {
+  position: relative;
+}
+.gradientBox::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 0.78125vw;
+  border: 2px solid transparent;
+  background: radial-gradient(at center, #ffaa28, rgba(248, 139, 22, 0.3647058824)) border-box, radial-gradient(at center, #ffffff, rgba(255, 255, 255, 0)) border-box;
+  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask-composite: exclude;
+}/*# sourceMappingURL=GradientBorderBox.module.css.map */

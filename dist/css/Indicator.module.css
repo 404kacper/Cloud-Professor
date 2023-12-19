@@ -1,0 +1,41 @@
+.indicatorContainer {
+  width: 32.5%;
+  height: 100%;
+  border-radius: 2.9296875vw;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+}
+.indicatorContainer::before {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  inset: 0;
+  border-radius: inherit;
+  background-color: rgba(0, 0, 0, 0.9);
+  mix-blend-mode: soft-light;
+}
+.indicatorContainer .imageContainer {
+  height: 100%;
+  width: 10%;
+  position: relative;
+  margin-right: 3.90625vw;
+}
+.indicatorContainer .textContainer {
+  height: 100%;
+  margin-left: 3.90625vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: white;
+  font-size: 0.78125vw;
+  font-weight: 500;
+}
+.indicatorContainer .textContainer .textBolder {
+  font-size: 2.03125vw;
+  font-weight: 600;
+  line-height: 100%;
+}/*# sourceMappingURL=Indicator.module.css.map */

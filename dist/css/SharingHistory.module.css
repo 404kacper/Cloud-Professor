@@ -1,0 +1,53 @@
+.historySpacingContainer {
+  height: 43%;
+  width: 100%;
+  padding: 0 2.0703125vw;
+  margin-bottom: 1vw;
+}
+.historySpacingContainer .historyContainer {
+  width: 100%;
+  height: 100%;
+  border-radius: 3.90625vw;
+  padding: 1.5625vw 3.90625vw;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.historySpacingContainer .historyContainer::before {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  inset: 0;
+  border-radius: inherit;
+  background-color: rgba(0, 0, 0, 0.625);
+  mix-blend-mode: soft-light;
+}
+.historySpacingContainer .historyContainer .title {
+  font-size: 1.09375vw;
+  font-weight: 500;
+  color: white;
+  line-height: 100%;
+}
+.historySpacingContainer .historyContainer .title .subtitle {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.625vw;
+  font-weight: 400;
+}
+.historySpacingContainer .historyContainer .historyContent {
+  width: 100%;
+  height: 100%;
+  border-radius: 0.9765625vw;
+  margin-top: 1vw;
+  position: relative;
+}
+.historySpacingContainer .historyContainer .historyContent::before {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  inset: 0;
+  border-radius: inherit;
+  background-color: rgba(0, 0, 0, 0.3);
+  mix-blend-mode: soft-light;
+}/*# sourceMappingURL=SharingHistory.module.css.map */

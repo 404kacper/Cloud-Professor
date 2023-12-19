@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styles from './LogsList.module.scss';
 import LogsListItem from './item/LogsListItem';
 import { ListItemVariants } from './item/LogsListItem';
+
+import DataContext from '@/dataContext/DataContext';
 
 export default function LogsList({
   firstLabel,
@@ -14,14 +16,27 @@ export default function LogsList({
   thirdLabel: string;
   fourthLabel: string;
 }) {
-  // array simulating data from context
-  const items = new Array(20).fill(null);
+  const { logs } = useContext(DataContext);
 
-  const renderItem = (index: number) => {
+  const renderItem = (log: any, index: number) => {
     return index % 2 == 0 ? (
-      <LogsListItem key={index} variant={ListItemVariants.DARK} />
+      <LogsListItem
+        key={index}
+        logUser={log.author.username}
+        logDate={log.createdAt}
+        logFilename={log.associatedFile}
+        logKey={log.author.publicKey}
+        variant={ListItemVariants.DARK}
+      />
     ) : (
-      <LogsListItem key={index} variant={ListItemVariants.TRANSPARENT} />
+      <LogsListItem
+        key={index}
+        logUser={log.author.username}
+        logDate={log.createdAt}
+        logFilename={log.associatedFile}
+        logKey={log.author.publicKey}
+        variant={ListItemVariants.TRANSPARENT}
+      />
     );
   };
 
@@ -34,7 +49,7 @@ export default function LogsList({
         <div className={styles.headerFourthLabel}>{fourthLabel}</div>
       </div>
       <div className={styles.listContainer}>
-        {items.map((_, index) => renderItem(index))}
+        {logs && logs.map((log: any, index: number) => renderItem(log, index))}
       </div>
     </div>
   );

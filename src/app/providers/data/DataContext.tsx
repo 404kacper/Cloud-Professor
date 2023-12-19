@@ -20,6 +20,7 @@ const DataContext = createContext<dataContextType>(dataContextDefaultValue);
 export const DataProvider = ({ children }: { children: ReactNode }) => {
   const [myFiles, setMyFiles] = useState(dataContextDefaultValue.myFiles);
   const [toMeFiles, setToMeFiles] = useState(dataContextDefaultValue.toMeFiles);
+  const [logs, setLogs] = useState(dataContextDefaultValue.logs);
   const [users, setUsers] = useState(dataContextDefaultValue.users);
   const [error, setError] = useState(dataContextDefaultValue.error);
 
@@ -118,6 +119,24 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
       // display success message & update files state
       console.log(resNext.message);
       setToMeFiles(resNext.data);
+    } else {
+      setError(resNext.message);
+      // clear error message after 1s
+      setTimeout(() => setError(null), 1000);
+    }
+  };
+
+  // Retrieve files logs where user is a recipient
+  // - associated by jwt token
+  const retrieveMylogs = async () => {
+    const res = await fetch(`${NEXT_URL}/api/user/logs`);
+
+    const resNext = await res.json();
+
+    if (res.ok) {
+      // display success message & update files state
+      console.log(resNext.message);
+      setLogs(resNext.data);
     } else {
       setError(resNext.message);
       // clear error message after 1s
@@ -227,12 +246,14 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
         myFiles,
         toMeFiles,
         users,
+        logs,
         uploadFile,
         retrieveMyFiles,
         retrieveToMeFiles,
         deleteMyFile,
         downloadMyFile,
         findUsers,
+        retrieveMylogs
       }}
     >
       {children}

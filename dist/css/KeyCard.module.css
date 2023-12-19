@@ -1,0 +1,62 @@
+.keyCardContainer {
+  width: 40%;
+  height: 100%;
+  border-radius: 0.9765625vw;
+  padding: 1.875vw;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.keyCardContainer::before {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  inset: 0;
+  border-radius: inherit;
+  background-color: rgba(0, 0, 0, 0.3);
+  mix-blend-mode: soft-light;
+}
+.keyCardContainer .cardTitleContainer {
+  display: flex;
+  align-items: center;
+}
+.keyCardContainer .cardTitleContainer .imageContainer {
+  width: 1.171875vw;
+  height: 1.171875vw;
+  margin-right: 0.3125vw;
+  position: relative;
+  display: flex;
+}
+.keyCardContainer .cardTitleContainer .cardTitle {
+  font-size: 0.9375vw;
+  color: white;
+  font-weight: 500;
+}
+.keyCardContainer .cardSubtitle {
+  font-size: 0.625vw;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 400;
+}
+.keyCardContainer .infoContainer {
+  font-size: 0.703125vw;
+  color: rgb(255, 255, 255);
+  font-weight: 400;
+  flex-grow: 1;
+  z-index: 2;
+}
+.keyCardContainer .sceneContainer {
+  transform: translateY(-50%);
+  width: 11.71875vw;
+  position: absolute;
+  right: 0;
+}
+.keyCardContainer .sceneContainerPublic {
+  aspect-ratio: 1.43/1;
+  top: 1.875vw;
+}
+.keyCardContainer .sceneContainerPrivate {
+  aspect-ratio: 1.77/1;
+  width: 13.671875vw;
+  top: 0.46875vw;
+}/*# sourceMappingURL=KeyCard.module.css.map */

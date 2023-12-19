@@ -4,6 +4,7 @@ export type dataContextType = {
   myFiles: any;
   toMeFiles: any;
   users: any;
+  logs: any;
   uploadFile: (
     data: ArrayBuffer,
     recipientsPublicKey: string,
@@ -12,6 +13,7 @@ export type dataContextType = {
   ) => void;
   retrieveMyFiles: () => void;
   retrieveToMeFiles: () => void;
+  retrieveMylogs: () => void;
   deleteMyFile: (id: number, origin: downloadOriginType) => void;
   downloadMyFile: (id: number) => Promise<ArrayBuffer>;
   findUsers: (email: string) => void;
@@ -23,9 +25,11 @@ export const dataContextDefaultValue: dataContextType = {
   myFiles: null,
   toMeFiles: null,
   users: null,
+  logs: null,
   uploadFile: () => {},
   retrieveMyFiles: () => {},
   retrieveToMeFiles: () => {},
+  retrieveMylogs: () => {},
   deleteMyFile: () => {},
   downloadMyFile: () => Promise.resolve(new ArrayBuffer(0)),
   findUsers: () => {},

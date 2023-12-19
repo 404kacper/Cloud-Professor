@@ -1,0 +1,42 @@
+.keysSpacingContainer {
+  height: 43%;
+  width: 100%;
+  padding: 0 2.0703125vw;
+}
+.keysSpacingContainer .keyCardsContainer {
+  width: 100%;
+  height: 100%;
+  border-radius: 3.90625vw;
+  position: relative;
+  padding: 1.5625vw 3.90625vw;
+  display: flex;
+  flex-direction: column;
+}
+.keysSpacingContainer .keyCardsContainer::before {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  inset: 0;
+  border-radius: inherit;
+  background-color: rgba(0, 0, 0, 0.625);
+  mix-blend-mode: soft-light;
+}
+.keysSpacingContainer .keyCardsContainer .title {
+  font-size: 1.09375vw;
+  font-weight: 500;
+  color: white;
+  line-height: 100%;
+}
+.keysSpacingContainer .keyCardsContainer .title .subtitle {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.625vw;
+  font-weight: 400;
+}
+.keysSpacingContainer .keyCardsContainer .cardsSpacingContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  margin-top: 1vw;
+}/*# sourceMappingURL=KeysCentre.module.css.map */

@@ -18,7 +18,7 @@ import styles from './Dashboard.module.scss';
 export default function Dasbhoard() {
   const { user } = useContext(AuthContext);
   const { fetchKeys } = useContext(KeysContext);
-  const { retrieveMyFiles, retrieveToMeFiles, findUsers } =
+  const { retrieveMyFiles, retrieveToMeFiles, retrieveMylogs, findUsers } =
     useContext(DataContext);
 
   // fetch all the necessary data for all dashboard navigation links in here
@@ -32,9 +32,9 @@ export default function Dasbhoard() {
     fetchKeys();
     retrieveMyFiles();
     retrieveToMeFiles();
+    retrieveMylogs();
     // fetch 8 random users with empty query string
     findUsers('');
-
   }, []);
 
   return (

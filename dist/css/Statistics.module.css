@@ -1,0 +1,23 @@
+.statisticsContainer {
+  display: grid;
+  grid-template-areas: "nav content";
+  grid-template-columns: 15% 85%;
+  height: 100vh;
+  width: 100vw;
+  background-image: url("/dash/BG.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top;
+  mix-blend-mode: difference;
+  position: relative;
+  z-index: 1;
+}
+.statisticsContainer .navContainer {
+  grid-area: nav;
+}
+.statisticsContainer .statsContentContainer {
+  grid-area: content;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}/*# sourceMappingURL=Statistics.module.css.map */

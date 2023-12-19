@@ -1,0 +1,24 @@
+.statusContainer {
+  height: 10vh;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0 2.0703125vw;
+}
+.statusContainer .imageContainer {
+  width: 2.5vw;
+  height: 2.5vw;
+  position: relative;
+  margin-left: 0.78125vw;
+}
+.statusContainer .textContainer {
+  font-size: 0.78125vw;
+  color: white;
+  font-weight: 400;
+  text-align: right;
+}
+.statusContainer .textContainer .textBolder {
+  font-size: 0.9375vw;
+  font-weight: 500;
+}/*# sourceMappingURL=StatusBar.module.css.map */

@@ -1,0 +1,31 @@
+.uploadsContainer {
+  width: 49%;
+  height: 100%;
+  border-radius: 2.9296875vw;
+  position: relative;
+  padding: 1.5625vw 3.90625vw;
+  display: flex;
+  flex-direction: column;
+}
+.uploadsContainer::before {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  inset: 0;
+  border-radius: inherit;
+  background-color: rgba(0, 0, 0, 0.8);
+  mix-blend-mode: soft-light;
+}
+.uploadsContainer .title {
+  font-size: 1.09375vw;
+  font-weight: 500;
+  color: white;
+  line-height: 100%;
+  margin-bottom: 1vw;
+}
+.uploadsContainer .title .subtitle {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.625vw;
+  font-weight: 400;
+}/*# sourceMappingURL=UploadCentre.module.css.map */

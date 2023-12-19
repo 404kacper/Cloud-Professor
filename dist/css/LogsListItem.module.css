@@ -1,0 +1,80 @@
+.itemContainer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  position: relative;
+  font-size: 0.546875vw;
+  font-weight: 400;
+  color: rgb(255, 255, 255);
+  padding: 0.234375vw 0.9375vw;
+  scroll-snap-align: center;
+  animation: fade linear both;
+  animation-timeline: view();
+  animation-range: entry 100% cover 30%;
+  border-radius: 1.953125vw;
+}
+.itemContainer:last-child {
+  animation: fade linear both;
+  animation-timeline: view();
+  animation-range: entry 75%;
+}
+.itemContainerDark::before {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  inset: 0;
+  border-radius: inherit;
+  background-color: rgba(0, 0, 0, 0.75);
+  mix-blend-mode: hard-light;
+}
+.itemContainer .logFromContainer {
+  width: 25%;
+  display: flex;
+  align-items: center;
+  z-index: 2;
+}
+.itemContainer .logFromContainer .fromImageContainer {
+  position: relative;
+  min-width: 1.2890625vw;
+  min-height: 1.2890625vw;
+  margin-right: 0.3125vw;
+}
+.itemContainer .logDate {
+  z-index: 2;
+  width: 25%;
+}
+.itemContainer .logName {
+  z-index: 2;
+  width: 25%;
+}
+.itemContainer .keyValue {
+  z-index: 2;
+  width: 15%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.itemContainer .copyContainer {
+  z-index: 2;
+  width: 0.859375vw;
+  height: 0.859375vw;
+  margin-left: 0.46875vw;
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.itemContainer .copyContainer:hover {
+  filter: opacity(0.5);
+}
+
+@keyframes fade {
+  from {
+    opacity: 0.1;
+  }
+  to {
+    opacity: 1;
+  }
+}/*# sourceMappingURL=LogsListItem.module.css.map */

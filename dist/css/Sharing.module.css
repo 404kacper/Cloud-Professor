@@ -1,0 +1,56 @@
+.sharingSpacing {
+  width: 100%;
+  height: 13.671875vw;
+  margin: 1vw 0;
+  padding: 0vw 2.0703125vw;
+}
+.sharingSpacing .sharingContainer {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  border-radius: 2.9296875vw;
+  padding: 1.5625vw 3.90625vw;
+  display: flex;
+  flex-direction: column;
+}
+.sharingSpacing .sharingContainer::before {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  inset: 0;
+  border-radius: inherit;
+  background-color: rgba(0, 0, 0, 0.9);
+  mix-blend-mode: soft-light;
+}
+.sharingSpacing .sharingContainer .searchSection {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.sharingSpacing .sharingContainer .searchSection .title {
+  font-size: 1.09375vw;
+  font-weight: 500;
+  color: white;
+  line-height: 100%;
+}
+.sharingSpacing .sharingContainer .searchSection .title .subtitle {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.625vw;
+  font-weight: 400;
+}
+.sharingSpacing .sharingContainer .searchSection .searchBar {
+  height: 1.953125vw;
+  width: 33%;
+}
+.sharingSpacing .sharingContainer .friendsSection {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-column-gap: 4.375vw;
+  grid-row-gap: 0.9375vw;
+  margin-top: 1vw;
+}/*# sourceMappingURL=Sharing.module.css.map */

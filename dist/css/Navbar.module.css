@@ -1,0 +1,108 @@
+.container {
+  position: relative;
+  padding-left: 3vw;
+  padding-bottom: 1vw;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.container ul,
+.container li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.container .logoContainer {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 10vh;
+}
+.container .logo {
+  color: white;
+  letter-spacing: 0.2vw;
+  text-align: center;
+  font-size: 0.9375vw;
+  z-index: 2;
+}
+.container .logo h1 {
+  margin: 0;
+}
+.container .navList {
+  position: relative;
+  padding-top: 1.71875vw;
+}
+.container .navList .selector {
+  width: 0.48828125vw;
+  height: 0.9765625vw;
+  position: absolute;
+  right: 0;
+  top: 2.5vw;
+  transition: trasnform 3s ease;
+  transform: translateY(0);
+}
+.container .navList .selectorKeys {
+  top: 5.5vw;
+}
+.container .navList .selectorStatistics {
+  top: 8.3vw;
+}
+.container .navList .selectorLibrary {
+  top: 11.2vw;
+}
+.container .navList .selectorSettings {
+  top: 14.2vw;
+}
+.container .navList .selector::before {
+  content: "";
+  position: absolute;
+  right: -4.5vw;
+  top: -4.5vw;
+  width: 10vw;
+  height: 10vw;
+  background: radial-gradient(ellipse at center, rgb(11, 27, 49) 0%, rgba(43, 126, 182, 0) 75%);
+}
+.container .navList .navItem {
+  display: flex;
+  align-items: center;
+  font-size: 0.9375vw;
+  font-weight: 500;
+  color: white;
+  margin-bottom: 1.40625vw;
+}
+.container .navList .navItem .navButton {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+}
+.container .navList .navItem .navButton a {
+  color: inherit;
+  text-decoration: none;
+  z-index: 999;
+}
+.container .navList .navItem .navButton .icon {
+  width: 1.40625vw;
+  height: 1.40625vw;
+  margin-right: 2.5vw;
+  position: relative;
+}
+.container .navList .navItem .navButtonActive {
+  border-radius: 1.5vw;
+  width: 11.5vw;
+  padding: 0.5vw 1vw;
+  margin-left: -1vw;
+  position: relative;
+}
+.container .navList .navItem .navButtonActive::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background-color: rgba(0, 0, 0, 0.85);
+  mix-blend-mode: soft-light;
+}/*# sourceMappingURL=Navbar.module.css.map */

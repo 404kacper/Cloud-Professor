@@ -10,11 +10,11 @@ export default function Indicators() {
   return (
     <div className={styles.indicatorsContainer}>
       <Indicator
-        count={user ? user.totalFiles : '0'}
+        count={user.totalFiles ? user.totalFiles : '0'}
         type={IndicatorType.TOTAL}
       />
-      <Indicator count={user ? user.downloadedFiles : '0'} type={IndicatorType.DOWNLOAD} />
-      <Indicator count={user ? user.uploadedFiles : '0'} type={IndicatorType.UPLOAD} />
+      <Indicator count={user.downloadedFiles ? user.downloadedFiles : '0'} type={IndicatorType.DOWNLOAD} />
+      <Indicator count={user.uploadedFiles ? user.uploadedFiles : '0'} type={IndicatorType.UPLOAD} />
     </div>
   );
 }
