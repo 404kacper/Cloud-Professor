@@ -88,8 +88,26 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  // immutable update pattern to change indicator values in UI
+  const adjustUserProperty = (
+    property: 'downloadedFiles' | 'totalFiles' | 'uploadedFiles',
+    adjustment: 'increment' | 'decrement'
+  ) => {
+    if (user) {
+      setUser((prevUser: any) => ({
+        ...prevUser,
+        [property]:
+          adjustment === 'increment'
+            ? (prevUser[property] ?? 0) + 1
+            : Math.max((prevUser[property] ?? 0) - 1, 0), // Prevent negative values
+      }));
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ user, error, login, register, verifyUser }}>
+    <AuthContext.Provider
+      value={{ user, error, login, register, verifyUser, adjustUserProperty }}
+    >
       {children}
     </AuthContext.Provider>
   );

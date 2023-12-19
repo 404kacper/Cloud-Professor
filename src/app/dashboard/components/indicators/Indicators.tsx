@@ -1,14 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styles from './Indicators.module.scss';
+
+import AuthContext from '@/context/AuthContext';
 
 import Indicator, { IndicatorType } from './indicator/Indicator';
 
 export default function Indicators() {
+  const { user } = useContext(AuthContext);
   return (
     <div className={styles.indicatorsContainer}>
-      <Indicator count='26' type={IndicatorType.TOTAL} />
-      <Indicator count='123' type={IndicatorType.DOWNLOAD}/>
-      <Indicator count='3' type={IndicatorType.UPLOAD}/>
+      <Indicator
+        count={user ? user.totalFiles : '0'}
+        type={IndicatorType.TOTAL}
+      />
+      <Indicator count={user ? user.downloadedFiles : '0'} type={IndicatorType.DOWNLOAD} />
+      <Indicator count={user ? user.uploadedFiles : '0'} type={IndicatorType.UPLOAD} />
     </div>
   );
 }

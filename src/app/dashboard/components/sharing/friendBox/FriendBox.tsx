@@ -19,7 +19,8 @@ export default function FriendBox({
         <Image src='/dash/sharing-placeholder.png' alt='' fill />
       </div>
       <div className={styles.textContainer}>
-        {name}
+        {/* capitalize 1st letter of username - just makes it look cleaner & contains query isn't case sensitive anyways*/}
+        {name.charAt(0).toUpperCase() + name.slice(1)}
         <br />
         <span className={styles.textThinner}>{email}</span>
       </div>

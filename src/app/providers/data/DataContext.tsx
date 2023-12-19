@@ -13,6 +13,7 @@ import EncryptionDataManager from '@/utils/subclasses/EncryptionDataManager';
 import EncryptionKeyManager from '@/utils/subclasses/EncryptionKeyManager';
 
 import KeysContext from '@/keysContext/KeysContext';
+import AuthContext from '@/context/AuthContext';
 
 const DataContext = createContext<dataContextType>(dataContextDefaultValue);
 
@@ -26,6 +27,7 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
   const dataManager = new EncryptionDataManager();
 
   const { privateKey, iv } = useContext(KeysContext);
+  const { adjustUserProperty } = useContext(AuthContext);
 
   // Upload file:
   //  - Recieves binary buffer with file data & reciever's public key & file name (extension included) + file size
@@ -75,6 +77,9 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
       console.log(resNext.message);
       // add new file to the state
       setMyFiles((currentFiles: any) => [...currentFiles, resNext.data]);
+      // account for changes in indicators
+      adjustUserProperty('totalFiles', 'increment');
+      adjustUserProperty('uploadedFiles', 'increment');
     } else {
       setError(resNext.message);
       // clear error message after 1s
@@ -143,8 +148,10 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
           currentFiles.filter((file: any) => file.id !== id)
         );
       } else {
-        setError('Unknown origin when downloading file');
+        setError('Unknown origin when deleting file');
       }
+      // account for changes in indicators
+      adjustUserProperty('totalFiles', 'decrement');
     } else {
       setError(resNext.message);
       // clear error message after 1s
@@ -189,6 +196,9 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
         symmetricKeyDecrypted,
         resNext.data.fileIv
       );
+
+    // account for changes in indicators
+    adjustUserProperty('downloadedFiles', 'increment');
 
     // return ArrayBuffer with decrypted file data & convert it into a url on frontend & download it
     return fileDataDecrypted;
