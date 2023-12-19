@@ -4,8 +4,6 @@ import AuthContext from '@/context/AuthContext';
 import KeysContext from '@/keysContext/KeysContext';
 import DataContext from '@/dataContext/DataContext';
 import { redirect } from 'next/navigation';
-import EncryptionDataManager from '@/utils/subclasses/EncryptionDataManager';
-import EncryptionKeyManager from '@/utils/subclasses/EncryptionKeyManager';
 
 import Navbar from './components/navbar/Navbar';
 import StatusBar from './components/statusBar/StatusBar';
@@ -23,6 +21,8 @@ export default function Dasbhoard() {
   const { retrieveMyFiles, retrieveToMeFiles, findUsers } =
     useContext(DataContext);
 
+  // fetch all the necessary data for all dashboard navigation links in here
+  // the state values don't change between client side navigation
   useEffect(() => {
     // redirect if user null in AuthContext provider (naive approach for now)
     if (!user) {
@@ -34,6 +34,7 @@ export default function Dasbhoard() {
     retrieveToMeFiles();
     // fetch 8 random users with empty query string
     findUsers('');
+
   }, []);
 
   return (

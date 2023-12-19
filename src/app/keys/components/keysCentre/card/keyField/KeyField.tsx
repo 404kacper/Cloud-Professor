@@ -1,15 +1,18 @@
 'use client';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import styles from './KeyField.module.scss';
 import Image from 'next/image';
 
 import { KeyType } from '../KeyCard';
 
+import KeysContext from '@/keysContext/KeysContext';
+
 export default function KeyField({ type }: { type: KeyType }) {
+  const { publicKey, privateKey } = useContext(KeysContext);
+
   const [revealPassword, setRevealPassword] = useState(false);
   // the private key here will still be the encrypted one
-  const keyValue =
-    'Adawdwdawdawawdawjdbawiudhbawuydhabwdjkhuyawvbduyawawdawdawndiluawnduyawgbdaliwubawuiydbawuidoyawbdouylawdb';
+  const keyValue = type == KeyType.PUBLIC ? publicKey : privateKey;
 
   const copyToClipboard = async (text: string) => {
     try {
