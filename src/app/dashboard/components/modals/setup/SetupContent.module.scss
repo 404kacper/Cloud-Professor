@@ -109,6 +109,10 @@
               outline: none;
             }
           }
+
+          &Error {
+            border: 1px solid red;
+          }
         }
 
         .alertContainer {
@@ -124,6 +128,10 @@
             position: relative;
             width: px-to-vw(30);
             height: px-to-vw(30);
+          }
+
+          &Error {
+            color: red;
           }
         }
       }

@@ -16,7 +16,7 @@ import ModalContainer, { ModalTypes } from './components/modals/ModalContainer';
 import styles from './Dashboard.module.scss';
 
 export default function Dasbhoard() {
-  const { user } = useContext(AuthContext);
+  const { user, displaySetupModal } = useContext(AuthContext);
   const { fetchKeys } = useContext(KeysContext);
   const { retrieveMyFiles, retrieveToMeFiles, retrieveMylogs, findUsers } =
     useContext(DataContext);
@@ -39,7 +39,7 @@ export default function Dasbhoard() {
 
   return (
     <div className={styles.dashboardContainer}>
-      <ModalContainer type={ModalTypes.SETUP} />
+      {displaySetupModal ? <ModalContainer type={ModalTypes.SETUP} /> : null}
       <div className={styles.navContainer}>
         <Navbar></Navbar>
       </div>

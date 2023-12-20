@@ -8,6 +8,9 @@ const AuthContext = createContext<authContextType>(authContextDefaultValue);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState(authContextDefaultValue.user);
+  const [displaySetupModal, setDisplaySetupModal] = useState(
+    authContextDefaultValue.displaySetupModal
+  );
   const [error, setError] = useState(authContextDefaultValue.error);
 
   // check for cookie with token name
@@ -83,6 +86,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     if (res.ok) {
       setUser(data.user);
+      // based on the returned data also update the setup state to show the setup modal
+      data.user.doneSetup
+        ? setDisplaySetupModal(false)
+        : setDisplaySetupModal(true);
     } else {
       setUser(null);
     }
@@ -106,7 +113,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, error, login, register, verifyUser, adjustUserProperty }}
+      value={{
+        user,
+        error,
+        displaySetupModal,
+        login,
+        register,
+        verifyUser,
+        adjustUserProperty,
+        setDisplaySetupModal,
+      }}
     >
       {children}
     </AuthContext.Provider>
