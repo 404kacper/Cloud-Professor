@@ -193,28 +193,58 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
       setTimeout(() => setError(null), 1000);
     }
 
+    console.log(resNext.data);
+
     // display success message after fetching necessary file data
     console.log(resNext.message);
     // masterPassword for private key - hardcoded for now (will be taken from user input)
-    const masterPassword = 'abrakadabra';
-    let privateKeyDecrypted: CryptoKey = await keyManager.decryptPrivateKey(
-      privateKey,
-      iv,
-      masterPassword
-    );
+    const masterPassword = '12312';
+    let privateKeyDecrypted: CryptoKey;
+    let symmetricKeyDecrypted: CryptoKey;
+    let fileDataDecrypted: ArrayBuffer;
 
-    let symmetricKeyDecrypted: CryptoKey =
-      await keyManager.decryptSymmetricKeyWithPrivateKey(
-        resNext.data.key,
-        privateKeyDecrypted
+    try {
+      privateKeyDecrypted = await keyManager.decryptPrivateKey(
+        privateKey,
+        iv,
+        masterPassword
       );
+    } catch {
+      setError('Wrong master password');
+      setTimeout(() => setError(null), 1000);
+      return Promise.reject('Private key could not be decrypted');
+    }
 
-    let fileDataDecrypted: ArrayBuffer =
-      await dataManager.decryptDataWithSymmetricKey(
+    // application flow doesn't allow for this to happend
+    // since the private key is either users or recipients - and they're always fetched properly
+    // but it's always good to check just in case
+    try {
+      symmetricKeyDecrypted =
+        await keyManager.decryptSymmetricKeyWithPrivateKey(
+          resNext.data.key,
+          privateKeyDecrypted
+        );
+    } catch {
+      setError('Private key is invalid');
+      setTimeout(() => setError(null), 1000);
+      return Promise.reject('Private key is invalid');
+    }
+
+    // same story with this - it definitely won't happen
+    // since even if the symmetric key is invalid - there will be output
+    // but that output will simply be meaningless
+    // unless a structural error exists within that passed key (whatever it might be)
+    try {
+      fileDataDecrypted = await dataManager.decryptDataWithSymmetricKey(
         resNext.data.contents,
         symmetricKeyDecrypted,
         resNext.data.fileIv
       );
+    } catch {
+      setError('Symmetric key is invalid');
+      setTimeout(() => setError(null), 1000);
+      return Promise.reject('Symmetric key is invalid');
+    }
 
     // account for changes in indicators
     adjustUserProperty('downloadedFiles', 'increment');
@@ -253,7 +283,7 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
         deleteMyFile,
         downloadMyFile,
         findUsers,
-        retrieveMylogs
+        retrieveMylogs,
       }}
     >
       {children}

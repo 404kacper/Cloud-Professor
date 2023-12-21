@@ -1,5 +1,7 @@
 'use client';
 import React, { useEffect, useContext } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+
 import AuthContext from '@/context/AuthContext';
 import KeysContext from '@/keysContext/KeysContext';
 import DataContext from '@/dataContext/DataContext';
@@ -18,8 +20,13 @@ import styles from './Dashboard.module.scss';
 export default function Dasbhoard() {
   const { user, displaySetupModal } = useContext(AuthContext);
   const { fetchKeys } = useContext(KeysContext);
-  const { retrieveMyFiles, retrieveToMeFiles, retrieveMylogs, findUsers } =
-    useContext(DataContext);
+  const {
+    error,
+    retrieveMyFiles,
+    retrieveToMeFiles,
+    retrieveMylogs,
+    findUsers,
+  } = useContext(DataContext);
 
   // fetch all the necessary data for all dashboard navigation links in here
   // the state values don't change between client side navigation
@@ -37,6 +44,10 @@ export default function Dasbhoard() {
     findUsers('');
   }, []);
 
+  useEffect(() => {
+    toast.error(error);
+  }, [error]);
+
   return (
     <div className={styles.dashboardContainer}>
       {displaySetupModal ? <ModalContainer type={ModalTypes.SETUP} /> : null}
@@ -45,6 +56,7 @@ export default function Dasbhoard() {
       </div>
       <div className={styles.dashContentContainer}>
         <StatusBar></StatusBar>
+        <ToastContainer />
         {/* 1:3:7 proportions for remaining */}
         <Indicators></Indicators>
         <Sharing></Sharing>
