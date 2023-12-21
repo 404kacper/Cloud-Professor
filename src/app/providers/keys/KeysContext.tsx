@@ -4,6 +4,8 @@ import { NEXT_URL } from '@/config/index';
 import { ReactNode } from 'react';
 import { keysContextDefaultValue, keysContextType } from './KeysTypes';
 
+import { ModalTypes } from 'src/app/dashboard/components/modals/ModalContainer';
+
 import AuthContext from '@/context/AuthContext';
 
 const KeysContext = createContext<keysContextType>(keysContextDefaultValue);
@@ -18,7 +20,7 @@ export const KeysProvider = ({ children }: { children: ReactNode }) => {
 
   // consume AuthContext here to update the set modal function
   // I don't see any other solution than this
-  const { setDisplaySetupModal } = useContext(AuthContext);
+  const { setDisplayModal } = useContext(AuthContext);
 
   // Check if user is logged in
   const fetchKeys = async () => {
@@ -48,7 +50,7 @@ export const KeysProvider = ({ children }: { children: ReactNode }) => {
       setPublicKey(data.publicKey);
       setPrivateKey(data.privateKey);
       setIv(data.iv);
-      setDisplaySetupModal(data.setupDone);
+      setDisplayModal(ModalTypes.NONE);
       return true;
     } else {
       setError(data.message);

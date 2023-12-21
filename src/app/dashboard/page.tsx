@@ -18,7 +18,7 @@ import ModalContainer, { ModalTypes } from './components/modals/ModalContainer';
 import styles from './Dashboard.module.scss';
 
 export default function Dasbhoard() {
-  const { user, displaySetupModal } = useContext(AuthContext);
+  const { user, displayModal } = useContext(AuthContext);
   const { fetchKeys } = useContext(KeysContext);
   const {
     error,
@@ -50,7 +50,13 @@ export default function Dasbhoard() {
 
   return (
     <div className={styles.dashboardContainer}>
-      {displaySetupModal ? <ModalContainer type={ModalTypes.SETUP} /> : null}
+      {displayModal == ModalTypes.SETUP ? (
+        <ModalContainer type={ModalTypes.SETUP} />
+      ) : displayModal == ModalTypes.SHARE_FILE ? (
+        <ModalContainer type={ModalTypes.SHARE_FILE} />
+      ) : displayModal == ModalTypes.PASSWORD_PROMPT ? (
+        <ModalContainer type={ModalTypes.PASSWORD_PROMPT} />
+      ) : null}
       <div className={styles.navContainer}>
         <Navbar></Navbar>
       </div>

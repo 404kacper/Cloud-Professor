@@ -3,13 +3,14 @@ import { createContext, useState, useEffect } from 'react';
 import { NEXT_URL } from '@/config/index';
 import { ReactNode } from 'react';
 import { authContextDefaultValue, authContextType } from './AuthTypes';
+import { ModalTypes } from 'src/app/dashboard/components/modals/ModalContainer';
 
 const AuthContext = createContext<authContextType>(authContextDefaultValue);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState(authContextDefaultValue.user);
-  const [displaySetupModal, setDisplaySetupModal] = useState(
-    authContextDefaultValue.displaySetupModal
+  const [displayModal, setDisplayModal] = useState(
+    authContextDefaultValue.displayModal
   );
   const [error, setError] = useState(authContextDefaultValue.error);
 
@@ -88,8 +89,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setUser(data.user);
       // based on the returned data also update the setup state to show the setup modal
       data.user.doneSetup
-        ? setDisplaySetupModal(false)
-        : setDisplaySetupModal(true);
+        ? setDisplayModal(ModalTypes.NONE)
+        : setDisplayModal(ModalTypes.SETUP);
     } else {
       setUser(null);
     }
@@ -116,12 +117,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       value={{
         user,
         error,
-        displaySetupModal,
+        displayModal,
         login,
         register,
         verifyUser,
         adjustUserProperty,
-        setDisplaySetupModal,
+        setDisplayModal,
       }}
     >
       {children}

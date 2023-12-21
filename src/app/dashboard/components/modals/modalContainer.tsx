@@ -5,10 +5,13 @@ import { useState } from 'react';
 
 import SetupContent from './setup/SetupContent';
 import PasswordPromptContent from './passwordPrompt/PasswordPromptContent';
+import ShareContent from './shareFile/ShareFileContent';
 
 export enum ModalTypes {
   SETUP = 'setup',
   PASSWORD_PROMPT = 'password_prompt',
+  SHARE_FILE = 'share_file',
+  NONE = 'none',
 }
 
 export default function ModalContainer({ type }: { type: ModalTypes }) {
@@ -30,7 +33,9 @@ export default function ModalContainer({ type }: { type: ModalTypes }) {
       {type === ModalTypes.SETUP ? (
         <SetupContent onSubmit={() => setModalVisible(false)} />
       ) : type === ModalTypes.PASSWORD_PROMPT ? (
-        <PasswordPromptContent onSubmit={() => setModalVisible(false)}/>
+        <PasswordPromptContent onSubmit={() => setModalVisible(false)} />
+      ) : type === ModalTypes.SHARE_FILE ? (
+        <ShareContent onSubmit={() => setModalVisible(false)} />
       ) : null}
     </div>
   );
