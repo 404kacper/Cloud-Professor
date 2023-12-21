@@ -65,6 +65,7 @@ export default function FilesList({
           itemSize={Number(file.size)}
           itemKeySize={Number(file.keySize)}
           itemKey={file.key}
+          itemAuthorEmail={file.author.email}
         />
       );
     }

@@ -22,6 +22,7 @@ export default function FilesListItem({
   itemKeySize,
   itemDate,
   itemKey,
+  itemAuthorEmail,
 }: {
   type: ListTypes;
   itemFormat: ListItemTypes;
@@ -32,6 +33,7 @@ export default function FilesListItem({
   itemKeySize: number;
   itemDate?: string;
   itemKey: string;
+  itemAuthorEmail?: string;
 }) {
   const { deleteMyFile, downloadMyFile } = useContext(DataContext);
 
@@ -117,7 +119,6 @@ export default function FilesListItem({
     return `${day}${daySuffix} ${months[monthIndex]} ${year}`;
   };
 
-  let iconSrc = '/dash/list-unknown.svg';
   const formattedItemSize = formatItemSize(itemSize);
   let formattedDate;
   if (itemDate) {
@@ -128,6 +129,7 @@ export default function FilesListItem({
     ? `${styles.itemContainer} ${className}`
     : styles.itemContainer;
 
+  let iconSrc = '/dash/list-unknown.svg';
   if (itemFormat === ListItemTypes.TXT) {
     iconSrc = '/dash/list-txt.svg';
   } else if (itemFormat === ListItemTypes.DOCX) {
@@ -159,7 +161,7 @@ export default function FilesListItem({
           <div className={styles.fromImageContainer}>
             <Image src='/dash/sharing-placeholder.png' alt='' fill />
           </div>
-          <div className={styles.fromEmail}>example@gmail.com</div>
+          <div className={styles.fromEmail}>{itemAuthorEmail}</div>
         </div>
       ) : null}
 
