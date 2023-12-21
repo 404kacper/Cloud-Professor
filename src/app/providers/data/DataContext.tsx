@@ -27,7 +27,7 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
   const keyManager = new EncryptionKeyManager();
   const dataManager = new EncryptionDataManager();
 
-  const { privateKey, iv } = useContext(KeysContext);
+  const { publicKey, privateKey, iv } = useContext(KeysContext);
   const { adjustUserProperty } = useContext(AuthContext);
 
   // Upload file:
@@ -40,7 +40,8 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
     data: ArrayBuffer,
     recipientsPublicKey: string,
     name: string,
-    size: number
+    size: number,
+    recipient?: string
   ) => {
     const symKeyForFile: CryptoKey = await keyManager.generateSymmetricKey();
 
@@ -56,19 +57,27 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
         recipientsPublicKey
       );
 
+    // construcc the request body with generated data
+    const requestBody: any = {
+      fileKey: symKeyEncrypted,
+      fileKeySize: (symKeyForFile.algorithm as any).length,
+      fileData: encryptedData,
+      fileIv: iv,
+      fileName: name,
+      fileSize: size,
+    };
+
+    // add the recipient if he's passed as an argument
+    if (recipient) {
+      requestBody.fileRecipient = recipient;
+    }
+
     const res = await fetch(`${NEXT_URL}/api/user/files`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        fileKey: symKeyEncrypted,
-        fileKeySize: (symKeyForFile.algorithm as any).length,
-        fileData: encryptedData,
-        fileIv: iv,
-        fileName: name,
-        fileSize: size,
-      }),
+      body: JSON.stringify(requestBody),
     });
 
     const resNext = await res.json();
@@ -193,12 +202,12 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
       setTimeout(() => setError(null), 1000);
     }
 
-    console.log(resNext.data);
+    console.log(publicKey);
 
     // display success message after fetching necessary file data
     console.log(resNext.message);
     // masterPassword for private key - hardcoded for now (will be taken from user input)
-    const masterPassword = '12312';
+    const masterPassword = '123123';
     let privateKeyDecrypted: CryptoKey;
     let symmetricKeyDecrypted: CryptoKey;
     let fileDataDecrypted: ArrayBuffer;

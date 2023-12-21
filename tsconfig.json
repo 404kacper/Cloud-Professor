@@ -25,7 +25,8 @@
       "@/splineContext/*": ["src/app/providers/spline/*"],
       "@/keysContext/*": ["src/app/providers/keys/*"],
       "@/dataContext/*": ["src/app/providers/data/*"],
-      "@/utils/*": ["src/app/utils/*"]
+      "@/utils/*": ["src/app/utils/*"],
+      "@/modalEnums": ["src/app/dashboard/components/modals/ModalContainer"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

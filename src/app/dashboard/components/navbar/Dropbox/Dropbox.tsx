@@ -9,15 +9,19 @@ import React, {
 
 import KeysContext from '@/keysContext/KeysContext';
 import DataContext from '@/dataContext/DataContext';
+import AuthContext from '@/context/AuthContext';
 
 import stylesDropbox from './Dropbox.module.scss';
 import Image from 'next/image';
 
-export default function Dropbox() {
+export default function Dropbox({ forModal }: { forModal?: boolean }) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isDragOver, setIsDragOver] = useState(false);
   const { uploadFile } = useContext(DataContext);
   const { publicKey } = useContext(KeysContext);
+  const {
+    clickedFriend: { key, email },
+  } = useContext(AuthContext);
 
   // This method encrypts files data:
   //  - with different symmetric key generated for each file
@@ -36,10 +40,14 @@ export default function Dropbox() {
         // Loading the file data into an ArrayBuffer
         const arrayBuffer = e.target.result;
 
-        console.log(arrayBuffer);
-
         try {
-          await uploadFile(arrayBuffer, publicKey, file.name, file.size);
+          // file sent to a friend
+          if (forModal) {
+            await uploadFile(arrayBuffer, key, file.name, file.size, email);
+          } else {
+            // file sent to user by himself
+            await uploadFile(arrayBuffer, publicKey, file.name, file.size);
+          }
         } catch (error) {
           console.error('Error processing file:', error);
         }
@@ -94,15 +102,35 @@ export default function Dropbox() {
       onDragOver={handleDragOver}
       onDragEnter={handleDragEnter}
       onDragLeave={handleDragLeave}
+      style={
+        forModal
+          ? { border: 'solid black 3px', width: '100%', marginLeft: '0' }
+          : {}
+      }
     >
-      <div className={stylesDropbox.textContainer}>
+      <div
+        className={stylesDropbox.textContainer}
+        style={forModal ? { color: '#000' } : {}}
+      >
         <div className={stylesDropbox.icon}>
-          <Image src='/dash/drop-cloud.svg' alt='Upload Icon' fill />
+          {forModal ? (
+            <Image src='/dash/drop-cloud-dark.svg' alt='Upload Icon' fill />
+          ) : (
+            <Image src='/dash/drop-cloud.svg' alt='Upload Icon' fill />
+          )}
         </div>
         <div className={stylesDropbox.lead}>Upload Documents</div>
-        <div className={stylesDropbox.leadSecondary}>
+        <div
+          className={stylesDropbox.leadSecondary}
+          style={forModal ? { color: 'rgba(0,0,0,0.65)' } : {}}
+        >
           Files must be lesser than{' '}
-          <span className={stylesDropbox.leadSecondaryBolder}>250 MB</span>
+          <span
+            className={stylesDropbox.leadSecondaryBolder}
+            style={forModal ? { color: '#000' } : {}}
+          >
+            250 MB
+          </span>
         </div>
       </div>
       <input

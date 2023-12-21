@@ -9,10 +9,14 @@ const AuthContext = createContext<authContextType>(authContextDefaultValue);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState(authContextDefaultValue.user);
+  const [error, setError] = useState(authContextDefaultValue.error);
+  // modal values
   const [displayModal, setDisplayModal] = useState(
     authContextDefaultValue.displayModal
   );
-  const [error, setError] = useState(authContextDefaultValue.error);
+  const [clickedFriend, setClickedFriend] = useState(
+    authContextDefaultValue.clickedFriend
+  );
 
   // check for cookie with token name
   useEffect(() => {
@@ -88,9 +92,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     if (res.ok) {
       setUser(data.user);
       // based on the returned data also update the setup state to show the setup modal
-      data.user.doneSetup
-        ? setDisplayModal(ModalTypes.NONE)
-        : setDisplayModal(ModalTypes.SETUP);
+      !data.user.doneSetup
+        ? setDisplayModal(ModalTypes.SETUP)
+        : setDisplayModal(ModalTypes.NONE);
     } else {
       setUser(null);
     }
@@ -118,11 +122,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         user,
         error,
         displayModal,
+        clickedFriend,
         login,
         register,
         verifyUser,
         adjustUserProperty,
         setDisplayModal,
+        setClickedFriend,
       }}
     >
       {children}

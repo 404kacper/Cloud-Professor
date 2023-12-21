@@ -1,11 +1,13 @@
 'use client';
 import styles from './modalContainer.module.scss';
 
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 
 import SetupContent from './setup/SetupContent';
 import PasswordPromptContent from './passwordPrompt/PasswordPromptContent';
 import ShareContent from './shareFile/ShareFileContent';
+
+import AuthContext from '@/context/AuthContext';
 
 export enum ModalTypes {
   SETUP = 'setup',
@@ -16,6 +18,7 @@ export enum ModalTypes {
 
 export default function ModalContainer({ type }: { type: ModalTypes }) {
   const [modalVisible, setModalVisible] = useState(true);
+  const { setDisplayModal } = useContext(AuthContext);
 
   return (
     <div
@@ -24,10 +27,11 @@ export default function ModalContainer({ type }: { type: ModalTypes }) {
       }`}
       // close modal when clicking outside of modal content
       // doesn't apply for setup modal
+      // also set the auth state to none
       onClick={(e) => {
         e.target === e.currentTarget &&
           type !== ModalTypes.SETUP &&
-          setModalVisible(false);
+          (setModalVisible(false), setDisplayModal(ModalTypes.NONE));
       }}
     >
       {type === ModalTypes.SETUP ? (

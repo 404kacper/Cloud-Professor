@@ -26,6 +26,7 @@ export default function Sharing() {
                   key={user.id}
                   username={user.username}
                   email={user.email}
+                  publicKey={user.publicKey}
                 />
               ))
             : null}

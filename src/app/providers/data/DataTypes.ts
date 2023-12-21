@@ -9,7 +9,8 @@ export type dataContextType = {
     data: ArrayBuffer,
     recipientsPublicKey: string,
     name: string,
-    size: number
+    size: number,
+    recipient?: string
   ) => void;
   retrieveMyFiles: () => void;
   retrieveToMeFiles: () => void;

@@ -106,6 +106,7 @@ class EncryptionKeyManager extends CryptoUserManager {
     publicKeyPem: string
   ): Promise<string> {
     try {
+      console.log(publicKeyPem);
       // Convert the PEM formatted public key to an ArrayBuffer
       // binary - public key
       const publicKeyBuffer = pemToBuffer(publicKeyPem, false);

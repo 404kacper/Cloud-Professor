@@ -61,7 +61,7 @@ export default function LogsListItem({
     const formattedMinutes = minutes.toString().padStart(2, '0');
 
     // Combine the date with the time
-    return `${day}${daySuffix} ${months[monthIndex]} ${year} at: ${hours}:${formattedMinutes}`;
+    return `${day}${daySuffix} ${months[monthIndex]} ${year} at ${hours}:${formattedMinutes}`;
   };
 
   const handleCopyKey = async () => {

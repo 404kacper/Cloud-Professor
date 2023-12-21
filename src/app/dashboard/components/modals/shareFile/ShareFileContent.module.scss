@@ -4,7 +4,7 @@
 
 .shareFileModalContainer {
   width: px-to-vw(1000);
-  height: px-to-vw(800);
+  height: px-to-vw(900);
   border: 2px solid black;
   border-radius: px-to-vw(50);
   // clip the overflow of below containers
@@ -12,7 +12,7 @@
 
   .imageArea {
     width: 100%;
-    height: px-to-vw(266.66666);
+    height: px-to-vw(266);
     border-bottom: 2px solid black;
     position: relative;
     display: flex;
@@ -21,17 +21,16 @@
 
     .subjectContainer {
       position: relative;
-      // height: 100%;
-      width: 7vw;
+      width: 8.5vw;
       align-self: flex-end;
-      aspect-ratio: 0.76/1;
+      aspect-ratio: 0.916/1;
     }
   }
 
   .textArea {
     width: 100%;
-    height: px-to-vw(533.33333);
-    padding-bottom: 0.5%;
+    height: px-to-vw(634);
+    padding: px-to-vw(50) 0;
     background-color: white;
     display: flex;
     justify-content: center;
@@ -43,8 +42,9 @@
     .buttonSizingContainer {
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: space-around;
       align-items: center;
+      height: 100%;
       gap: px-to-vw(40);
 
       .titleContainer {
@@ -52,7 +52,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        line-height: 130%;
+        line-height: 170%;
 
         .title {
           font-size: px-to-vw(32);
@@ -76,7 +76,7 @@
 
         .inputContainer {
           border-radius: px-to-vw(12);
-          border: 1px solid black;
+          border: 2px solid black;
           padding: px-to-vw(8) px-to-vw(16);
           display: flex;
           width: 100%;
@@ -85,7 +85,7 @@
             background-color: black;
             width: px-to-vw(30);
             height: px-to-vw(30);
-            padding: px-to-vw(5);
+            padding: px-to-vw(4);
             border-radius: px-to-vw(8);
             margin-right: px-to-vw(4);
 
@@ -108,30 +108,6 @@
             &:focus {
               outline: none;
             }
-          }
-
-          &Error {
-            border: 1px solid red;
-          }
-        }
-
-        .alertContainer {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-
-          font-size: px-to-vw(20);
-          font-weight: 600;
-          gap: px-to-vw(18);
-
-          .alertIconContainer {
-            position: relative;
-            width: px-to-vw(30);
-            height: px-to-vw(30);
-          }
-
-          &Error {
-            color: red;
           }
         }
       }
