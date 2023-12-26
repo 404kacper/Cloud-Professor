@@ -3,7 +3,7 @@ import { createContext, useState, useEffect } from 'react';
 import { NEXT_URL } from '@/config/index';
 import { ReactNode } from 'react';
 import { authContextDefaultValue, authContextType } from './AuthTypes';
-import { ModalTypes } from 'src/app/dashboard/components/modals/ModalContainer';
+import { ModalTypes } from '@/modalEnums';
 
 const AuthContext = createContext<authContextType>(authContextDefaultValue);
 

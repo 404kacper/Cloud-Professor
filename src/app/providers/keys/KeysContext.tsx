@@ -4,7 +4,7 @@ import { NEXT_URL } from '@/config/index';
 import { ReactNode } from 'react';
 import { keysContextDefaultValue, keysContextType } from './KeysTypes';
 
-import { ModalTypes } from 'src/app/dashboard/components/modals/ModalContainer';
+import { ModalTypes } from '@/modalEnums';
 
 import AuthContext from '@/context/AuthContext';
 

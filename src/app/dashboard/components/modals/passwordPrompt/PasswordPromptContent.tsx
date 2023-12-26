@@ -1,12 +1,41 @@
+import { useContext, useRef } from 'react';
 import styles from './PasswordPromptContent.module.scss';
 
 import Image from 'next/image';
+import DataContext from '@/dataContext/DataContext';
 
 export default function PasswordPromptContent({
   onSubmit,
 }: {
   onSubmit: () => void;
 }) {
+  const { downloadMyFile, fileNameToDownload, fileFormatToDownload } =
+    useContext(DataContext);
+  const passwordInputRef = useRef<HTMLInputElement>(null);
+
+  const handleOnClick = async () => {
+    const masterPassword = passwordInputRef.current?.value;
+    if (masterPassword) {
+      console.log('Downloading file...');
+      const fileData = await downloadMyFile(masterPassword);
+      console.log('Downloading finished...');
+      const blob = new Blob([fileData]);
+      const downloadUrl = window.URL.createObjectURL(blob);
+      // Download file
+      const a = document.createElement('a');
+      a.href = downloadUrl;
+      a.download = `${fileNameToDownload}.${fileFormatToDownload}`; // Set the file name
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(downloadUrl);
+      a.remove();
+      onSubmit();
+    } else {
+      // display error message
+      console.log(`Error - passsword field is empty`);
+    }
+  };
+
   return (
     <div className={styles.setupModalContainer}>
       <div className={styles.contentWrapper}>
@@ -36,10 +65,11 @@ export default function PasswordPromptContent({
                 type='password'
                 className={styles.passwordInput}
                 placeholder='Your Super Secret Master Password...'
+                ref={passwordInputRef}
               />
             </div>
           </div>
-          <div className={styles.submitButton} onClick={onSubmit}>
+          <div className={styles.submitButton} onClick={handleOnClick}>
             SEND
           </div>
         </div>

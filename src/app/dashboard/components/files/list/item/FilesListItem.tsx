@@ -4,6 +4,8 @@ import Image from 'next/image';
 import { ListTypes } from '../FilesList';
 
 import DataContext from '@/dataContext/DataContext';
+import AuthContext from '@/context/AuthContext';
+import { ModalTypes } from '@/modalEnums';
 import { downloadOriginType } from '@/dataContext/DataTypes';
 
 export enum ListItemTypes {
@@ -35,7 +37,13 @@ export default function FilesListItem({
   itemKey: string;
   itemAuthorEmail?: string;
 }) {
-  const { deleteMyFile, downloadMyFile } = useContext(DataContext);
+  const {
+    deleteMyFile,
+    setFileIdToDownload,
+    setFileNameToDownload,
+    setFileFormatToDownload,
+  } = useContext(DataContext);
+  const { setDisplayModal } = useContext(AuthContext);
 
   const handleCopyKey = async () => {
     try {
@@ -55,22 +63,15 @@ export default function FilesListItem({
     }
   };
 
+  // download the clicked file
   const handleDownloadFile = async () => {
-    console.log('Downloading file...');
-    const fileData = await downloadMyFile(itemId);
-    console.log('Downloading finished...');
-    const blob = new Blob([fileData]);
-    const downloadUrl = window.URL.createObjectURL(blob);
-
-    // Download file
-    const a = document.createElement('a');
-    a.href = downloadUrl;
-    console.log(`set filename: ${itemName}.${itemFormat}`);
-    a.download = `${itemName}.${itemFormat}`; // Set the file name
-    document.body.appendChild(a);
-    a.click();
-    window.URL.revokeObjectURL(downloadUrl);
-    a.remove();
+    setDisplayModal(ModalTypes.PASSWORD_PROMPT);
+    // set file id globally so the modal can reference it while calling download method
+    // it's all so that the modal doesn't need to pass master password anywhere
+    setFileIdToDownload(itemId);
+    // file format & name of a clicked file
+    setFileFormatToDownload(itemFormat);
+    setFileNameToDownload(itemName);
   };
 
   // Helper function to convert bits to appopriate format for displaying

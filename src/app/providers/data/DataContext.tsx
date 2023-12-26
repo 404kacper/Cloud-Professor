@@ -15,11 +15,23 @@ import EncryptionKeyManager from '@/utils/subclasses/EncryptionKeyManager';
 import KeysContext from '@/keysContext/KeysContext';
 import AuthContext from '@/context/AuthContext';
 
+import { ModalTypes } from '@/modalEnums';
+
 const DataContext = createContext<dataContextType>(dataContextDefaultValue);
 
 export const DataProvider = ({ children }: { children: ReactNode }) => {
   const [myFiles, setMyFiles] = useState(dataContextDefaultValue.myFiles);
   const [toMeFiles, setToMeFiles] = useState(dataContextDefaultValue.toMeFiles);
+  const [fileIdToDownload, setFileIdToDownload] = useState(
+    dataContextDefaultValue.fileIdToDownload
+  );
+  const [fileNameToDownload, setFileNameToDownload] = useState(
+    dataContextDefaultValue.fileIdToDownload
+  );
+  const [fileFormatToDownload, setFileFormatToDownload] = useState(
+    dataContextDefaultValue.fileIdToDownload
+  );
+
   const [logs, setLogs] = useState(dataContextDefaultValue.logs);
   const [users, setUsers] = useState(dataContextDefaultValue.users);
   const [error, setError] = useState(dataContextDefaultValue.error);
@@ -28,7 +40,7 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
   const dataManager = new EncryptionDataManager();
 
   const { publicKey, privateKey, iv } = useContext(KeysContext);
-  const { adjustUserProperty } = useContext(AuthContext);
+  const { adjustUserProperty, setDisplayModal } = useContext(AuthContext);
 
   // Upload file:
   //  - Recieves binary buffer with file data & reciever's public key & file name (extension included) + file size
@@ -191,8 +203,10 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
   // - associated by jwt token
   // - fetches stored file data from server by id of a clicked element
   // - file contents are base64 encoded (encrypted)
-  const downloadMyFile = async (id: number): Promise<ArrayBuffer> => {
-    const res = await fetch(`${NEXT_URL}/api/user/files/${id}`);
+  const downloadMyFile = async (
+    masterPassword: string
+  ): Promise<ArrayBuffer> => {
+    const res = await fetch(`${NEXT_URL}/api/user/files/${fileIdToDownload}`);
 
     const resNext = await res.json();
 
@@ -206,8 +220,6 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
 
     // display success message after fetching necessary file data
     console.log(resNext.message);
-    // masterPassword for private key - hardcoded for now (will be taken from user input)
-    const masterPassword = '123123';
     let privateKeyDecrypted: CryptoKey;
     let symmetricKeyDecrypted: CryptoKey;
     let fileDataDecrypted: ArrayBuffer;
@@ -258,6 +270,9 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
     // account for changes in indicators
     adjustUserProperty('downloadedFiles', 'increment');
 
+    // update the state to allow other modals of the same type to be displayed
+    setDisplayModal(ModalTypes.NONE);
+
     // return ArrayBuffer with decrypted file data & convert it into a url on frontend & download it
     return fileDataDecrypted;
   };
@@ -284,6 +299,9 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
         error,
         myFiles,
         toMeFiles,
+        fileIdToDownload,
+        fileNameToDownload,
+        fileFormatToDownload,
         users,
         logs,
         uploadFile,
@@ -293,6 +311,9 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
         downloadMyFile,
         findUsers,
         retrieveMylogs,
+        setFileIdToDownload,
+        setFileNameToDownload,
+        setFileFormatToDownload,
       }}
     >
       {children}
