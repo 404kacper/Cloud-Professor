@@ -70,7 +70,7 @@ export default function PasswordPromptContent({
             </div>
           </div>
           <div className={styles.submitButton} onClick={handleOnClick}>
-            SEND
+            DOWNLOAD
           </div>
         </div>
       </div>

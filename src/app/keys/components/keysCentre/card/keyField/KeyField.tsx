@@ -39,8 +39,7 @@ export default function KeyField({ type }: { type: KeyType }) {
         }`}
         type={type == KeyType.PRIVATE && !revealPassword ? 'password' : 'text'}
         value={keyValue}
-        id='search'
-        name='search'
+        id={`field-${type}`}
         readOnly
       />
 
