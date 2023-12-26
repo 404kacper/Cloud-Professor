@@ -3,6 +3,9 @@
   @return ($px / $base-width) * 100 + vw;
 }
 
+$animation-delay: 0.2s;
+$hover-distance: calc(px-to-vw(90) + px-to-vw(0));
+
 .statusContainer {
   height: 10vh;
   width: 100%;
@@ -11,23 +14,76 @@
   align-items: center;
   // horizontal spacing calculated basd on figma design
   padding: 0 px-to-vw(53);
+  overflow: hidden;
+  gap: px-to-vw(30);
+  cursor: default;
 
   .imageContainer {
     width: px-to-vw(64);
     height: px-to-vw(64);
     position: relative;
-    margin-left: px-to-vw(20);
   }
 
   .textContainer {
     font-size: px-to-vw(20);
     color: white;
     font-weight: 400;
-    text-align: right;
+    text-align: left;
 
     .textBolder {
       font-size: px-to-vw(24);
       font-weight: 500;
+    }
+  }
+
+  .hoverContainer {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: padding $animation-delay linear;
+    position: relative;
+
+    &Hovered {
+      padding-top: px-to-vw(8);
+      padding-bottom: px-to-vw(8);
+      padding-right: $hover-distance;
+      padding-left: px-to-vw(16);
+      border-radius: px-to-vw(25);
+
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: calc(100%);
+        height: 100%;
+        border-radius: inherit;
+        background-color: rgba(0, 0, 0, 0.55);
+        mix-blend-mode: soft-light;
+      }
+    }
+
+    .expandableIcon {
+      position: relative;
+      width: px-to-vw(36);
+      height: px-to-vw(36);
+      cursor: pointer;
+    }
+
+    .expandableContents {
+      opacity: 0;
+      transform: scale(0);
+      left: calc($hover-distance - px-to-vw(30));
+      color: white;
+      font-weight: 500;
+      position: absolute;
+      transition: transform $animation-delay linear;
+
+      &Hovered {
+        opacity: 1;
+        transform: scale(1);
+      }
     }
   }
 }

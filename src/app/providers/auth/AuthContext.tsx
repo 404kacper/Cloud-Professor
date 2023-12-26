@@ -84,6 +84,23 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  // login route for client side
+  const logout = async () => {
+    const res = await fetch(`${NEXT_URL}/api/logout`, {
+      method: 'POST',
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
+      setUser(null);
+    } else {
+      setError(`Couldn't log out the user.`);
+      // clear error message after 1s
+      setTimeout(() => setError(null), 1000);
+    }
+  };
+
   // Check if user is logged in
   const verifyUser = async () => {
     const res = await fetch(`${NEXT_URL}/api/user`);
@@ -126,6 +143,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         login,
         register,
         verifyUser,
+        logout,
         adjustUserProperty,
         setDisplayModal,
         setClickedFriend,

@@ -31,11 +31,6 @@ export default function Dasbhoard() {
   // fetch all the necessary data for all dashboard navigation links in here
   // the state values don't change between client side navigation
   useEffect(() => {
-    // redirect if user null in AuthContext provider (naive approach for now)
-    if (!user) {
-      redirect('/');
-    }
-
     fetchKeys();
     retrieveMyFiles();
     retrieveToMeFiles();
@@ -43,6 +38,13 @@ export default function Dasbhoard() {
     // fetch 8 random users with empty query string
     findUsers('');
   }, []);
+
+  useEffect(() => {
+    // redirect if user null in AuthContext provider (naive approach for now)
+    if (!user) {
+      redirect('/');
+    }
+  }, [user]);
 
   useEffect(() => {
     toast.error(error);

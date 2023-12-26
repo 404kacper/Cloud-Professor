@@ -9,6 +9,7 @@ export type authContextType = {
   login: (user: any) => void;
   register: (user: any) => void;
   verifyUser: () => void;
+  logout: () => void;
   adjustUserProperty: (
     property: 'downloadedFiles' | 'totalFiles' | 'uploadedFiles',
     adjustment: 'increment' | 'decrement'
@@ -26,6 +27,7 @@ export const authContextDefaultValue: authContextType = {
   login: () => {},
   register: () => {},
   verifyUser: () => {},
+  logout: () => {},
   adjustUserProperty: () => {},
   setDisplayModal: () => {},
   setClickedFriend: () => {},
