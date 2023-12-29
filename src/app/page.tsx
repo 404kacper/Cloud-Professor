@@ -11,18 +11,14 @@ import styles from './Home.module.scss';
 import { Application } from '@splinetool/runtime';
 import AuthForm from './authForm';
 import Image from 'next/image';
-
-// TODO: To make this a server component
-// create loading state in SplieContext
-// export useEffect here into a sepearate component along with the spline render and make that component client side
-// then import it into here and remove 'use client'
-// ! only issue is with loading since it will still be a client side state and won't be allowed to be used inside a server component...
+import Loading from './components/home/Loading';
 
 export default function HomePage() {
   const { heroButtonClicked, showModal } = useContext(SplineContext);
   const { error, user } = useContext(AuthContext);
 
   const [loading, setLoading] = useState(true);
+  const [removeLoading, setRemoveLoading] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const appRef = useRef<Application | null>(null);
 
@@ -34,7 +30,7 @@ export default function HomePage() {
     appRef.current = app;
 
     app
-      .load('https://draft.spline.design/7uDw1ImbCjUHa9Sk/scene.splinecode')
+      .load('https://draft.spline.design/rA6RWdyNkkUxXifk/scene.splinecode')
       .then(() => {
         setLoading(false);
       });
@@ -58,6 +54,15 @@ export default function HomePage() {
   }, [error]);
 
   useEffect(() => {
+    // set timeout and remove loading screen after transistion animation is done
+    if (!loading) {
+      setTimeout(() => {
+        setRemoveLoading(true);
+      }, 750);
+    }
+  }, [loading]);
+
+  useEffect(() => {
     // redirect user registered/logged/has cookie stored
     if (user) {
       redirect('/dashboard');
@@ -66,10 +71,10 @@ export default function HomePage() {
 
   return (
     <>
-      <Navbar></Navbar>
+      {!loading && <Navbar></Navbar>}
       <div className={styles.homePage}>
+        {!removeLoading && <Loading isLoading={loading}></Loading>}
         <ToastContainer />
-        {loading && <div style={{ color: 'white' }}>Loading...</div>}
         <canvas
           ref={canvasRef}
           id='canvas3d'

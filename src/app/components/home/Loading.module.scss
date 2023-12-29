@@ -1,0 +1,79 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  background-color: #d9dfcb;
+  position: absolute;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .textContainer {
+    width: 11vw;
+    height: 100vh;
+    transform: scale(1.02);
+    animation: beat 2s infinite linear;
+
+    &Exit {
+      animation: slide-top 3s linear forwards;
+    }
+
+    // since this one is rotate it will go the other way automatically :D
+    &:nth-child(2) {
+      rotate: 180deg;
+    }
+  }
+
+  &Exit {
+    animation: fade-out 0.75s linear forwards;
+  }
+}
+
+@keyframes beat {
+  0% {
+    animation-timing-function: cubic-bezier(0.1028, 0.2484, 0.1372, 0.849);
+    transform: scale(1.02);
+  }
+  34% {
+    animation-timing-function: cubic-bezier(0.7116, 0.2095, 0.8159, 0.6876);
+    transform: scale(1.1);
+  }
+  68% {
+    animation-timing-function: cubic-bezier(0.1475, 0.2888, 0.294, 0.883);
+    transform: scale(1.0268);
+  }
+  84% {
+    animation-timing-function: cubic-bezier(0.8176, 0.2193, 0.867, 0.6889);
+    transform: scale(1.0932);
+  }
+  100% {
+    transform: scale(1.02);
+  }
+}
+
+@keyframes fade-out {
+  0% {
+    animation-timing-function: cubic-bezier(0.2242, 0.7499, 0.3142, 0.8148);
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes slide-top {
+  0% {
+    animation-timing-function: cubic-bezier(0.2221, 0.7433, 0.3066, 0.8148);
+    transform: translate(0%, 0%);
+    opacity: 1;
+  }
+  97% {
+    animation-timing-function: cubic-bezier(0.3286, 0.4108, 0.6714, 0.5892);
+    transform: translate(0%, -198.4%);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(0%, -199%);
+    opacity: 0;
+  }
+}
