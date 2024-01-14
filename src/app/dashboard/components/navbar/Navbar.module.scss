@@ -29,15 +29,18 @@
   }
 
   .logo {
-    color: white;
-    letter-spacing: 0.2vw;
-    text-align: center;
-    font-size: px-to-vw(24);
+    position: relative;
+    aspect-ratio: 4.3874/1;
+    width: 10vw;
     z-index: 2;
 
     h1 {
       // reset default margins on h1
       margin: 0;
+      letter-spacing: 0.2vw;
+      text-align: center;
+      font-size: px-to-vw(24);
+      color: white;
     }
   }
 

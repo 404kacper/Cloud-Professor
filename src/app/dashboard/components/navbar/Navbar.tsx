@@ -16,16 +16,10 @@ export default function Header() {
     <nav className={styles.container}>
       <div className={styles.logoContainer}>
         <div className={styles.logo}>
-          {/* Logo once vertical orientation design is rdy */}
-          {/* <Image
-          src='/path/to/cloud_professor_logo.png'
-          alt='Cloud Professor'
-          width={100}
-          height={50}
-        /> */}
-          <h1>
+          <Image src='/navbar/logo-horizontal-white.svg' alt='' fill />
+          {/* <h1>
             CLOUD <br /> PROFESSOR
-          </h1>
+          </h1> */}
         </div>
       </div>
 

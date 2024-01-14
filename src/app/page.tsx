@@ -30,7 +30,7 @@ export default function HomePage() {
     appRef.current = app;
 
     app
-      .load('https://draft.spline.design/rA6RWdyNkkUxXifk/scene.splinecode')
+      .load('https://draft.spline.design/NEbJddSI5ncnp03Z/scene.splinecode')
       .then(() => {
         setLoading(false);
       });
