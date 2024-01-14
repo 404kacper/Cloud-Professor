@@ -19,7 +19,7 @@ export default function Header() {
       <div className={styles.logo}>
         <Image
           priority
-          src='/navbar/logo-horizontal-white.svg'
+          src='/navbar/logo-horizontal-white-new.svg'
           alt=''
           fill
         ></Image>

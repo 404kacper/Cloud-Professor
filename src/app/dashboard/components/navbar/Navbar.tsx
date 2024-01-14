@@ -16,7 +16,7 @@ export default function Header() {
     <nav className={styles.container}>
       <div className={styles.logoContainer}>
         <div className={styles.logo}>
-          <Image src='/navbar/logo-horizontal-white.svg' alt='' fill />
+          <Image src='/navbar/logo-horizontal-white-new.svg' alt='' fill />
           {/* <h1>
             CLOUD <br /> PROFESSOR
           </h1> */}
